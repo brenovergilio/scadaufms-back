@@ -1,5 +1,5 @@
-import Alarm from "@src/entities/interfaces/alarm";
+import Alarm from "@src/entities/interfaces/Alarm";
 
 export default interface AlarmRepository {
-  getAllAlarms(measurerIp: string): Promise<Array<Alarm>>;
+  getAllAlarmsForSpecificMeasurer(measurerIp: string): Promise<Array<Alarm>>;
 }
