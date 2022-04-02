@@ -9,8 +9,8 @@ export default class GetPotenciasAtivasFromMD30 {
     this.medidorMD30Repository = medidorMD30Repository;
   }
 
-  execute(ip: string): Array<MedicaoMD30> {
-    const medidorMD30: MedidorMD30 = this.medidorMD30Repository.getMedidorMD30ByIP(ip);
+  async execute(ip: string): Promise<Array<MedicaoMD30>> {
+    const medidorMD30: MedidorMD30 = await this.medidorMD30Repository.getMedidorMD30ByIP(ip);
     const potenciasAtivasWithTimestamp: Array<MedicaoMD30> = medidorMD30.getPotenciasAtivasWithTimestamps();
     
     return potenciasAtivasWithTimestamp;

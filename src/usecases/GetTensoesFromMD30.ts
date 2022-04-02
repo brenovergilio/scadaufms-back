@@ -9,8 +9,8 @@ export default class GetTensoesFromMD30 {
     this.medidorMD30Repository = medidorMD30Repository;
   }
 
-  execute(ip: string): Array<MedicaoMD30> {
-    const medidorMD30: MedidorMD30 = this.medidorMD30Repository.getMedidorMD30ByIP(ip);
+  async execute(ip: string): Promise<Array<MedicaoMD30>> {
+    const medidorMD30: MedidorMD30 = await this.medidorMD30Repository.getMedidorMD30ByIP(ip);
     const tensoesWithTimestamp: Array<MedicaoMD30> = medidorMD30.getTensoesWithTimestamps();
     
     return tensoesWithTimestamp;
