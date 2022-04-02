@@ -5,11 +5,11 @@ import DateRange from "@src/usecases/util/DateRange";
 import db from "../database/postgres/database";
 
 export default class MedicaoMD30RepositorySQL implements MedicaoMD30Repository {
-  async getMedicoesMD30PerDateRange(measurerIp: string, range: DateRange): Promise<Array<MedicaoMD30>> {
-    const medicoesMD30Data = await db.manyOrNone("SELECT * FROM medicoes WHERE medidor_ip=$1 AND timestamp >= $2 AND timestamp <= $3 ORDER BY timestamp", [measurerIp, range.initialDate, range.finalDate]);
+  async getMedicoesMD30PerDateRange(measurerIP: string, range: DateRange): Promise<Array<MedicaoMD30>> {
+    const medicoesMD30Data = await db.manyOrNone("SELECT * FROM medicoes WHERE medidor_ip=$1 AND timestamp >= $2 AND timestamp <= $3 ORDER BY timestamp", [measurerIP, range.initialDate, range.finalDate]);
 
     const medicoesMD30 = medicoesMD30Data.map((value) => {
-      return MedicaoMD30Adapter.create(value.timestamp, value.slice(1));
+      return MedicaoMD30Adapter.create(measurerIP, value.timestamp, value.slice(1));
     })
 
     return medicoesMD30;

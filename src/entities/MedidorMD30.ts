@@ -55,7 +55,7 @@ export default class MedidorMD30 implements Measurer {
       if(includeTotal)
         measurement.set(`${measurementName} Total`, medicao.values.get(`${measurementName} Total`) ?? 0.0);
       
-      const measurementsAndTimestamp: MedicaoMD30 = new MedicaoMD30(medicao.timestamp, measurement);
+      const measurementsAndTimestamp: MedicaoMD30 = new MedicaoMD30(this.ip, medicao.timestamp, measurement);
       measurementsWithTimestamps.push(measurementsAndTimestamp);
     }
 
