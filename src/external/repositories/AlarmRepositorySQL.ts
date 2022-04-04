@@ -1,4 +1,4 @@
-import Alarm from "@src/entities/interfaces/Alarm";
+import Alarm from "@src/entities/Alarm";
 import AlarmsAdapter from "@src/infra/adapters/AlarmsAdapter";
 import AlarmRepository from "@src/usecases/repositories/AlarmRepository";
 import db from "../database/postgres/database";

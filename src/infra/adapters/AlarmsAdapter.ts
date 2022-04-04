@@ -1,8 +1,8 @@
-import Alarm from "@src/entities/interfaces/Alarm";
+import Alarm from "@src/entities/Alarm";
 
 export default class AlarmsAdapter {
   static create(measurerIP: string, timestamp: Date, message: string) {
-    const alarm: Alarm = {measurerIP: measurerIP, timestamp: timestamp, message: message};
+    const alarm: Alarm = new Alarm(measurerIP, timestamp, message);
     return alarm;
   }
 }
