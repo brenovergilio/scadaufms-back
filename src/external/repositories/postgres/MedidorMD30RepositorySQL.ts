@@ -1,7 +1,7 @@
 import MedidorMD30 from "@src/entities/MedidorMD30";
 import MedidorMD30Adapter from "@src/infra/adapters/MedidorMD30Adapter";
 import MedidorMD30Repository from "@src/usecases/repositories/MedidorMD30Repository";
-import db from "../database/postgres/database";
+import db from "@src/external/database/postgres/database";
 
 export default class MedidorMD30RepositorySQL implements MedidorMD30Repository {
   async addMedidorMD30(ip: string, name: string, port: number, peakHour: number, peakMinute: number, peakInterval: number): Promise<void> {
@@ -17,5 +17,9 @@ export default class MedidorMD30RepositorySQL implements MedidorMD30Repository {
    const medidoresMD30Data = await db.manyOrNone("SELECT * FROM medidores");
    const medidoresMD30 = medidoresMD30Data.map((medidor) => MedidorMD30Adapter.create(medidor.ip, medidor.nome, medidor.porta, medidor.hora_ponta, medidor.minuto_ponta, medidor.intervalo_ponta));
    return medidoresMD30; 
+  }
+
+  async deleteMedidorMD30(ip: string): Promise<void> {
+    await db.none("DELETE FROM medidores WHERE ip=$1", [ip])
   }
 }

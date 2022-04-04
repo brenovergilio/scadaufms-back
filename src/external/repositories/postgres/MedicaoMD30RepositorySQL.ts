@@ -2,7 +2,7 @@ import MedicaoMD30 from "@src/entities/MedicaoMD30";
 import MedicaoMD30Adapter from "@src/infra/adapters/MedicaoMD30Adapter";
 import MedicaoMD30Repository from "@src/usecases/repositories/MedicaoMD30Repository";
 import DateRange from "@src/usecases/util/DateRange";
-import db from "../database/postgres/database";
+import db from "@src/external/database/postgres/database";
 
 export default class MedicaoMD30RepositorySQL implements MedicaoMD30Repository {
   async getMedicoesMD30PerDateRange(measurerIP: string, range: DateRange): Promise<Array<MedicaoMD30>> {

@@ -4,4 +4,5 @@ export default interface MedidorMD30Repository {
   addMedidorMD30(ip: string, name: string, port: number, peakHour: number, peakMinute: number, peakInterval: number): void;
   getMedidorMD30ByIP(ip: string): Promise<MedidorMD30>;
   getAllMedidoresMD30(): Promise<Array<MedidorMD30>>;
+  deleteMedidorMD30(ip: string): void;
 }

@@ -1,7 +1,7 @@
 import Alarm from "@src/entities/Alarm";
 import AlarmsAdapter from "@src/infra/adapters/AlarmsAdapter";
 import AlarmRepository from "@src/usecases/repositories/AlarmRepository";
-import db from "../database/postgres/database";
+import db from "../../database/postgres/database";
 
 export default class AlarmRepositorySQL implements AlarmRepository {
   async getAllAlarmsForSpecificMeasurer(measurerIP: string): Promise<Array<Alarm>> {
