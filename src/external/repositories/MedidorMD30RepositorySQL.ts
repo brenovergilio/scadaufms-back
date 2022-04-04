@@ -3,7 +3,7 @@ import MedidorMD30Adapter from "@src/infra/adapters/MedidorMD30Adapter";
 import MedidorMD30Repository from "@src/usecases/repositories/MedidorMD30Repository";
 import db from "../database/postgres/database";
 
-export class MedidorMD30RepositorySQL implements MedidorMD30Repository {
+export default class MedidorMD30RepositorySQL implements MedidorMD30Repository {
   async addMedidorMD30(ip: string, name: string, port: number, peakHour: number, peakMinute: number, peakInterval: number): Promise<void> {
     await db.none("INSERT INTO medidores VALUES($1, NOW(), $2, $3, $4, $5, $6)", [ip, name,  port, peakHour, peakMinute, peakInterval]);
   }
