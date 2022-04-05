@@ -1,10 +1,10 @@
 import MedicaoMD30 from "@src/entities/MedicaoMD30";
 import MedidorMD30 from "@src/entities/MedidorMD30";
-import MedicaoMD30Repository from "./repositories/MedicaoMD30Repository";
-import MedidorMD30Repository from "./repositories/MedidorMD30Repository";
-import DateRange from "./util/DateRange";
+import MedicaoMD30Repository from "../repositories/MedicaoMD30Repository";
+import MedidorMD30Repository from "../repositories/MedidorMD30Repository";
+import DateRange from "../util/DateRange";
 
-export default class GetMedidorMD30 {
+export default class GetMedidorMD30ByIPWithMedicoesMD30 {
   medidorMD30Repository: MedidorMD30Repository;
   medicaoMD30Repository: MedicaoMD30Repository;
   

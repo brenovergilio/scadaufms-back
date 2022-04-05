@@ -20,6 +20,6 @@ export default class MedidorMD30RepositorySQL implements MedidorMD30Repository {
   }
 
   async deleteMedidorMD30(ip: string): Promise<void> {
-    await db.none("DELETE FROM medidores WHERE ip=$1", [ip])
+    await db.none("DELETE FROM medidores WHERE ip=$1", [ip]);
   }
 }
