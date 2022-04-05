@@ -1,5 +1,5 @@
 import Holiday from "@src/entities/Holiday";
-import HolidayRepository from "./repositories/HolidayRepository";
+import HolidayRepository from "../repositories/HolidayRepository";
 
 export default class AddHoliday {
   holidayRepository: HolidayRepository;

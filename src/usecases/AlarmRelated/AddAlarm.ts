@@ -1,5 +1,5 @@
 import Alarm from "@src/entities/Alarm";
-import AlarmRepository from "./repositories/AlarmRepository";
+import AlarmRepository from "../repositories/AlarmRepository";
 
 export default class AddAlarm {
   alarmRepository: AlarmRepository;

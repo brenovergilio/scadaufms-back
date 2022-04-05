@@ -1,6 +1,6 @@
 import MedicaoMD30 from "@src/entities/MedicaoMD30";
 import MedidorMD30 from "@src/entities/MedidorMD30";
-import MedidorMD30Repository from "./repositories/MedidorMD30Repository";
+import MedidorMD30Repository from "../repositories/MedidorMD30Repository";
 
 export default class GetTensoesFromMD30 {
   medidorMD30Repository: MedidorMD30Repository;

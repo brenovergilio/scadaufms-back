@@ -1,4 +1,4 @@
-import AlarmRepository from "./repositories/AlarmRepository";
+import AlarmRepository from "../repositories/AlarmRepository";
 
 export default class DeleteAlarm {
   alarmRepository: AlarmRepository;

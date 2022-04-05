@@ -1,5 +1,5 @@
 import MedidorMD30 from "@src/entities/MedidorMD30";
-import MedidorMD30Repository from "./repositories/MedidorMD30Repository";
+import MedidorMD30Repository from "../repositories/MedidorMD30Repository";
 
 export default class AddMedidorMD30 {
   medidorMD30Repository: MedidorMD30Repository;
