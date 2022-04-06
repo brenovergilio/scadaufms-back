@@ -6,7 +6,21 @@ export default class ExpressAdapter {
     return async (req: Request, res: Response) => {
       if(fn instanceof Function) {
         const obj = await fn(req.params, req.body, repository);
+        
+        if(obj instanceof Array) 
+          obj.forEach((item) => this.replaceMapsForObjects(item));
+        else
+          this.replaceMapsForObjects(obj);
+
         res.json(obj);
+      }
+    }
+  } 
+
+  static replaceMapsForObjects(obj: any) {
+    if(Object.prototype.hasOwnProperty.call(obj, "values")) {
+      if(obj.values instanceof Map) {
+        obj.values = Object.fromEntries(obj.values);
       }
     }
   }
