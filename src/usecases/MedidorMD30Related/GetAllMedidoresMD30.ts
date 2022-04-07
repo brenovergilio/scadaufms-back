@@ -1,7 +1,7 @@
 import MedidorMD30 from "@src/entities/MedidorMD30";
 import MedidorMD30Repository from "../repositories/MedidorMD30Repository";
 
-export default class ListAllMedidoresMD30 {
+export default class GetAllMedidoresMD30 {
   medidorMD30Repository: MedidorMD30Repository;
 
   constructor(medidorMD30Repository: MedidorMD30Repository) {

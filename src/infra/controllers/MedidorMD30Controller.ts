@@ -1,4 +1,4 @@
-import ListAllMedidoresMD30 from "@src/usecases/MedidorMD30Related/ListAllMedidoresMD30";
+import GetAllMedidoresMD30 from "@src/usecases/MedidorMD30Related/GetAllMedidoresMD30";
 import AddMedidorMD30 from "@src/usecases/MedidorMD30Related/AddMedidorMD30";
 import DeleteMedidorMD30 from "@src/usecases/MedidorMD30Related/DeleteMedidorMD30";
 import GetMedidorMD30ByIP from "@src/usecases/MedidorMD30Related/GetMedidorMD30ByIP";
@@ -23,8 +23,8 @@ export default class MedidorMD30Controller {
     return getMedidorMD30ByIPUseCase;
   }
 
-  static listAllMedidoresMD30(params: any, body: any, medidorMD30Repository: MedidorMD30Repository): Promise<Array<MedidorMD30>> {
-    const listAllMedidoresMD30UseCase = new ListAllMedidoresMD30(medidorMD30Repository).execute();
-    return listAllMedidoresMD30UseCase;
+  static getAllMedidoresMD30(params: any, body: any, medidorMD30Repository: MedidorMD30Repository): Promise<Array<MedidorMD30>> {
+    const getAllMedidoresMD30UseCase = new GetAllMedidoresMD30(medidorMD30Repository).execute();
+    return getAllMedidoresMD30UseCase;
   }
 }
