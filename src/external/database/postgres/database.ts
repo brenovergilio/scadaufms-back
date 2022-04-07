@@ -70,4 +70,6 @@ const db = pgp({
   );`);
 })();
 
+pgp.pg.types.setTypeParser(1114, s=>s);
+
 export default db;

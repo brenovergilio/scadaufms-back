@@ -69,7 +69,7 @@ export default class MedicaoMD30RepositorySQL implements MedicaoMD30Repository {
 
   async getFatoresDePotenciaPerDateRange(measurerIP: string): Promise<Array<MedicaoMD30>> {
     const medicoesMD30Data = await db.manyOrNone("SELECT timestamp, fator_potencia_a, fator_potencia_b, fator_potencia_c, fator_potencia_total FROM medicoes WHERE medidor_ip=$1 ORDER BY timestamp", [measurerIP]);
-
+  
     const medicoesMD30 = medicoesMD30Data.map((measurement) => {
       const keys = Object.keys(measurement).slice(1);
       const values = Object.values(measurement).slice(1) as Array<number>;
@@ -78,5 +78,4 @@ export default class MedicaoMD30RepositorySQL implements MedicaoMD30Repository {
 
     return medicoesMD30;
   }
-
 }
