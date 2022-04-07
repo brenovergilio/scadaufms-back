@@ -49,7 +49,7 @@ const db = pgp({
     fator_potencia_total REAL NOT NULL,
     FOREIGN KEY (medidor_ip) REFERENCES medidores(ip) ON DELETE CASCADE ON UPDATE CASCADE
   );`);
-  await db.none(`CREATE TABLE IF NOT EXISTS demandas (
+  await db.none(`CREATE TABLE IF NOT EXISTS demandas_diarias (
     medidor_ip TEXT NOT NULL,
     timestamps TIMESTAMP NOT NULL,
     demanda_fora_ponta REAL NOT NULL,

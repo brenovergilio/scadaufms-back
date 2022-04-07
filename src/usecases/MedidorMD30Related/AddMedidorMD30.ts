@@ -8,10 +8,9 @@ export default class AddMedidorMD30 {
     this.medidorMD30Repository = medidorMD30Repository;
   }
 
-  execute(ip: string, name: string, port: number): void {
+  execute(ip: string, name: string, port: number): MedidorMD30 {
     const medidorMD30: MedidorMD30 = new MedidorMD30(ip, name, port);
-    
-    if (medidorMD30)
-      this.medidorMD30Repository.addMedidorMD30(medidorMD30.ip, medidorMD30.name, medidorMD30.port, medidorMD30.peak.hour, medidorMD30.peak.minute, medidorMD30.peak.interval); 
+    this.medidorMD30Repository.addMedidorMD30(medidorMD30.ip, medidorMD30.name, medidorMD30.port, medidorMD30.peak.hour, medidorMD30.peak.minute, medidorMD30.peak.interval); 
+    return medidorMD30;
   }
 }
