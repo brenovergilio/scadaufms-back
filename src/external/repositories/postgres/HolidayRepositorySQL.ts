@@ -5,7 +5,7 @@ import HolidayRepository from "@src/usecases/repositories/HolidayRepository";
 
 export default class HolidayRepositorySQL implements HolidayRepository {
   async addHoliday(name: string, day: Date): Promise<void> {
-    await db.none("INSERT INTO feriados (id, nome, dia) VALUES ($1, $2)", [name, day]);
+    await db.none("INSERT INTO feriados (nome, dia) VALUES ($1, $2)", [name, day]);
   }
 
   async deleteHoliday(id: number): Promise<void> {

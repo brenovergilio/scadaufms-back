@@ -37,5 +37,6 @@ router.delete("/holidays/:id", ExpressAdapter.create(HolidayController.deleteHol
 router.post("/holidays", ExpressAdapter.create(HolidayController.addHoliday, holidayRepository));
 
 router.get("/alarms/:measurerIP", ExpressAdapter.create(AlarmController.getAllAlarmsForSpecificMeasurer, alarmRepository));
+router.delete("/alarms/:id", ExpressAdapter.create(AlarmController.deleteAlarm, alarmRepository));
 
 export { router };
