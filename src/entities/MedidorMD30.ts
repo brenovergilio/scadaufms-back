@@ -1,11 +1,11 @@
-import isEmptyNameError from "./errors/EmptyNameError";
-import InvalidIPv4Error from "./errors/InvalidIPv4Error";
-import InvalidPeakError from "./errors/InvalidPeakError";
+import isEmptyNameError from "./util/errors/EmptyNameError";
+import InvalidIPv4Error from "./util/errors/InvalidIPv4Error";
+import InvalidPeakError from "./util/errors/InvalidPeakError";
 import Measurer from "./interfaces/Measurer";
 import Peak from "./interfaces/Peak";
-import { isValidIPv4 } from "./validators/IPValidators";
-import { isValidPeak } from "./validators/PeakValidator";
-import { isEmptyString } from "./validators/StringValidators";
+import { isValidIPv4 } from "./util/validators/IPValidators";
+import { isValidPeak } from "./util/validators/PeakValidator";
+import { isEmptyString } from "./util/validators/StringValidators";
 
 export default class MedidorMD30 implements Measurer {
 

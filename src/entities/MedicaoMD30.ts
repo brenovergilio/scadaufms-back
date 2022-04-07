@@ -1,6 +1,6 @@
-import InvalidIPv4Error from "./errors/InvalidIPv4Error";
+import InvalidIPv4Error from "./util/errors/InvalidIPv4Error";
 import Measurement from "./interfaces/Measurement";
-import { isValidIPv4 } from "./validators/IPValidators";
+import { isValidIPv4 } from "./util/validators/IPValidators";
 
 export default class MedicaoMD30 implements Measurement {
   measurerIP: string;

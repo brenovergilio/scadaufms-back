@@ -1,5 +1,5 @@
-import isEmptyNameError from "./errors/EmptyNameError";
-import { isEmptyString } from "./validators/StringValidators";
+import isEmptyNameError from "./util/errors/EmptyNameError";
+import { isEmptyString } from "./util/validators/StringValidators";
 
 export default class Holiday {
   id: number;

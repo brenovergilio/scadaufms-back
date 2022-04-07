@@ -1,4 +1,4 @@
-import HolidayRepository from "./repositories/HolidayRepository";
+import HolidayRepository from "../repositories/HolidayRepository";
 
 export default class DeleteHoliday {
   holidayRepository: HolidayRepository;

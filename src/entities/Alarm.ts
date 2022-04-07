@@ -1,7 +1,7 @@
-import isEmptyMessageError from "./errors/EmptyMessageError";
-import InvalidIPv4Error from "./errors/InvalidIPv4Error";
-import { isValidIPv4 } from "./validators/IPValidators";
-import { isEmptyString } from "./validators/StringValidators";
+import isEmptyMessageError from "./util/errors/EmptyMessageError";
+import InvalidIPv4Error from "./util/errors/InvalidIPv4Error";
+import { isValidIPv4 } from "./util/validators/IPValidators";
+import { isEmptyString } from "./util/validators/StringValidators";
 
 export default class Alarm {
   measurerIP: string;

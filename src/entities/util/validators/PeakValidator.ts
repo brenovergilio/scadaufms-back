@@ -1,4 +1,4 @@
-import Peak from "../interfaces/Peak";
+import Peak from "../../interfaces/Peak";
 
 export function isValidPeak(peak: Peak): boolean {
   return isValidHour(peak.hour) && isValidMinute(peak.minute) && isValidInterval(peak.interval);
