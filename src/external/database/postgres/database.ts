@@ -72,4 +72,27 @@ const db = pgp({
 
 pgp.pg.types.setTypeParser(1114, s=>s);
 
+enum ExitStatus {
+  Failure = 1,
+  Success = 0,
+}
+
+(async (): Promise<void> => {
+  try {
+    const exitSignals: NodeJS.Signals[] = ['SIGINT', 'SIGTERM', 'SIGQUIT'];
+    exitSignals.map((sig) =>
+      process.on(sig, async () => {
+        try {
+          pgp.end()
+          process.exit(ExitStatus.Success);
+        } catch (error) {
+          process.exit(ExitStatus.Failure);
+        }
+      })
+    );
+  } catch (error) {
+    process.exit(ExitStatus.Failure);
+  }
+})();
+
 export default db;
