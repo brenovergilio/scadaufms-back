@@ -8,8 +8,8 @@ export default class GetMedidorMD30ByIP {
     this.medidorMD30Repository = medidorMD30Repository;
   }
 
-  async execute(ip: string): Promise<MedidorMD30> {
-    const medidorMD30: MedidorMD30 = await this.medidorMD30Repository.getMedidorMD30ByIP(ip);
+  async execute(id: number): Promise<MedidorMD30> {
+    const medidorMD30: MedidorMD30 = await this.medidorMD30Repository.getMedidorMD30ByID(id);
     return medidorMD30;
   }
 }

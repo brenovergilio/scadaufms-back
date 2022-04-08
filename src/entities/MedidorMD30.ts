@@ -1,34 +1,21 @@
-import isEmptyNameError from "./util/errors/EmptyNameError";
-import InvalidIPv4Error from "./util/errors/InvalidIPv4Error";
-import InvalidPeakError from "./util/errors/InvalidPeakError";
 import Measurer from "./interfaces/Measurer";
 import Peak from "./interfaces/Peak";
-import { isValidIPv4 } from "./util/validators/IPValidators";
-import { isValidPeak } from "./util/validators/PeakValidator";
-import { isEmptyString } from "./util/validators/StringValidators";
+import { validateMedidorMD30Params } from "./util/EntityFieldsValidators";
 
 export default class MedidorMD30 implements Measurer {
-
+  id: number;
   ip: string;
   name: string;
   port: number;
   peak: Peak;
 
-  constructor(ip: string, name: string, port: number, peak: Peak = {hour: 17, minute: 30, interval: 3}) {
-    if(isValidIPv4(ip))
-      this.ip = ip;
-    else
-      throw new InvalidIPv4Error();
-
-    if(isEmptyString(name))
-      throw new isEmptyNameError();
-
+  constructor(id: number, ip: string, name: string, port: number, peak: Peak = {hour: 17, minute: 30, interval: 3}) {
+    validateMedidorMD30Params(ip, name, port, peak);
+    
+    this.id = id;
+    this.ip = ip;
     this.name = name;
     this.port = port;
-    
-    if(isValidPeak(peak))
-      this.peak = peak;
-    else
-      throw new InvalidPeakError();
+    this.peak = peak;
   }
 }

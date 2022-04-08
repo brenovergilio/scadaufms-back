@@ -1,24 +1,16 @@
-import isEmptyMessageError from "./util/errors/EmptyMessageError";
-import InvalidIPv4Error from "./util/errors/InvalidIPv4Error";
-import { isValidIPv4 } from "./util/validators/IPValidators";
-import { isEmptyString } from "./util/validators/StringValidators";
-
+import { validateAlarmParams } from "./util/EntityFieldsValidators";
 export default class Alarm {
-  measurerIP: string;
+  id: number;
+  measurerID: number;
   timestamp: Date;
   message: string;
 
-  constructor(measurerIP: string, timestamp: Date, message: string) {
-    if(isValidIPv4(measurerIP))
-      this.measurerIP = measurerIP;
-    else
-      throw new InvalidIPv4Error();
+  constructor(id: number, measurerID: number, timestamp: Date, message: string) {
+    validateAlarmParams(message);
 
+    this.id = id;
+    this.measurerID = measurerID;
     this.timestamp = timestamp;
-    
-    if(isEmptyString(message))
-      throw new isEmptyMessageError();
-      
     this.message = message;
   }
 }

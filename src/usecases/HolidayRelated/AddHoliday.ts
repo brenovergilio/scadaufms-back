@@ -1,4 +1,4 @@
-import Holiday from "@src/entities/Holiday";
+import { validateHolidayParams } from "@src/entities/util/EntityFieldsValidators";
 import HolidayRepository from "../repositories/HolidayRepository";
 
 export default class AddHoliday {
@@ -9,6 +9,7 @@ export default class AddHoliday {
   }
 
   execute(name: string, day: Date): void {
+    validateHolidayParams(name);
     this.holidayRepository.addHoliday(name, day); 
   }
 }

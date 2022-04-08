@@ -8,8 +8,8 @@ export default class GetTensoesPerDateRange {
     this.medicaoMD30Repository = medicaoMD30Repository;
   }
 
-  async execute(ip: string): Promise<Array<MedicaoMD30>> {
-    const tensoes: Array<MedicaoMD30> = await this.medicaoMD30Repository.getTensoesPerDateRange(ip);
+  async execute(id: number): Promise<Array<MedicaoMD30>> {
+    const tensoes: Array<MedicaoMD30> = await this.medicaoMD30Repository.getTensoesPerDateRange(id);
     return tensoes;
   }
 }

@@ -11,8 +11,8 @@ export default class AlarmController {
   }
 
   static getAllAlarmsForSpecificMeasurer(params: any, body: any, alarmRepository: AlarmRepository): Promise<Array<Alarm>> {
-    const { measurerIP } = params;
-    const getAllAlarmsForSpecificMeasurerUseCase = new GetAllAlarmsForSpecificMeasurer(alarmRepository).execute(measurerIP);
+    const { measurerID } = params;
+    const getAllAlarmsForSpecificMeasurerUseCase = new GetAllAlarmsForSpecificMeasurer(alarmRepository).execute(measurerID);
     return getAllAlarmsForSpecificMeasurerUseCase;
   }
 }

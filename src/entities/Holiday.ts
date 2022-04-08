@@ -1,5 +1,4 @@
-import isEmptyNameError from "./util/errors/EmptyNameError";
-import { isEmptyString } from "./util/validators/StringValidators";
+import { validateHolidayParams } from "./util/EntityFieldsValidators";
 
 export default class Holiday {
   id: number;
@@ -7,11 +6,9 @@ export default class Holiday {
   day: Date;
 
   constructor(id: number, name: string, day:Date) {
-    this.id = id;
+    validateHolidayParams(name);
 
-    if(isEmptyString(name))
-      throw new isEmptyNameError();
-    
+    this.id = id;
     this.name = name;
     this.day = day;
   }

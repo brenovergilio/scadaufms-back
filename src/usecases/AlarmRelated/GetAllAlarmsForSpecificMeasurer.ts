@@ -8,7 +8,7 @@ export default class GetAllAlarmsForSpecificMeasurer {
     this.alarmRepository = alarmRepository;
   }
 
-  async execute(measurerIP: string): Promise<Array<Alarm>> {
-    return this.alarmRepository.getAllAlarmsForSpecificMeasurer(measurerIP); 
+  async execute(measurerID: number): Promise<Array<Alarm>> {
+    return this.alarmRepository.getAllAlarmsForSpecificMeasurer(measurerID); 
   }
 }

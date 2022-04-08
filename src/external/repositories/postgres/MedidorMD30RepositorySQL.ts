@@ -8,18 +8,18 @@ export default class MedidorMD30RepositorySQL implements MedidorMD30Repository {
     await db.none("INSERT INTO medidores VALUES($1, NOW(), $2, $3, $4, $5, $6)", [ip, name,  port, peakHour, peakMinute, peakInterval]);
   }
 
-  async getMedidorMD30ByIP(ip: string): Promise<MedidorMD30> {
-    const medidorMD30Data = await db.oneOrNone("SELECT * FROM medidores WHERE ip=$1", [ip]);
-    return MedidorMD30Adapter.create(medidorMD30Data.ip, medidorMD30Data.nome, medidorMD30Data.porta, medidorMD30Data.hora_ponta, medidorMD30Data.minuto_ponta, medidorMD30Data.intervalo_ponta);
+  async getMedidorMD30ByID(ip: number): Promise<MedidorMD30> {
+    const medidorMD30Data = await db.oneOrNone("SELECT * FROM medidores WHERE id=$1", [ip]);
+    return MedidorMD30Adapter.create(medidorMD30Data.id, medidorMD30Data.ip, medidorMD30Data.nome, medidorMD30Data.porta, medidorMD30Data.hora_ponta, medidorMD30Data.minuto_ponta, medidorMD30Data.intervalo_ponta);
   }
 
   async getAllMedidoresMD30(): Promise<Array<MedidorMD30>> {
    const medidoresMD30Data = await db.manyOrNone("SELECT * FROM medidores ORDER BY created_at DESC");
-   const medidoresMD30 = medidoresMD30Data.map((medidor) => MedidorMD30Adapter.create(medidor.ip, medidor.nome, medidor.porta, medidor.hora_ponta, medidor.minuto_ponta, medidor.intervalo_ponta));
+   const medidoresMD30 = medidoresMD30Data.map((medidor) => MedidorMD30Adapter.create(medidor.id, medidor.ip, medidor.nome, medidor.porta, medidor.hora_ponta, medidor.minuto_ponta, medidor.intervalo_ponta));
    return medidoresMD30; 
   }
 
-  async deleteMedidorMD30(ip: string): Promise<void> {
-    await db.none("DELETE FROM medidores WHERE ip=$1", [ip]);
+  async deleteMedidorMD30(id: number): Promise<void> {
+    await db.none("DELETE FROM medidores WHERE id=$1", [id]);
   }
 }

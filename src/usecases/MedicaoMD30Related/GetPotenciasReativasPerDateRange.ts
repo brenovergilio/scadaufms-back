@@ -8,8 +8,8 @@ export default class GetPotenciasReativasPerDateRange {
     this.medicaoMD30Repository = medidorMD30Repository;
   }
 
-  async execute(ip: string): Promise<Array<MedicaoMD30>> {
-    const potenciasReativas: Array<MedicaoMD30> = await this.medicaoMD30Repository.getPotenciasReativasPerDateRange(ip);    
+  async execute(id: number): Promise<Array<MedicaoMD30>> {
+    const potenciasReativas: Array<MedicaoMD30> = await this.medicaoMD30Repository.getPotenciasReativasPerDateRange(id);    
     return potenciasReativas;
   }
 }

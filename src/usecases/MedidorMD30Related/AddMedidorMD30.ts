@@ -1,4 +1,5 @@
-import MedidorMD30 from "@src/entities/MedidorMD30";
+import Peak from "@src/entities/interfaces/Peak";
+import { validateMedidorMD30Params } from "@src/entities/util/EntityFieldsValidators";
 import MedidorMD30Repository from "../repositories/MedidorMD30Repository";
 
 export default class AddMedidorMD30 {
@@ -8,8 +9,8 @@ export default class AddMedidorMD30 {
     this.medidorMD30Repository = medidorMD30Repository;
   }
 
-  execute(ip: string, name: string, port: number): void {
-    const medidorMD30: MedidorMD30 = new MedidorMD30(ip, name, port);
-    this.medidorMD30Repository.addMedidorMD30(medidorMD30.ip, medidorMD30.name, medidorMD30.port, medidorMD30.peak.hour, medidorMD30.peak.minute, medidorMD30.peak.interval); 
+  execute(ip: string, name: string, port: number, peak: Peak = {hour: 17, minute: 30, interval: 3}): void {
+    validateMedidorMD30Params(ip, name, port, peak);
+    this.medidorMD30Repository.addMedidorMD30(ip, name, port, peak.hour, peak.minute, peak.interval); 
   }
 }

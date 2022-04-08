@@ -7,7 +7,7 @@ export default class DeleteMedidorMD30 {
     this.medidorMD30Repository = medidorMD30Repository;
   }
 
-  execute(ip: string): void {
-    this.medidorMD30Repository.deleteMedidorMD30(ip);
+  execute(id: number): void {
+    this.medidorMD30Repository.deleteMedidorMD30(id);
   }
 }
