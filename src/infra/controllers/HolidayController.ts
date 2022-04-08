@@ -8,14 +8,16 @@ import GetHolidayByName from "@src/usecases/HolidayRelated/GetHolidayByName";
 
 export default class HolidayController {
 
-  static addHoliday(params: any, body: any, holidayRepository: HolidayRepository): void {
+  static addHoliday(params: any, body: any, holidayRepository: HolidayRepository): Promise<Holiday> {
     const { name, day } = body;
     const addHolidayUseCase = new AddHoliday(holidayRepository).execute(name, day);
+    return addHolidayUseCase;
   }
 
-  static deleteHoliday(params: any, body: any, holidayRepository: HolidayRepository): void {
+  static deleteHoliday(params: any, body: any, holidayRepository: HolidayRepository): Promise<Holiday> {
     const { id } = params;
     const deleteHolidayUseCase = new DeleteHoliday(holidayRepository).execute(id);
+    return deleteHolidayUseCase
   }
 
   static getAllHolidays(params: any, body: any, holidayRepository: HolidayRepository): Promise<Array<Holiday>> {

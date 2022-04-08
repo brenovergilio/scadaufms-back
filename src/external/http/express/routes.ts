@@ -34,7 +34,7 @@ router.get("/medicoes/potencias-aparentes/:measurerID", ExpressAdapter.create(Me
 router.get("/medicoes/fatores-potencia/:measurerID", ExpressAdapter.create(MedicaoMD30Controller.getFatoresDePotenciaPerDateRange, medicaoMD30Repository));
 
 router.get("/holidays", ExpressAdapter.create(HolidayController.getAllHolidays, holidayRepository));
-router.get("/holidays:id", ExpressAdapter.create(HolidayController.getHolidayByID, holidayRepository));
+router.get("/holidays/:id", ExpressAdapter.create(HolidayController.getHolidayByID, holidayRepository));
 router.get("/holidays:name", ExpressAdapter.create(HolidayController.getHolidayByName, holidayRepository));
 router.delete("/holidays/:id", ExpressAdapter.create(HolidayController.deleteHoliday, holidayRepository));
 router.post("/holidays", ExpressAdapter.create(HolidayController.addHoliday, holidayRepository));

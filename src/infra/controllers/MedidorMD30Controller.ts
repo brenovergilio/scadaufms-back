@@ -8,14 +8,16 @@ import MedidorMD30 from "@src/entities/MedidorMD30";
 
 export default class MedidorMD30Controller {
   
-  static addMedidorMD30(params: any, body: any, medidorMD30Repository: MedidorMD30Repository): void {
+  static addMedidorMD30(params: any, body: any, medidorMD30Repository: MedidorMD30Repository): Promise<MedidorMD30> {
     const { ip, name, port } = body;
     const addMedidorMD30UseCase = new AddMedidorMD30(medidorMD30Repository).execute(ip, name, port);
+    return addMedidorMD30UseCase;
   }
 
-  static deleteMedidorMD30(params: any, body: any, medidorMD30Repository: MedidorMD30Repository): void {
+  static deleteMedidorMD30(params: any, body: any, medidorMD30Repository: MedidorMD30Repository): Promise<MedidorMD30> {
     const { id } = params;
     const deleteMedidorMD30UseCase = new DeleteMedidorMD30(medidorMD30Repository).execute(id);
+    return deleteMedidorMD30UseCase;
   }
 
   static getMedidorMD30ByID(params: any, body: any, medidorMD30Repository: MedidorMD30Repository): Promise<MedidorMD30> {

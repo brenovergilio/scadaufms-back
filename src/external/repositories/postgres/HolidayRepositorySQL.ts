@@ -4,24 +4,34 @@ import HolidayAdapter from "@src/infra/adapters/HolidayAdapter";
 import HolidayRepository from "@src/usecases/repositories/HolidayRepository";
 
 export default class HolidayRepositorySQL implements HolidayRepository {
-  async addHoliday(name: string, day: Date): Promise<void> {
-    await db.none("INSERT INTO feriados (nome, dia) VALUES ($1, $2)", [name, day]);
+  async addHoliday(name: string, day: Date): Promise<Holiday> {
+    const holidayData = await db.one("INSERT INTO feriados (nome, dia) VALUES ($1, $2) RETURNING *", [name, day]);
+    const holiday: Holiday = HolidayAdapter.create(holidayData.id, holidayData.nome, holidayData.dia);
+    return holiday;
   }
 
-  async deleteHoliday(id: number): Promise<void> {
-    await db.none("DELETE FROM feriados WHERE id=$1", [id]);
+  async deleteHoliday(id: number): Promise<Holiday> {
+    const holidayData = await db.one("DELETE FROM feriados WHERE id=$1 RETURNING *", [id]);
+    const holiday: Holiday = HolidayAdapter.create(holidayData.id, holidayData.nome, holidayData.dia);
+    return holiday;
   }
 
-  async getHolidayByID(id: number): Promise<Holiday> {
+  async getHolidayByID(id: number): Promise<Holiday | null> {
     const holidayData = await db.oneOrNone("SELECT * FROM feriados WHERE id=$1", [id]);
-    const holiday: Holiday = HolidayAdapter.create(holidayData.id, holidayData.nome, holidayData.dia);
-    return holiday;
+    
+    if(holidayData)
+      return HolidayAdapter.create(holidayData.id, holidayData.nome, holidayData.dia);
+    
+    return null;
   }
 
-  async getHolidayByName(name: string): Promise<Holiday> {
+  async getHolidayByName(name: string): Promise<Holiday | null> {
     const holidayData = await db.oneOrNone("SELECT * FROM feriados WHERE nome=$1", [name]);
-    const holiday: Holiday = HolidayAdapter.create(holidayData.id, holidayData.nome, holidayData.dia);
-    return holiday;
+    
+    if(holidayData)
+      return HolidayAdapter.create(holidayData.id, holidayData.nome, holidayData.dia);
+    
+    return null;
   }
 
   async getAllHolidays(): Promise<Array<Holiday>> {

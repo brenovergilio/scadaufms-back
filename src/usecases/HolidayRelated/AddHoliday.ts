@@ -1,3 +1,4 @@
+import Holiday from "@src/entities/Holiday";
 import { validateHolidayParams } from "@src/entities/util/EntityFieldsValidators";
 import HolidayRepository from "../repositories/HolidayRepository";
 import DuplicatedNameError from "../util/errors/DuplicatedNameError";
@@ -10,7 +11,7 @@ export default class AddHoliday {
     this.holidayRepository = holidayRepository;
   }
 
-  async execute(name: string, day: Date): Promise<void> {
+  async execute(name: string, day: Date): Promise<Holiday> {
     validateHolidayParams(name);
 
     const holidayNameDuplicated: boolean = await duplicatedName(name, this.holidayRepository);
@@ -18,6 +19,6 @@ export default class AddHoliday {
     if(holidayNameDuplicated)
       throw new DuplicatedNameError();
 
-    this.holidayRepository.addHoliday(name, day); 
+    return await this.holidayRepository.addHoliday(name, day); 
   }
 }
