@@ -21,6 +21,7 @@ const alarmRepository: AlarmRepository = new AlarmRepositorySQL();
 
 router.get("/medidores", ExpressAdapter.create(MedidorMD30Controller.getAllMedidoresMD30, medidorMD30Repository));
 router.get("/medidores/:id", ExpressAdapter.create(MedidorMD30Controller.getMedidorMD30ByID, medidorMD30Repository));
+router.get("/medidores/:ip", ExpressAdapter.create(MedidorMD30Controller.getMedidorMD30ByIP, medidorMD30Repository));
 router.delete("/medidores/:id", ExpressAdapter.create(MedidorMD30Controller.deleteMedidorMD30, medidorMD30Repository));
 router.post("/medidores", ExpressAdapter.create(MedidorMD30Controller.addMedidorMD30, medidorMD30Repository));
 
@@ -33,10 +34,13 @@ router.get("/medicoes/potencias-aparentes/:measurerID", ExpressAdapter.create(Me
 router.get("/medicoes/fatores-potencia/:measurerID", ExpressAdapter.create(MedicaoMD30Controller.getFatoresDePotenciaPerDateRange, medicaoMD30Repository));
 
 router.get("/holidays", ExpressAdapter.create(HolidayController.getAllHolidays, holidayRepository));
+router.get("/holidays:id", ExpressAdapter.create(HolidayController.getHolidayByID, holidayRepository));
+router.get("/holidays:name", ExpressAdapter.create(HolidayController.getHolidayByName, holidayRepository));
 router.delete("/holidays/:id", ExpressAdapter.create(HolidayController.deleteHoliday, holidayRepository));
 router.post("/holidays", ExpressAdapter.create(HolidayController.addHoliday, holidayRepository));
 
 router.get("/alarms/:measurerID", ExpressAdapter.create(AlarmController.getAllAlarmsForSpecificMeasurer, alarmRepository));
+router.get("/alarms/:measuererID/:id", ExpressAdapter.create(AlarmController.getAlarmByID, alarmRepository));
 router.delete("/alarms/:id", ExpressAdapter.create(AlarmController.deleteAlarm, alarmRepository));
 
 export { router };

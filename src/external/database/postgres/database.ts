@@ -85,6 +85,7 @@ enum ExitStatus {
       process.on(sig, async () => {
         try {
           pgp.end()
+          console.log('[Database Conection Closed]');
           process.exit(ExitStatus.Success);
         } catch (error) {
           process.exit(ExitStatus.Failure);

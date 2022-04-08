@@ -4,8 +4,8 @@ import MedicaoMD30Repository from "../repositories/MedicaoMD30Repository";
 export default class GetPotenciasAparentesPerDateRange {
   medicaoMD30Repository: MedicaoMD30Repository;
 
-  constructor(medidorMD30Repository: MedicaoMD30Repository) {
-    this.medicaoMD30Repository = medidorMD30Repository;
+  constructor(medicaoMD30Repository: MedicaoMD30Repository) {
+    this.medicaoMD30Repository = medicaoMD30Repository;
   }
 
   async execute(id: number): Promise<Array<MedicaoMD30>> {

@@ -12,6 +12,18 @@ export default class HolidayRepositorySQL implements HolidayRepository {
     await db.none("DELETE FROM feriados WHERE id=$1", [id]);
   }
 
+  async getHolidayByID(id: number): Promise<Holiday> {
+    const holidayData = await db.oneOrNone("SELECT * FROM feriados WHERE id=$1", [id]);
+    const holiday: Holiday = HolidayAdapter.create(holidayData.id, holidayData.nome, holidayData.dia);
+    return holiday;
+  }
+
+  async getHolidayByName(name: string): Promise<Holiday> {
+    const holidayData = await db.oneOrNone("SELECT * FROM feriados WHERE nome=$1", [name]);
+    const holiday: Holiday = HolidayAdapter.create(holidayData.id, holidayData.nome, holidayData.dia);
+    return holiday;
+  }
+
   async getAllHolidays(): Promise<Array<Holiday>> {
     const holidaysData = await db.manyOrNone("SELECT * FROM feriados ORDER BY dia");
     const holidays: Array<Holiday> = holidaysData.map((holiday) => HolidayAdapter.create(holiday.id, holiday.nome, holiday.dia));

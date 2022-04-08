@@ -1,20 +1,20 @@
+import Alarm from "@src/entities/Alarm";
 import AlarmRepository from "../repositories/AlarmRepository";
 import NotFoundError from "../util/errors/NotFoundError";
-import { existsByID } from "../util/validators/AlarmValidator";
 
-export default class DeleteAlarm {
+export default class GetAlarmByID {
   alarmRepository: AlarmRepository;
 
   constructor(alarmRepository: AlarmRepository) {
     this.alarmRepository = alarmRepository;
   }
 
-  async execute(id: number): Promise<void> {
-    const alarmExists: boolean = await existsByID(id, this.alarmRepository);
+  async execute(id: number): Promise<Alarm> {
+    const alarm: Alarm = await this.alarmRepository.getAlarmByID(id);
 
-    if(!alarmExists) 
+    if(!alarm)
       throw new NotFoundError();
 
-    this.alarmRepository.deleteAlarm(id);
+    return alarm;
   }
 }

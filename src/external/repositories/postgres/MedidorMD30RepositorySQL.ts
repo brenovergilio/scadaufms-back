@@ -8,8 +8,13 @@ export default class MedidorMD30RepositorySQL implements MedidorMD30Repository {
     await db.none("INSERT INTO medidores VALUES($1, NOW(), $2, $3, $4, $5, $6)", [ip, name,  port, peakHour, peakMinute, peakInterval]);
   }
 
-  async getMedidorMD30ByID(ip: number): Promise<MedidorMD30> {
-    const medidorMD30Data = await db.oneOrNone("SELECT * FROM medidores WHERE id=$1", [ip]);
+  async getMedidorMD30ByID(id: number): Promise<MedidorMD30> {
+    const medidorMD30Data = await db.oneOrNone("SELECT * FROM medidores WHERE id=$1", [id]);
+    return MedidorMD30Adapter.create(medidorMD30Data.id, medidorMD30Data.ip, medidorMD30Data.nome, medidorMD30Data.porta, medidorMD30Data.hora_ponta, medidorMD30Data.minuto_ponta, medidorMD30Data.intervalo_ponta);
+  }
+
+  async getMedidorMD30ByIP(ip: string): Promise<MedidorMD30> {
+    const medidorMD30Data = await db.oneOrNone("SELECT * FROM medidores WHERE ip=$1", [ip]);
     return MedidorMD30Adapter.create(medidorMD30Data.id, medidorMD30Data.ip, medidorMD30Data.nome, medidorMD30Data.porta, medidorMD30Data.hora_ponta, medidorMD30Data.minuto_ponta, medidorMD30Data.intervalo_ponta);
   }
 

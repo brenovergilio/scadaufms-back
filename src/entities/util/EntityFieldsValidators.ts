@@ -9,17 +9,17 @@ import { isValidPeak } from "./validators/PeakValidator";
 import { isValidPort } from "./validators/PortValidator";
 import { isEmptyString } from "./validators/StringValidators";
 
-export function validateAlarmParams(message: string) {
+export function validateAlarmParams(message: string): void {
   if(isEmptyString(message))
     throw new isEmptyMessageError();
 }
 
-export function validateHolidayParams(name: string) {
+export function validateHolidayParams(name: string): void {
   if(isEmptyString(name))
     throw new isEmptyNameError();
 }
 
-export function validateMedidorMD30Params(ip: string, name: string, port: number, peak?: Peak) {
+export function validateMedidorMD30Params(ip: string, name: string, port: number, peak?: Peak): void {
   if(!isValidIPv4(ip))
     throw new InvalidIPv4Error();
 
