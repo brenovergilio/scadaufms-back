@@ -33,7 +33,7 @@ export default class HolidayController {
 
   static getHolidayByName(params: any, body: any, holidayRepository: HolidayRepository): Promise<Holiday> {
     const { name } = params;
-    const getHolidayByName = new GetHolidayByName(holidayRepository).execute(name);
+    const getHolidayByName = new GetHolidayByName(holidayRepository).execute(name.trim());
     return getHolidayByName;
   }
 }

@@ -10,7 +10,7 @@ export default class MedidorMD30Controller {
   
   static addMedidorMD30(params: any, body: any, medidorMD30Repository: MedidorMD30Repository): Promise<MedidorMD30> {
     const { ip, name, port } = body;
-    const addMedidorMD30UseCase = new AddMedidorMD30(medidorMD30Repository).execute(ip, name.trim(), port);
+    const addMedidorMD30UseCase = new AddMedidorMD30(medidorMD30Repository).execute(ip.trim(), name.trim(), port);
     return addMedidorMD30UseCase;
   }
 
@@ -28,7 +28,7 @@ export default class MedidorMD30Controller {
 
   static getMedidorMD30ByIP(params: any, body: any, medidorMD30Repository: MedidorMD30Repository): Promise<MedidorMD30> {
     const { ip } = params;
-    const getMedidorMD30ByIPUseCase = new GetMedidorMD30ByIP(medidorMD30Repository).execute(ip);
+    const getMedidorMD30ByIPUseCase = new GetMedidorMD30ByIP(medidorMD30Repository).execute(ip.trim());
     return getMedidorMD30ByIPUseCase;
   }
 
