@@ -8,7 +8,7 @@ export default class MedicaoMD30RepositorySQL implements MedicaoMD30Repository {
   //@ForAll AND timestamp >= $2 AND timestamp <= $3 
 
   async getTensoesPerDateRange(measurerID: number): Promise<Array<MedicaoMD30>> {
-    const medicoesMD30Data = await db.manyOrNone("SELECT timestamp, tensao_fase_a, tensao_fase_b, tensao_fase_c FROM medicoes WHERE medidor_id=$1 ORDER BY timestamp", [measurerID]);
+    const medicoesMD30Data = await db.manyOrNone("SELECT timestamp, tensao_fase_a, tensao_fase_b, tensao_fase_c FROM medicoes_md30 WHERE medidor_id=$1 ORDER BY timestamp", [measurerID]);
 
     const medicoesMD30 = medicoesMD30Data.map((measurement) => {
       const keys = Object.keys(measurement).slice(1);
@@ -20,7 +20,7 @@ export default class MedicaoMD30RepositorySQL implements MedicaoMD30Repository {
   }
   
   async getCorrentesPerDateRange(measurerID: number): Promise<Array<MedicaoMD30>> {
-    const medicoesMD30Data = await db.manyOrNone("SELECT timestamp, corrente_fase_a, corrente_fase_b, corrente_fase_c FROM medicoes WHERE medidor_id=$1 ORDER BY timestamp", [measurerID]);
+    const medicoesMD30Data = await db.manyOrNone("SELECT timestamp, corrente_fase_a, corrente_fase_b, corrente_fase_c FROM medicoes_md30 WHERE medidor_id=$1 ORDER BY timestamp", [measurerID]);
 
     const medicoesMD30 = medicoesMD30Data.map((measurement) => {
       const keys = Object.keys(measurement).slice(1);
@@ -32,7 +32,7 @@ export default class MedicaoMD30RepositorySQL implements MedicaoMD30Repository {
   }
 
   async getPotenciasAtivasPerDateRange(measurerID: number): Promise<Array<MedicaoMD30>> {
-    const medicoesMD30Data = await db.manyOrNone("SELECT timestamp, potencia_ativa_a, potencia_ativa_b, potencia_ativa_c, potencia_ativa_total FROM medicoes WHERE medidor_id=$1 ORDER BY timestamp", [measurerID]);
+    const medicoesMD30Data = await db.manyOrNone("SELECT timestamp, potencia_ativa_a, potencia_ativa_b, potencia_ativa_c, potencia_ativa_total FROM medicoes_md30 WHERE medidor_id=$1 ORDER BY timestamp", [measurerID]);
 
     const medicoesMD30 = medicoesMD30Data.map((measurement) => {
       const keys = Object.keys(measurement).slice(1);
@@ -44,7 +44,7 @@ export default class MedicaoMD30RepositorySQL implements MedicaoMD30Repository {
   }
 
   async getPotenciasReativasPerDateRange(measurerID: number): Promise<Array<MedicaoMD30>> {
-    const medicoesMD30Data = await db.manyOrNone("SELECT timestamp, potencia_reativa_a, potencia_reativa_b, potencia_reativa_c, potencia_reativa_total FROM medicoes WHERE medidor_id=$1 ORDER BY timestamp", [measurerID]);
+    const medicoesMD30Data = await db.manyOrNone("SELECT timestamp, potencia_reativa_a, potencia_reativa_b, potencia_reativa_c, potencia_reativa_total FROM medicoes_md30 WHERE medidor_id=$1 ORDER BY timestamp", [measurerID]);
 
     const medicoesMD30 = medicoesMD30Data.map((measurement) => {
       const keys = Object.keys(measurement).slice(1);
@@ -68,7 +68,7 @@ export default class MedicaoMD30RepositorySQL implements MedicaoMD30Repository {
   }
 
   async getFatoresDePotenciaPerDateRange(measurerID: number): Promise<Array<MedicaoMD30>> {
-    const medicoesMD30Data = await db.manyOrNone("SELECT timestamp, fator_potencia_a, fator_potencia_b, fator_potencia_c, fator_potencia_total FROM medicoes WHERE medidor_id=$1 ORDER BY timestamp", [measurerID]);
+    const medicoesMD30Data = await db.manyOrNone("SELECT timestamp, fator_potencia_a, fator_potencia_b, fator_potencia_c, fator_potencia_total FROM medicoes_md30 WHERE medidor_id=$1 ORDER BY timestamp", [measurerID]);
   
     const medicoesMD30 = medicoesMD30Data.map((measurement) => {
       const keys = Object.keys(measurement).slice(1);
