@@ -35,6 +35,7 @@
   "dependencies": {
     "class-validator": "^0.13.2",
     "express": "^4.17.3",
+    "modbus-serial": "^8.0.5",
     "pg-promise": "^10.11.1"
   }
 }

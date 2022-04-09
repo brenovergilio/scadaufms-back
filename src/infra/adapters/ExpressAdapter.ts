@@ -7,7 +7,7 @@ export default class ExpressAdapter {
       try {
         if(fn instanceof Function) {
           const obj = await fn(req.params, req.body, repository);
-           
+          
           if (obj)
             if(obj instanceof Array) 
               obj.forEach((item) => this.replaceMapsForObjects(item));

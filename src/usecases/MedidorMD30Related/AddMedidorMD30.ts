@@ -19,7 +19,7 @@ export default class AddMedidorMD30 {
 
     if(medidorMD30Exists)
       throw new AlreadyExistsError();
-
+    
     const medidorMD30: MedidorMD30 = await this.medidorMD30Repository.addMedidorMD30(ip, name, port, rush.hour, rush.minute, rush.interval); 
     return medidorMD30;
   }

@@ -7,16 +7,20 @@ export class App {
 
   constructor() {
     this.server = express();
-    this.routes();
     this.middleware();
+    this.routes();
+    this.errorHandler();
   }
 
   private middleware(): void {
     this.server.use(express.json());
-    this.server.use(errorHandler);
   }
 
-  private routes():void {
+  private routes(): void {
     this.server.use(router);
+  }
+
+  private errorHandler(): void {
+    this.server.use(errorHandler);
   }
 }
