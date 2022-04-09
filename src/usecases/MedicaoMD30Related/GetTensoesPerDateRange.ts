@@ -1,5 +1,5 @@
-import MedicaoMD30 from "@src/entities/MedicaoMD30";
-import MedicaoMD30Repository from "../repositories/MedicaoMD30Repository";
+import MedicaoMD30 from '@src/entities/MedicaoMD30';
+import MedicaoMD30Repository from '../repositories/MedicaoMD30Repository';
 
 export default class GetTensoesPerDateRange {
   medicaoMD30Repository: MedicaoMD30Repository;
@@ -9,7 +9,8 @@ export default class GetTensoesPerDateRange {
   }
 
   async execute(id: number): Promise<Array<MedicaoMD30>> {
-    const tensoes: Array<MedicaoMD30> = await this.medicaoMD30Repository.getTensoesPerDateRange(id);
+    const tensoes: Array<MedicaoMD30> =
+      await this.medicaoMD30Repository.getTensoesPerDateRange(id);
     return tensoes;
   }
 }

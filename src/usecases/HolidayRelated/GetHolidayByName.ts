@@ -1,6 +1,6 @@
-import Holiday from "@src/entities/Holiday";
-import HolidayRepository from "../repositories/HolidayRepository";
-import NotFoundError from "../util/errors/NotFoundError";
+import Holiday from '@src/entities/Holiday';
+import HolidayRepository from '../repositories/HolidayRepository';
+import NotFoundError from '../util/errors/NotFoundError';
 
 export default class GetHolidayByName {
   holidayRepository: HolidayRepository;
@@ -12,8 +12,7 @@ export default class GetHolidayByName {
   async execute(name: string): Promise<Holiday> {
     const holiday = await this.holidayRepository.getHolidayByName(name);
 
-    if(!holiday)
-      throw new NotFoundError();
+    if (!holiday) throw new NotFoundError();
 
     return holiday;
   }

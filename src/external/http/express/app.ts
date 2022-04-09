@@ -1,6 +1,6 @@
-import express from "express";
-import { router } from "./routes";
-import errorHandler from "./errorHandler";
+import express from 'express';
+import { router } from './routes';
+import errorHandler from './errorHandler';
 
 export class App {
   server: express.Application;

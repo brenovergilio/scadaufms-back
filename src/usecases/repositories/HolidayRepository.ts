@@ -1,4 +1,4 @@
-import Holiday from "@src/entities/Holiday";
+import Holiday from '@src/entities/Holiday';
 
 export default interface HolidayRepository {
   addHoliday(name: string, day: Date): Promise<Holiday>;

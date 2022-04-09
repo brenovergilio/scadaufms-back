@@ -1,5 +1,5 @@
-export default class InvalidDateRangeError extends Error{
+export default class InvalidDateRangeError extends Error {
   constructor() {
-    super("Data final menor que a inicial");
+    super('Data final menor que a inicial');
   }
 }

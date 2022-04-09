@@ -1,4 +1,4 @@
-import Holiday from "@src/entities/Holiday";
+import Holiday from '@src/entities/Holiday';
 
 export default class HolidayAdapter {
   static create(id: number, name: string, day: Date) {

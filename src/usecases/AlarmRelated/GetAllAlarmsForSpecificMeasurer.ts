@@ -1,5 +1,5 @@
-import Alarm from "@src/entities/Alarm";
-import AlarmRepository from "../repositories/AlarmRepository";
+import Alarm from '@src/entities/Alarm';
+import AlarmRepository from '../repositories/AlarmRepository';
 
 export default class GetAllAlarmsForSpecificMeasurer {
   alarmRepository: AlarmRepository;
@@ -9,6 +9,6 @@ export default class GetAllAlarmsForSpecificMeasurer {
   }
 
   async execute(measurerID: number): Promise<Array<Alarm>> {
-    return this.alarmRepository.getAllAlarmsForSpecificMeasurer(measurerID); 
+    return this.alarmRepository.getAllAlarmsForSpecificMeasurer(measurerID);
   }
 }

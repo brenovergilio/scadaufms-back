@@ -1,5 +1,5 @@
 export default class InvalidIPv4Error extends Error {
   constructor() {
-    super("IPv4 inválido");
+    super('IPv4 inválido');
   }
 }

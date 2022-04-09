@@ -1,7 +1,7 @@
-import NotFoundError from "../util/errors/NotFoundError";
-import MedidorMD30Repository from "../repositories/MedidorMD30Repository";
-import { existsByID } from "../util/validators/MedidorMD30Validator";
-import MedidorMD30 from "@src/entities/MedidorMD30";
+import NotFoundError from '../util/errors/NotFoundError';
+import MedidorMD30Repository from '../repositories/MedidorMD30Repository';
+import { existsByID } from '../util/validators/MedidorMD30Validator';
+import MedidorMD30 from '@src/entities/MedidorMD30';
 
 export default class DeleteMedidorMD30 {
   medidorMD30Repository: MedidorMD30Repository;
@@ -11,11 +11,13 @@ export default class DeleteMedidorMD30 {
   }
 
   async execute(id: number): Promise<MedidorMD30> {
-    const medidorMD30Exists: boolean = await existsByID(id, this.medidorMD30Repository);
+    const medidorMD30Exists: boolean = await existsByID(
+      id,
+      this.medidorMD30Repository
+    );
 
-    if(!medidorMD30Exists)
-      throw new NotFoundError();
-    
+    if (!medidorMD30Exists) throw new NotFoundError();
+
     return await this.medidorMD30Repository.deleteMedidorMD30(id);
   }
 }

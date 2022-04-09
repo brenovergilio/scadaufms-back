@@ -1,8 +1,7 @@
-import Holiday from "@src/entities/Holiday";
-import HolidayRepository from "../repositories/HolidayRepository";
+import Holiday from '@src/entities/Holiday';
+import HolidayRepository from '../repositories/HolidayRepository';
 
 export default class GetAllHolidays {
-
   holidayRepository: HolidayRepository;
 
   constructor(holidayRepository: HolidayRepository) {

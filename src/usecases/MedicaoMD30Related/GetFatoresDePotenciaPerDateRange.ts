@@ -1,5 +1,5 @@
-import MedicaoMD30 from "@src/entities/MedicaoMD30";
-import MedicaoMD30Repository from "../repositories/MedicaoMD30Repository";
+import MedicaoMD30 from '@src/entities/MedicaoMD30';
+import MedicaoMD30Repository from '../repositories/MedicaoMD30Repository';
 
 export default class GetFatoresDePotenciaPerDateRange {
   medicaoMD30Repository: MedicaoMD30Repository;
@@ -9,7 +9,8 @@ export default class GetFatoresDePotenciaPerDateRange {
   }
 
   async execute(id: number): Promise<Array<MedicaoMD30>> {
-    const fatoresDePotencia: Array<MedicaoMD30> = await this.medicaoMD30Repository.getFatoresDePotenciaPerDateRange(id);    
+    const fatoresDePotencia: Array<MedicaoMD30> =
+      await this.medicaoMD30Repository.getFatoresDePotenciaPerDateRange(id);
     return fatoresDePotencia;
   }
 }

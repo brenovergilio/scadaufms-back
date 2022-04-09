@@ -1,13 +1,13 @@
-import pgPromise from "pg-promise";
+import pgPromise from 'pg-promise';
 
 const pgp = pgPromise({});
 
 const db = pgp({
-  user: "postgres",
-  password: "ufms123",
-  host: "localhost",
+  user: 'postgres',
+  password: 'ufms123',
+  host: 'localhost',
   port: 5432,
-  database: "test",
+  database: 'test',
   idleTimeoutMillis: 100,
 });
 
@@ -22,7 +22,7 @@ const db = pgp({
     hora_ponta INTEGER NOT NULL,
     minuto_ponta INTEGER NOT NULL,
     intervalo_ponta INTEGER NOT NULL
-  );`)
+  );`);
   await db.none(`CREATE TABLE IF NOT EXISTS medicoes_md30 (
     medidor_id SMALLINT NOT NULL,
     timestamp TIMESTAMP NOT NULL,
@@ -64,7 +64,7 @@ const db = pgp({
   );`);
 })();
 
-pgp.pg.types.setTypeParser(1114, s=>s);
+pgp.pg.types.setTypeParser(1114, (s) => s);
 
 enum ExitStatus {
   Failure = 1,
@@ -77,7 +77,7 @@ enum ExitStatus {
     exitSignals.map((sig) =>
       process.on(sig, async () => {
         try {
-          pgp.end()
+          pgp.end();
           console.log('[Database Conection Closed]');
           process.exit(ExitStatus.Success);
         } catch (error) {
