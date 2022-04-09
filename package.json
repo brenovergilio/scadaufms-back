@@ -5,8 +5,7 @@
   "main": "server.js",
   "scripts": {
     "build": "babel src --extensions \".js,.ts\" --out-dir dist --copy-files --no-copy-ignored",
-    "start": "yarn build && node dist/server.js",
-    "express": "yarn build && node dist/src/external/http/express/main.js",
+    "start:express": "yarn build && node dist/external/http/express/main.js",
     "start:dev": "ts-node-dev -r tsconfig-paths/register --respawn --transpile-only --ignore-watch node_modules 'src/external/http/express/main.ts'",
     "test": "jest"
   },

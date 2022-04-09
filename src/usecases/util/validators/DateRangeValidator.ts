@@ -1,5 +1,3 @@
-import DateRange from '../DateRange';
-
-export default function isValidDateRange(dateRange: DateRange): boolean {
-  return dateRange.finalDate >= dateRange.initialDate;
+export default function isValidDateRange(initialDate: Date, finalDate: Date): boolean {
+  return finalDate >= initialDate;
 }

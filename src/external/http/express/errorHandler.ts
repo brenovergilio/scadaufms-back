@@ -1,5 +1,5 @@
-import isEmptyMessageError from '@src/entities/util/errors/EmptyMessageError';
-import isEmptyNameError from '@src/entities/util/errors/EmptyNameError';
+import EmptyMessageError from '@src/entities/util/errors/EmptyMessageError';
+import EmptyNameError from '@src/entities/util/errors/EmptyNameError';
 import InvalidIPv4Error from '@src/entities/util/errors/InvalidIPv4Error';
 import InvalidPortError from '@src/entities/util/errors/InvalidPortError';
 import InvalidRushError from '@src/entities/util/errors/InvalidRushError';
@@ -17,8 +17,8 @@ export default function errorHandler(
 ) {
   if (
     error instanceof
-    (isEmptyNameError ||
-      isEmptyMessageError ||
+    (EmptyNameError ||
+      EmptyMessageError ||
       InvalidIPv4Error ||
       InvalidPortError ||
       InvalidRushError ||
