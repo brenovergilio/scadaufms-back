@@ -1,5 +1,6 @@
 import MedicaoMD30 from '@src/entities/MedicaoMD30';
 import MedicaoMD30Repository from '../repositories/MedicaoMD30Repository';
+import DateRange from '../util/DateRange';
 
 export default class GetPotenciasAtivasPerDateRange {
   medicaoMD30Repository: MedicaoMD30Repository;
@@ -8,9 +9,12 @@ export default class GetPotenciasAtivasPerDateRange {
     this.medicaoMD30Repository = medicaoMD30Repository;
   }
 
-  async execute(id: number): Promise<Array<MedicaoMD30>> {
+  async execute(id: number, dateRange: DateRange): Promise<Array<MedicaoMD30>> {
     const potenciasAtivas: Array<MedicaoMD30> =
-      await this.medicaoMD30Repository.getPotenciasAtivasPerDateRange(id);
+      await this.medicaoMD30Repository.getPotenciasAtivasPerDateRange(
+        id,
+        dateRange
+      );
     return potenciasAtivas;
   }
 }

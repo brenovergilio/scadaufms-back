@@ -10,6 +10,7 @@ export default class MedidorMD30Controller {
   static addMedidorMD30(
     params: any,
     body: any,
+    query: any,
     medidorMD30Repository: MedidorMD30Repository
   ): Promise<MedidorMD30> {
     const { ip, name, port } = body;
@@ -22,6 +23,7 @@ export default class MedidorMD30Controller {
   static deleteMedidorMD30(
     params: any,
     body: any,
+    query: any,
     medidorMD30Repository: MedidorMD30Repository
   ): Promise<MedidorMD30> {
     const { id } = params;
@@ -34,6 +36,7 @@ export default class MedidorMD30Controller {
   static getMedidorMD30ByID(
     params: any,
     body: any,
+    query: any,
     medidorMD30Repository: MedidorMD30Repository
   ): Promise<MedidorMD30> {
     const { id } = params;
@@ -46,6 +49,7 @@ export default class MedidorMD30Controller {
   static getMedidorMD30ByIP(
     params: any,
     body: any,
+    query: any,
     medidorMD30Repository: MedidorMD30Repository
   ): Promise<MedidorMD30> {
     const { ip } = params;
@@ -58,6 +62,7 @@ export default class MedidorMD30Controller {
   static getAllMedidoresMD30(
     params: any,
     body: any,
+    query: any,
     medidorMD30Repository: MedidorMD30Repository
   ): Promise<Array<MedidorMD30>> {
     const getAllMedidoresMD30UseCase = new GetAllMedidoresMD30(

@@ -11,13 +11,16 @@ export default class Holiday {
     this.id = id;
     this.name = name;
 
-    
     this.day = this.setTimeToMin(day);
   }
 
   // Workaround to get rid of time on javascript Date object
   private setTimeToMin(date: Date) {
-    const newDate: Date = new Date(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate());
+    const newDate: Date = new Date(
+      date.getUTCFullYear(),
+      date.getUTCMonth(),
+      date.getUTCDate()
+    );
     return new Date(newDate.setUTCHours(0, 0, 0, 0));
-   }
+  }
 }

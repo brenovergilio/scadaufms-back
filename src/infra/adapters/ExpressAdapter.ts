@@ -10,7 +10,7 @@ export default class ExpressAdapter {
     return async (req: Request, res: Response, next: NextFunction) => {
       try {
         if (fn instanceof Function) {
-          const obj = await fn(req.params, req.body, repository);
+          const obj = await fn(req.params, req.body, req.query, repository);
 
           if (obj)
             if (obj instanceof Array)

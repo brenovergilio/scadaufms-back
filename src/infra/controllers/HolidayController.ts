@@ -10,6 +10,7 @@ export default class HolidayController {
   static addHoliday(
     params: any,
     body: any,
+    query: any,
     holidayRepository: HolidayRepository
   ): Promise<Holiday> {
     const { name, day } = body;
@@ -23,6 +24,7 @@ export default class HolidayController {
   static deleteHoliday(
     params: any,
     body: any,
+    query: any,
     holidayRepository: HolidayRepository
   ): Promise<Holiday> {
     const { id } = params;
@@ -35,6 +37,7 @@ export default class HolidayController {
   static getAllHolidays(
     params: any,
     body: any,
+    query: any,
     holidayRepository: HolidayRepository
   ): Promise<Array<Holiday>> {
     const getAllHolidaysUsecase = new GetAllHolidays(
@@ -46,6 +49,7 @@ export default class HolidayController {
   static getHolidayByID(
     params: any,
     body: any,
+    query: any,
     holidayRepository: HolidayRepository
   ): Promise<Holiday> {
     const { id } = params;
@@ -56,6 +60,7 @@ export default class HolidayController {
   static getHolidayByName(
     params: any,
     body: any,
+    query: any,
     holidayRepository: HolidayRepository
   ): Promise<Holiday> {
     const { name } = params;

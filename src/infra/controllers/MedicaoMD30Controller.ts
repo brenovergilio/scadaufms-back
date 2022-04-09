@@ -6,41 +6,61 @@ import GetPotenciasReativasPerDateRange from '@src/usecases/MedicaoMD30Related/G
 import GetPotenciasAparentesPerDateRange from '@src/usecases/MedicaoMD30Related/GetPotenciasAparentesPerDateRange';
 import GetFatoresDePotenciaPerDateRange from '@src/usecases/MedicaoMD30Related/GetFatoresDePotenciaPerDateRange';
 import MedicaoMD30Repository from '@src/usecases/repositories/MedicaoMD30Repository';
+import DateRange from '@src/usecases/util/DateRange';
 
 export default class MedicaoMD30Controller {
   static getTensoesPerDateRange(
     params: any,
     body: any,
+    query: any,
     medicaoMD30Repository: MedicaoMD30Repository
   ): Promise<Array<MedicaoMD30>> {
     const { measurerID } = params;
+    const { initialDate, finalDate } = query;
+    const dateRange: DateRange = new DateRange(
+      new Date(initialDate),
+      new Date(finalDate)
+    );
     const getTensoesPerDateRangeUseCase = new GetTensoesPerDateRange(
       medicaoMD30Repository
-    ).execute(measurerID);
+    ).execute(measurerID, dateRange);
     return getTensoesPerDateRangeUseCase;
   }
 
   static getCorrentesPerDateRange(
     params: any,
     body: any,
+    query: any,
     medicaoMD30Repository: MedicaoMD30Repository
   ): Promise<Array<MedicaoMD30>> {
     const { measurerID } = params;
+    const { initialDate, finalDate } = query;
+    const dateRange: DateRange = new DateRange(
+      new Date(initialDate),
+      new Date(finalDate)
+    );
     const getCorrentesPerDateRangeUseCase = new GetCorrentesPerDateRange(
       medicaoMD30Repository
-    ).execute(measurerID);
+    ).execute(measurerID, dateRange);
     return getCorrentesPerDateRangeUseCase;
   }
 
   static getPotenciasAtivasPerDateRange(
     params: any,
     body: any,
+    query: any,
     medicaoMD30Repository: MedicaoMD30Repository
   ): Promise<Array<MedicaoMD30>> {
     const { measurerID } = params;
+    const { initialDate, finalDate } = query;
+    const dateRange: DateRange = new DateRange(
+      new Date(initialDate),
+      new Date(finalDate)
+    );
     const getPotenciasAtivasPerDateRangeUseCase =
       new GetPotenciasAtivasPerDateRange(medicaoMD30Repository).execute(
-        measurerID
+        measurerID,
+        dateRange
       );
     return getPotenciasAtivasPerDateRangeUseCase;
   }
@@ -48,12 +68,19 @@ export default class MedicaoMD30Controller {
   static getPotenciasReativasPerDateRange(
     params: any,
     body: any,
+    query: any,
     medicaoMD30Repository: MedicaoMD30Repository
   ): Promise<Array<MedicaoMD30>> {
     const { measurerID } = params;
+    const { initialDate, finalDate } = query;
+    const dateRange: DateRange = new DateRange(
+      new Date(initialDate),
+      new Date(finalDate)
+    );
     const getPotenciasReativasPerDateRangeUseCase =
       new GetPotenciasReativasPerDateRange(medicaoMD30Repository).execute(
-        measurerID
+        measurerID,
+        dateRange
       );
     return getPotenciasReativasPerDateRangeUseCase;
   }
@@ -61,12 +88,19 @@ export default class MedicaoMD30Controller {
   static getPotenciasAparentesPerDateRange(
     params: any,
     body: any,
+    query: any,
     medicaoMD30Repository: MedicaoMD30Repository
   ): Promise<Array<MedicaoMD30>> {
     const { measurerID } = params;
+    const { initialDate, finalDate } = query;
+    const dateRange: DateRange = new DateRange(
+      new Date(initialDate),
+      new Date(finalDate)
+    );
     const getPotenciasAparentesPerDateRangeUseCase =
       new GetPotenciasAparentesPerDateRange(medicaoMD30Repository).execute(
-        measurerID
+        measurerID,
+        dateRange
       );
     return getPotenciasAparentesPerDateRangeUseCase;
   }
@@ -74,12 +108,19 @@ export default class MedicaoMD30Controller {
   static getFatoresDePotenciaPerDateRange(
     params: any,
     body: any,
+    query: any,
     medicaoMD30Repository: MedicaoMD30Repository
   ): Promise<Array<MedicaoMD30>> {
     const { measurerID } = params;
+    const { initialDate, finalDate } = query;
+    const dateRange: DateRange = new DateRange(
+      new Date(initialDate),
+      new Date(finalDate)
+    );
     const getFatoresDePotenciaPerDateRangeUseCase =
       new GetFatoresDePotenciaPerDateRange(medicaoMD30Repository).execute(
-        measurerID
+        measurerID,
+        dateRange
       );
     return getFatoresDePotenciaPerDateRangeUseCase;
   }

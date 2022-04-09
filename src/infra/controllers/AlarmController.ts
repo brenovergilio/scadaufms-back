@@ -8,6 +8,7 @@ export default class AlarmController {
   static deleteAlarm(
     params: any,
     body: any,
+    query: any,
     alarmRepository: AlarmRepository
   ): Promise<Alarm> {
     const { id } = params;
@@ -18,6 +19,7 @@ export default class AlarmController {
   static getAlarmByID(
     params: any,
     body: any,
+    query: any,
     alarmRepository: AlarmRepository
   ): Promise<Alarm> {
     const { id } = params;
@@ -28,6 +30,7 @@ export default class AlarmController {
   static getAllAlarmsForSpecificMeasurer(
     params: any,
     body: any,
+    query: any,
     alarmRepository: AlarmRepository
   ): Promise<Array<Alarm>> {
     const { measurerID } = params;
