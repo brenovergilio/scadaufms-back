@@ -10,7 +10,7 @@ export default class HolidayController {
 
   static addHoliday(params: any, body: any, holidayRepository: HolidayRepository): Promise<Holiday> {
     const { name, day } = body;
-    const addHolidayUseCase = new AddHoliday(holidayRepository).execute(name, day);
+    const addHolidayUseCase = new AddHoliday(holidayRepository).execute(name.trim(), day);
     return addHolidayUseCase;
   }
 

@@ -10,7 +10,7 @@ export default class GetHolidayByID {
   }
 
   async execute(id: number): Promise<Holiday> {
-    const holiday: Holiday = await this.holidayRepository.getHolidayByID(id);
+    const holiday = await this.holidayRepository.getHolidayByID(id);
 
     if(!holiday)
       throw new NotFoundError();

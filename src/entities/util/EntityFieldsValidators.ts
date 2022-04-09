@@ -1,11 +1,11 @@
-import Peak from "../interfaces/Peak";
+import Rush from "../interfaces/Rush";
 import isEmptyMessageError from "./errors/EmptyMessageError";
 import isEmptyNameError from "./errors/EmptyNameError";
 import InvalidIPv4Error from "./errors/InvalidIPv4Error";
-import InvalidPeakError from "./errors/InvalidPeakError";
+import InvalidRushError from "./errors/InvalidRushError";
 import InvalidPortError from "./errors/InvalidPortError";
 import { isValidIPv4 } from "./validators/IPValidators";
-import { isValidPeak } from "./validators/PeakValidator";
+import { isValidRush } from "./validators/RushValidator";
 import { isValidPort } from "./validators/PortValidator";
 import { isEmptyString } from "./validators/StringValidators";
 
@@ -19,7 +19,7 @@ export function validateHolidayParams(name: string): void {
     throw new isEmptyNameError();
 }
 
-export function validateMedidorMD30Params(ip: string, name: string, port: number, peak?: Peak): void {
+export function validateMedidorMD30Params(ip: string, name: string, port: number, rush?: Rush): void {
   if(!isValidIPv4(ip))
     throw new InvalidIPv4Error();
 
@@ -29,7 +29,7 @@ export function validateMedidorMD30Params(ip: string, name: string, port: number
   if(!isValidPort(port))
     throw new InvalidPortError();
 
-  if(peak)
-    if(!isValidPeak(peak))
-      throw new InvalidPeakError();  
+  if(rush)
+    if(!isValidRush(rush))
+      throw new InvalidRushError();  
 }

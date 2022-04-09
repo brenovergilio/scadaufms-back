@@ -10,7 +10,7 @@ export default class GetAlarmByID {
   }
 
   async execute(id: number): Promise<Alarm> {
-    const alarm: Alarm = await this.alarmRepository.getAlarmByID(id);
+    const alarm = await this.alarmRepository.getAlarmByID(id);
 
     if(!alarm)
       throw new NotFoundError();

@@ -10,7 +10,7 @@ export default class GetMedidorMD30ByIP {
   }
 
   async execute(ip: string): Promise<MedidorMD30> {
-    const medidorMD30: MedidorMD30 = await this.medidorMD30Repository.getMedidorMD30ByIP(ip);
+    const medidorMD30 = await this.medidorMD30Repository.getMedidorMD30ByIP(ip);
 
     if(!medidorMD30)
       throw new NotFoundError();

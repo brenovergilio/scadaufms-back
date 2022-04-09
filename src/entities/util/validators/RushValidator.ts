@@ -1,7 +1,7 @@
-import Peak from "../../interfaces/Peak";
+import Rush from "../../interfaces/Rush";
 
-export function isValidPeak(peak: Peak): boolean {
-  return isValidHour(peak.hour) && isValidMinute(peak.minute) && isValidInterval(peak.interval);
+export function isValidRush(rush: Rush): boolean {
+  return isValidHour(rush.hour) && isValidMinute(rush.minute) && isValidInterval(rush.interval);
 }
 
 function isValidHour(hour: number): boolean {

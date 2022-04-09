@@ -10,7 +10,7 @@ export default class MedidorMD30Controller {
   
   static addMedidorMD30(params: any, body: any, medidorMD30Repository: MedidorMD30Repository): Promise<MedidorMD30> {
     const { ip, name, port } = body;
-    const addMedidorMD30UseCase = new AddMedidorMD30(medidorMD30Repository).execute(ip, name, port);
+    const addMedidorMD30UseCase = new AddMedidorMD30(medidorMD30Repository).execute(ip, name.trim(), port);
     return addMedidorMD30UseCase;
   }
 

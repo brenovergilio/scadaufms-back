@@ -10,7 +10,7 @@ export default class GetMedidorMD30ByID {
   }
 
   async execute(id: number): Promise<MedidorMD30> {
-    const medidorMD30: MedidorMD30 = await this.medidorMD30Repository.getMedidorMD30ByID(id);
+    const medidorMD30 = await this.medidorMD30Repository.getMedidorMD30ByID(id);
 
     if(!medidorMD30)
       throw new NotFoundError();

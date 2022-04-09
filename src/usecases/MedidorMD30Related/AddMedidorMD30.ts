@@ -1,4 +1,4 @@
-import Peak from "@src/entities/interfaces/Peak";
+import Rush from "@src/entities/interfaces/Rush";
 import { validateMedidorMD30Params } from "@src/entities/util/EntityFieldsValidators";
 import AlreadyExistsError from "../util/errors/AlreadyExistsError";
 import MedidorMD30Repository from "../repositories/MedidorMD30Repository";
@@ -12,15 +12,15 @@ export default class AddMedidorMD30 {
     this.medidorMD30Repository = medidorMD30Repository;
   }
 
-  async execute(ip: string, name: string, port: number, peak: Peak = {hour: 17, minute: 30, interval: 3}): Promise<MedidorMD30> {
-    validateMedidorMD30Params(ip,  name, port, peak);
+  async execute(ip: string, name: string, port: number, rush: Rush = {hour: 17, minute: 30, interval: 3}): Promise<MedidorMD30> {
+    validateMedidorMD30Params(ip,  name, port, rush);
 
     const medidorMD30Exists: boolean = await existsByIP(ip, this.medidorMD30Repository);
 
     if(medidorMD30Exists)
       throw new AlreadyExistsError();
 
-    const medidorMD30: MedidorMD30 = await this.medidorMD30Repository.addMedidorMD30(ip, name, port, peak.hour, peak.minute, peak.interval); 
+    const medidorMD30: MedidorMD30 = await this.medidorMD30Repository.addMedidorMD30(ip, name, port, rush.hour, rush.minute, rush.interval); 
     return medidorMD30;
   }
 }

@@ -1,4 +1,4 @@
-export default interface Peak {
+export default interface Rush {
   hour: number;
   minute: number;
   interval: number;
