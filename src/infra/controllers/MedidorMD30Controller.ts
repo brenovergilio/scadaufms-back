@@ -5,18 +5,20 @@ import GetMedidorMD30ByIP from '@src/usecases/MedidorMD30Related/GetMedidorMD30B
 import GetMedidorMD30ByID from '@src/usecases/MedidorMD30Related/GetMedidorMD30ByID';
 import MedidorMD30Repository from '@src/usecases/repositories/MedidorMD30Repository';
 import MedidorMD30 from '@src/entities/MedidorMD30';
+import MeasurerChecker from '@src/entities/interfaces/MeasurerChecker';
 
 export default class MedidorMD30Controller {
   static addMedidorMD30(
     params: any,
     body: any,
     query: any,
-    medidorMD30Repository: MedidorMD30Repository
+    medidorMD30Repository: MedidorMD30Repository,
+    measurerChecker: MeasurerChecker
   ): Promise<MedidorMD30> {
     const { ip, name, port } = body;
     const addMedidorMD30UseCase = new AddMedidorMD30(
       medidorMD30Repository
-    ).execute(ip.trim(), name.trim(), port);
+    ).execute(ip.trim(), name.trim(), port, measurerChecker);
     return addMedidorMD30UseCase;
   }
 

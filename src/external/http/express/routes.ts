@@ -12,6 +12,7 @@ import { Router } from 'express';
 import AlarmController from '@src/infra/controllers/AlarmController';
 import AlarmRepositorySQL from '@src/external/repositories/postgres/AlarmRepositorySQL';
 import AlarmRepository from '@src/usecases/repositories/AlarmRepository';
+import ModbusChecker from '@src/external/modbus/ModbusChecker';
 
 const router: Router = Router();
 const medidorMD30Repository: MedidorMD30Repository =
@@ -58,7 +59,8 @@ router.post(
   ExpressAdapter.create(
     MedidorMD30Controller.addMedidorMD30,
     medidorMD30Repository,
-    201
+    201,
+    new ModbusChecker()
   )
 );
 
@@ -152,10 +154,7 @@ router.get(
     200
   )
 );
-router.get(
-  '/alarms/:measuererID/:id',
-  ExpressAdapter.create(AlarmController.getAlarmByID, alarmRepository, 200)
-);
+
 router.delete(
   '/alarms/:id',
   ExpressAdapter.create(AlarmController.deleteAlarm, alarmRepository, 200)
