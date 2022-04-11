@@ -4,7 +4,6 @@ import AlreadyExistsError from '../util/errors/AlreadyExistsError';
 import MedidorMD30Repository from '../repositories/MedidorMD30Repository';
 import { existsByIP } from '../util/validators/MedidorMD30Validator';
 import MedidorMD30 from '@src/entities/MedidorMD30';
-import ModbusRTU from 'modbus-serial';
 import MeasurerChecker from '@src/entities/interfaces/MeasurerChecker';
 import ConnectionTimedOutError from '../util/errors/ConnectionTimedOutError';
 
