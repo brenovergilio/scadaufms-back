@@ -8,13 +8,13 @@ export class App {
 
   constructor() {
     this.server = express();
+    this.enableCors();
     this.middleware();
     this.routes();
     this.errorHandler();
   }
 
   private middleware(): void {
-    this.server.use(cors)
     this.server.use(express.json());
   }
 
@@ -24,5 +24,14 @@ export class App {
 
   private errorHandler(): void {
     this.server.use(errorHandler);
+  }
+  
+  private enableCors(): void {
+    const allowedOrigins = ['http://localhost:4200'];
+    const options: cors.CorsOptions = {
+      origin: allowedOrigins
+    }
+
+    this.server.use(cors(options));
   }
 }
