@@ -70,7 +70,7 @@ export default class MedidorMD30RepositorySQL implements MedidorMD30Repository {
 
   async getAllMedidoresMD30(): Promise<Array<MedidorMD30>> {
     const medidoresMD30Data = await db.manyOrNone(
-      'SELECT * FROM medidores_md30 ORDER BY created_at DESC'
+      'SELECT * FROM medidores_md30 ORDER BY id'
     );
     const medidoresMD30 = medidoresMD30Data.map((medidor) =>
       MedidorMD30Adapter.create(

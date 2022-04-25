@@ -64,7 +64,7 @@ export default class HolidayRepositorySQL implements HolidayRepository {
 
   async getAllHolidays(): Promise<Array<Holiday>> {
     const holidaysData = await db.manyOrNone(
-      'SELECT * FROM feriados ORDER BY dia'
+      'SELECT * FROM feriados ORDER BY id'
     );
     const holidays: Array<Holiday> = holidaysData.map((holiday) =>
       HolidayAdapter.create(holiday.id, holiday.nome, holiday.dia)
