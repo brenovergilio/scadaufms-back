@@ -118,7 +118,7 @@ export default class MedicaoMD30RepositorySQL implements MedicaoMD30Repository {
     dateRange: DateRange
   ): Promise<Array<MedicaoMD30>> {
     const medicoesMD30Data = await db.manyOrNone(
-      'SELECT timestamp, potencia_aparente_a, potencia_aparente_b, potencia_aparente_c, potencia_aparente_total FROM medicoes WHERE medidor_id=$1 AND timestamp::date >= $2 AND timestamp::date <= $3 ORDER BY timestamp',
+      'SELECT timestamp, potencia_aparente_a, potencia_aparente_b, potencia_aparente_c, potencia_aparente_total FROM medicoes_md30 WHERE medidor_id=$1 AND timestamp::date >= $2 AND timestamp::date <= $3 ORDER BY timestamp',
       [
         measurerID,
         dateRange.initialDate.toISOString().split('T')[0],
