@@ -1,6 +1,5 @@
 import MedicaoMD30 from '@src/entities/MedicaoMD30';
-import MedicaoMD30Adapter from '@src/infra/adapters/MedicaoMD30Adapter';
-import MedicaoMD30Repository from '@src/usecases/repositories/MedicaoMD30Repository';
+import MedicaoMD30Repository from '@src/entities/repositories/MedicaoMD30Repository';
 import DateRange from '@src/usecases/util/DateRange';
 import db from '@src/external/database/postgres/database';
 
@@ -21,11 +20,12 @@ export default class MedicaoMD30RepositorySQL implements MedicaoMD30Repository {
     const medicoesMD30 = medicoesMD30Data.map((measurement) => {
       const keys = Object.keys(measurement).slice(1);
       const values = Object.values(measurement).slice(1) as Array<number>;
-      return MedicaoMD30Adapter.create(
+      const valuesMap = new Map<string, number>();
+      keys.forEach((key, index) => valuesMap.set(key, values[index]));
+      return new MedicaoMD30(
         measurerID,
         measurement.timestamp,
-        keys,
-        values
+        valuesMap
       );
     });
 
@@ -48,11 +48,12 @@ export default class MedicaoMD30RepositorySQL implements MedicaoMD30Repository {
     const medicoesMD30 = medicoesMD30Data.map((measurement) => {
       const keys = Object.keys(measurement).slice(1);
       const values = Object.values(measurement).slice(1) as Array<number>;
-      return MedicaoMD30Adapter.create(
+      const valuesMap = new Map<string, number>();
+      keys.forEach((key, index) => valuesMap.set(key, values[index]));
+      return new MedicaoMD30(
         measurerID,
         measurement.timestamp,
-        keys,
-        values
+        valuesMap
       );
     });
 
@@ -75,11 +76,12 @@ export default class MedicaoMD30RepositorySQL implements MedicaoMD30Repository {
     const medicoesMD30 = medicoesMD30Data.map((measurement) => {
       const keys = Object.keys(measurement).slice(1);
       const values = Object.values(measurement).slice(1) as Array<number>;
-      return MedicaoMD30Adapter.create(
+      const valuesMap = new Map<string, number>();
+      keys.forEach((key, index) => valuesMap.set(key, values[index]));
+      return new MedicaoMD30(
         measurerID,
         measurement.timestamp,
-        keys,
-        values
+        valuesMap
       );
     });
 
@@ -102,11 +104,12 @@ export default class MedicaoMD30RepositorySQL implements MedicaoMD30Repository {
     const medicoesMD30 = medicoesMD30Data.map((measurement) => {
       const keys = Object.keys(measurement).slice(1);
       const values = Object.values(measurement).slice(1) as Array<number>;
-      return MedicaoMD30Adapter.create(
+      const valuesMap = new Map<string, number>();
+      keys.forEach((key, index) => valuesMap.set(key, values[index]));
+      return new MedicaoMD30(
         measurerID,
         measurement.timestamp,
-        keys,
-        values
+        valuesMap
       );
     });
 
@@ -129,11 +132,12 @@ export default class MedicaoMD30RepositorySQL implements MedicaoMD30Repository {
     const medicoesMD30 = medicoesMD30Data.map((measurement) => {
       const keys = Object.keys(measurement).slice(1);
       const values = Object.values(measurement).slice(1) as Array<number>;
-      return MedicaoMD30Adapter.create(
+      const valuesMap = new Map<string, number>();
+      keys.forEach((key, index) => valuesMap.set(key, values[index]));
+      return new MedicaoMD30(
         measurerID,
         measurement.timestamp,
-        keys,
-        values
+        valuesMap
       );
     });
 
@@ -156,11 +160,12 @@ export default class MedicaoMD30RepositorySQL implements MedicaoMD30Repository {
     const medicoesMD30 = medicoesMD30Data.map((measurement) => {
       const keys = Object.keys(measurement).slice(1);
       const values = Object.values(measurement).slice(1) as Array<number>;
-      return MedicaoMD30Adapter.create(
+      const valuesMap = new Map<string, number>();
+      keys.forEach((key, index) => valuesMap.set(key, values[index]));
+      return new MedicaoMD30(
         measurerID,
         measurement.timestamp,
-        keys,
-        values
+        valuesMap
       );
     });
 

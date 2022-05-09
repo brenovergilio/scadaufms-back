@@ -1,7 +1,5 @@
 import Alarm from '@src/entities/Alarm';
-import AlarmAdapter from '@src/infra/adapters/AlarmAdapter';
-import AlarmsAdapter from '@src/infra/adapters/AlarmAdapter';
-import AlarmRepository from '@src/usecases/repositories/AlarmRepository';
+import AlarmRepository from '@src/entities/repositories/AlarmRepository';
 import db from '../../database/postgres/database';
 
 export default class AlarmRepositorySQL implements AlarmRepository {
@@ -10,7 +8,7 @@ export default class AlarmRepositorySQL implements AlarmRepository {
       'DELETE FROM alarmes WHERE id=$1 RETURNING *',
       [id]
     );
-    const alarm: Alarm = AlarmAdapter.create(
+    const alarm: Alarm = new Alarm(
       alarmData.id,
       alarmData.medidor_id,
       alarmData.timestamp,
@@ -25,7 +23,7 @@ export default class AlarmRepositorySQL implements AlarmRepository {
     ]);
 
     if (alarmsData)
-      return AlarmAdapter.create(
+      return new Alarm(
         alarmsData.id,
         alarmsData.medidor_id,
         alarmsData.timestamp,
@@ -43,7 +41,7 @@ export default class AlarmRepositorySQL implements AlarmRepository {
       [measurerID]
     );
     const alarms = alarmsData.map((alarm) =>
-      AlarmsAdapter.create(
+      new Alarm(
         alarm.id,
         alarm.medidor_id,
         alarm.timestamp,
