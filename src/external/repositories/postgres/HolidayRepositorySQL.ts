@@ -5,8 +5,8 @@ import HolidayRepository from '@src/entities/repositories/HolidayRepository';
 export default class HolidayRepositorySQL implements HolidayRepository {
   async addHoliday(newHoliday: Holiday): Promise<Holiday> {
     const holidayData = await db.one(
-      'INSERT INTO feriados (nome, dia) VALUES ($1, $2) RETURNING *',
-      [newHoliday.name, newHoliday.day]
+      'INSERT INTO feriados (id, nome, dia) VALUES ($1, $2, $3) RETURNING *',
+      [newHoliday.id, newHoliday.name, newHoliday.day]
     );
     const holiday: Holiday = new Holiday(
       holidayData.id,

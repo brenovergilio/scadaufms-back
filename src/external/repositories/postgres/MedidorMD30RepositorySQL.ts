@@ -5,8 +5,9 @@ import db from '@src/external/database/postgres/database';
 export default class MedidorMD30RepositorySQL implements MedidorMD30Repository {
   async addMedidorMD30(newMedidorMD30: MedidorMD30): Promise<MedidorMD30> {
     const medidorMD30Data = await db.one(
-      'INSERT INTO medidores_md30 (ip, created_at, nome, porta, hora_ponta, minuto_ponta, intervalo_ponta) VALUES($1, NOW(), $2, $3, $4, $5, $6) RETURNING *',
+      'INSERT INTO medidores_md30 (id, ip, created_at, nome, porta, hora_ponta, minuto_ponta, intervalo_ponta) VALUES($1, $2, NOW(), $3, $4, $5, $6, $7) RETURNING *',
       [
+        newMedidorMD30.id,
         newMedidorMD30.ip,
         newMedidorMD30.name,
         newMedidorMD30.port,
