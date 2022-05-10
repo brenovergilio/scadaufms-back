@@ -3,7 +3,7 @@ import AlarmRepository from '@src/entities/repositories/AlarmRepository';
 import db from '../../database/postgres/database';
 
 export default class AlarmRepositorySQL implements AlarmRepository {
-  async deleteAlarm(id: number): Promise<Alarm> {
+  async deleteAlarm(id: string): Promise<Alarm> {
     const alarmData = await db.one(
       'DELETE FROM alarmes WHERE id=$1 RETURNING *',
       [id]
@@ -17,7 +17,7 @@ export default class AlarmRepositorySQL implements AlarmRepository {
     return alarm;
   }
 
-  async getAlarmByID(id: number): Promise<Alarm | null> {
+  async getAlarmByID(id: string): Promise<Alarm | null> {
     const alarmsData = await db.oneOrNone('SELECT * FROM alarmes WHERE id=$1', [
       id,
     ]);
@@ -34,19 +34,15 @@ export default class AlarmRepositorySQL implements AlarmRepository {
   }
 
   async getAllAlarmsForSpecificMeasurer(
-    measurerID: number
+    measurerID: string
   ): Promise<Array<Alarm>> {
     const alarmsData = await db.manyOrNone(
       'SELECT * FROM alarmes WHERE medidor_id=$1',
       [measurerID]
     );
-    const alarms = alarmsData.map((alarm) =>
-      new Alarm(
-        alarm.id,
-        alarm.medidor_id,
-        alarm.timestamp,
-        alarm.message
-      )
+    const alarms = alarmsData.map(
+      (alarm) =>
+        new Alarm(alarm.id, alarm.medidor_id, alarm.timestamp, alarm.message)
     );
     return alarms;
   }

@@ -3,10 +3,10 @@ import db from '@src/external/database/postgres/database';
 import HolidayRepository from '@src/entities/repositories/HolidayRepository';
 
 export default class HolidayRepositorySQL implements HolidayRepository {
-  async addHoliday(name: string, day: Date): Promise<Holiday> {
+  async addHoliday(newHoliday: Holiday): Promise<Holiday> {
     const holidayData = await db.one(
       'INSERT INTO feriados (nome, dia) VALUES ($1, $2) RETURNING *',
-      [name, day]
+      [newHoliday.name, newHoliday.day]
     );
     const holiday: Holiday = new Holiday(
       holidayData.id,
@@ -16,7 +16,7 @@ export default class HolidayRepositorySQL implements HolidayRepository {
     return holiday;
   }
 
-  async deleteHoliday(id: number): Promise<Holiday> {
+  async deleteHoliday(id: string): Promise<Holiday> {
     const holidayData = await db.one(
       'DELETE FROM feriados WHERE id=$1 RETURNING *',
       [id]
@@ -29,18 +29,14 @@ export default class HolidayRepositorySQL implements HolidayRepository {
     return holiday;
   }
 
-  async getHolidayByID(id: number): Promise<Holiday | null> {
+  async getHolidayByID(id: string): Promise<Holiday | null> {
     const holidayData = await db.oneOrNone(
       'SELECT * FROM feriados WHERE id=$1',
       [id]
     );
 
     if (holidayData)
-      return new Holiday(
-        holidayData.id,
-        holidayData.nome,
-        holidayData.dia
-      );
+      return new Holiday(holidayData.id, holidayData.nome, holidayData.dia);
 
     return null;
   }
@@ -52,11 +48,7 @@ export default class HolidayRepositorySQL implements HolidayRepository {
     );
 
     if (holidayData)
-      return new Holiday(
-        holidayData.id,
-        holidayData.nome,
-        holidayData.dia
-      );
+      return new Holiday(holidayData.id, holidayData.nome, holidayData.dia);
 
     return null;
   }
@@ -65,8 +57,8 @@ export default class HolidayRepositorySQL implements HolidayRepository {
     const holidaysData = await db.manyOrNone(
       'SELECT * FROM feriados ORDER BY id'
     );
-    const holidays: Array<Holiday> = holidaysData.map((holiday) =>
-      new Holiday(holiday.id, holiday.nome, holiday.dia)
+    const holidays: Array<Holiday> = holidaysData.map(
+      (holiday) => new Holiday(holiday.id, holiday.nome, holiday.dia)
     );
     return holidays;
   }

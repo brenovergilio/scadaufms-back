@@ -5,7 +5,7 @@ import db from '@src/external/database/postgres/database';
 
 export default class MedicaoMD30RepositorySQL implements MedicaoMD30Repository {
   async getTensoesPerDateRange(
-    measurerID: number,
+    measurerID: string,
     dateRange: DateRange
   ): Promise<Array<MedicaoMD30>> {
     const medicoesMD30Data = await db.manyOrNone(
@@ -22,18 +22,14 @@ export default class MedicaoMD30RepositorySQL implements MedicaoMD30Repository {
       const values = Object.values(measurement).slice(1) as Array<number>;
       const valuesMap = new Map<string, number>();
       keys.forEach((key, index) => valuesMap.set(key, values[index]));
-      return new MedicaoMD30(
-        measurerID,
-        measurement.timestamp,
-        valuesMap
-      );
+      return new MedicaoMD30(measurerID, measurement.timestamp, valuesMap);
     });
 
     return medicoesMD30;
   }
 
   async getCorrentesPerDateRange(
-    measurerID: number,
+    measurerID: string,
     dateRange: DateRange
   ): Promise<Array<MedicaoMD30>> {
     const medicoesMD30Data = await db.manyOrNone(
@@ -50,18 +46,14 @@ export default class MedicaoMD30RepositorySQL implements MedicaoMD30Repository {
       const values = Object.values(measurement).slice(1) as Array<number>;
       const valuesMap = new Map<string, number>();
       keys.forEach((key, index) => valuesMap.set(key, values[index]));
-      return new MedicaoMD30(
-        measurerID,
-        measurement.timestamp,
-        valuesMap
-      );
+      return new MedicaoMD30(measurerID, measurement.timestamp, valuesMap);
     });
 
     return medicoesMD30;
   }
 
   async getPotenciasAtivasPerDateRange(
-    measurerID: number,
+    measurerID: string,
     dateRange: DateRange
   ): Promise<Array<MedicaoMD30>> {
     const medicoesMD30Data = await db.manyOrNone(
@@ -78,18 +70,14 @@ export default class MedicaoMD30RepositorySQL implements MedicaoMD30Repository {
       const values = Object.values(measurement).slice(1) as Array<number>;
       const valuesMap = new Map<string, number>();
       keys.forEach((key, index) => valuesMap.set(key, values[index]));
-      return new MedicaoMD30(
-        measurerID,
-        measurement.timestamp,
-        valuesMap
-      );
+      return new MedicaoMD30(measurerID, measurement.timestamp, valuesMap);
     });
 
     return medicoesMD30;
   }
 
   async getPotenciasReativasPerDateRange(
-    measurerID: number,
+    measurerID: string,
     dateRange: DateRange
   ): Promise<Array<MedicaoMD30>> {
     const medicoesMD30Data = await db.manyOrNone(
@@ -106,18 +94,14 @@ export default class MedicaoMD30RepositorySQL implements MedicaoMD30Repository {
       const values = Object.values(measurement).slice(1) as Array<number>;
       const valuesMap = new Map<string, number>();
       keys.forEach((key, index) => valuesMap.set(key, values[index]));
-      return new MedicaoMD30(
-        measurerID,
-        measurement.timestamp,
-        valuesMap
-      );
+      return new MedicaoMD30(measurerID, measurement.timestamp, valuesMap);
     });
 
     return medicoesMD30;
   }
 
   async getPotenciasAparentesPerDateRange(
-    measurerID: number,
+    measurerID: string,
     dateRange: DateRange
   ): Promise<Array<MedicaoMD30>> {
     const medicoesMD30Data = await db.manyOrNone(
@@ -134,18 +118,14 @@ export default class MedicaoMD30RepositorySQL implements MedicaoMD30Repository {
       const values = Object.values(measurement).slice(1) as Array<number>;
       const valuesMap = new Map<string, number>();
       keys.forEach((key, index) => valuesMap.set(key, values[index]));
-      return new MedicaoMD30(
-        measurerID,
-        measurement.timestamp,
-        valuesMap
-      );
+      return new MedicaoMD30(measurerID, measurement.timestamp, valuesMap);
     });
 
     return medicoesMD30;
   }
 
   async getFatoresDePotenciaPerDateRange(
-    measurerID: number,
+    measurerID: string,
     dateRange: DateRange
   ): Promise<Array<MedicaoMD30>> {
     const medicoesMD30Data = await db.manyOrNone(
@@ -162,11 +142,7 @@ export default class MedicaoMD30RepositorySQL implements MedicaoMD30Repository {
       const values = Object.values(measurement).slice(1) as Array<number>;
       const valuesMap = new Map<string, number>();
       keys.forEach((key, index) => valuesMap.set(key, values[index]));
-      return new MedicaoMD30(
-        measurerID,
-        measurement.timestamp,
-        valuesMap
-      );
+      return new MedicaoMD30(measurerID, measurement.timestamp, valuesMap);
     });
 
     return medicoesMD30;
