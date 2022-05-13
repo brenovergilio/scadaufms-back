@@ -30,7 +30,7 @@ export default class MedidorMD30Controller extends BaseController {
       sourceUserID,
       ip.trim(),
       name.trim(),
-      port,
+      Number.parseInt(port),
       measurerChecker
     );
 

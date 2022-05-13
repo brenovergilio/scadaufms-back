@@ -7,7 +7,7 @@ import { InputAddHoliday } from './Inputs';
 
 export default class AddHoliday extends BaseHolidayUseCases {
   async execute(input: InputAddHoliday): Promise<Holiday> {
-    await validateAuthenticatedAdmin(input.userID, this.userRepository);
+    await validateAuthenticatedAdmin(input.sourceUserID, this.userRepository);
 
     const holidayNameDuplicated: boolean = await duplicatedName(
       input.name,

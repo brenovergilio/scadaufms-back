@@ -7,7 +7,7 @@ import { InputDeleteAlarm } from './Inputs';
 
 export default class DeleteAlarm extends BaseAlarmUseCases {
   async execute(input: InputDeleteAlarm): Promise<Alarm> {
-    await validateAuthenticatedAdmin(input.userID, this.userRepository);
+    await validateAuthenticatedAdmin(input.sourceUserID, this.userRepository);
 
     const alarmExists: boolean = await existsByID(
       input.alarmID,

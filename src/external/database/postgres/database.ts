@@ -7,7 +7,7 @@ const db = pgp({
   password: 'ufms123',
   host: 'localhost',
   port: 5432,
-  database: 'testusers',
+  database: 'test',
   idleTimeoutMillis: 100,
 });
 

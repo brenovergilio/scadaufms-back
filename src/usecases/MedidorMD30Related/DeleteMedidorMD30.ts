@@ -7,7 +7,7 @@ import { validateAuthenticatedAdmin } from '../util/validators/UserValidator';
 
 export default class DeleteMedidorMD30 extends BaseMedidorMD30UseCases {
   async execute(input: InputDeleteMedidorMD30): Promise<MedidorMD30> {
-    await validateAuthenticatedAdmin(input.userID, this.userRepository);
+    await validateAuthenticatedAdmin(input.sourceUserID, this.userRepository);
 
     const medidorMD30Exists: boolean = await existsByID(
       input.medidorID,

@@ -7,7 +7,7 @@ import { InputDeleteHoliday } from './Inputs';
 
 export default class DeleteHoliday extends BaseHolidayUseCases {
   async execute(input: InputDeleteHoliday): Promise<Holiday> {
-    await validateAuthenticatedAdmin(input.userID, this.userRepository);
+    await validateAuthenticatedAdmin(input.sourceUserID, this.userRepository);
 
     const holidayExists: boolean = await existsByID(
       input.holidayID,

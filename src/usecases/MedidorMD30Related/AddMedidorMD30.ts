@@ -8,7 +8,7 @@ import { validateAuthenticatedAdmin } from '../util/validators/UserValidator';
 
 export default class AddMedidorMD30 extends BaseMedidorMD30UseCases {
   async execute(input: InputAddMedidorMD30): Promise<MedidorMD30> {
-    await validateAuthenticatedAdmin(input.userID, this.userRepository);
+    await validateAuthenticatedAdmin(input.sourceUserID, this.userRepository);
 
     const isOpen: boolean = await input.measurerChecker.isOpen(
       input.ip,
