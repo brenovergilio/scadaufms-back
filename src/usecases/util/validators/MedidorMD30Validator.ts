@@ -1,7 +1,7 @@
-import MedidorMD30Repository from '@src/usecases/repositories/MedidorMD30Repository';
+import MedidorMD30Repository from '@src/entities/repositories/MedidorMD30Repository';
 
 export async function existsByID(
-  id: number,
+  id: string,
   medidorMD30Repository: MedidorMD30Repository
 ): Promise<boolean> {
   const medidorMD30 = await medidorMD30Repository.getMedidorMD30ByID(id);

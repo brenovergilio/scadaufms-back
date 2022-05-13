@@ -5,7 +5,7 @@ import GetPotenciasAtivasPerDateRange from '@src/usecases/MedicaoMD30Related/Get
 import GetPotenciasReativasPerDateRange from '@src/usecases/MedicaoMD30Related/GetPotenciasReativasPerDateRange';
 import GetPotenciasAparentesPerDateRange from '@src/usecases/MedicaoMD30Related/GetPotenciasAparentesPerDateRange';
 import GetFatoresDePotenciaPerDateRange from '@src/usecases/MedicaoMD30Related/GetFatoresDePotenciaPerDateRange';
-import MedicaoMD30Repository from '@src/usecases/repositories/MedicaoMD30Repository';
+import MedicaoMD30Repository from '@src/entities/repositories/MedicaoMD30Repository';
 import DateRange from '@src/usecases/util/DateRange';
 
 export default class MedicaoMD30Controller {
@@ -13,6 +13,7 @@ export default class MedicaoMD30Controller {
     params: any,
     body: any,
     query: any,
+    headers: any,
     medicaoMD30Repository: MedicaoMD30Repository
   ): Promise<Array<MedicaoMD30>> {
     const { measurerID } = params;
@@ -31,6 +32,7 @@ export default class MedicaoMD30Controller {
     params: any,
     body: any,
     query: any,
+    headers: any,
     medicaoMD30Repository: MedicaoMD30Repository
   ): Promise<Array<MedicaoMD30>> {
     const { measurerID } = params;
@@ -49,6 +51,7 @@ export default class MedicaoMD30Controller {
     params: any,
     body: any,
     query: any,
+    headers: any,
     medicaoMD30Repository: MedicaoMD30Repository
   ): Promise<Array<MedicaoMD30>> {
     const { measurerID } = params;
@@ -69,6 +72,7 @@ export default class MedicaoMD30Controller {
     params: any,
     body: any,
     query: any,
+    headers: any,
     medicaoMD30Repository: MedicaoMD30Repository
   ): Promise<Array<MedicaoMD30>> {
     const { measurerID } = params;
@@ -89,6 +93,7 @@ export default class MedicaoMD30Controller {
     params: any,
     body: any,
     query: any,
+    headers: any,
     medicaoMD30Repository: MedicaoMD30Repository
   ): Promise<Array<MedicaoMD30>> {
     const { measurerID } = params;
@@ -109,6 +114,7 @@ export default class MedicaoMD30Controller {
     params: any,
     body: any,
     query: any,
+    headers: any,
     medicaoMD30Repository: MedicaoMD30Repository
   ): Promise<Array<MedicaoMD30>> {
     const { measurerID } = params;

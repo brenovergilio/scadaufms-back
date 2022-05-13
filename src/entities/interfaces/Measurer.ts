@@ -1,5 +1,5 @@
 export default interface Measurer {
-  id: number;
+  id: string;
   ip: string;
   name: string;
   port: number;

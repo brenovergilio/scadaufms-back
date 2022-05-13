@@ -7,14 +7,21 @@ const db = pgp({
   password: 'ufms123',
   host: 'localhost',
   port: 5432,
-  database: 'test',
+  database: 'testusers',
   idleTimeoutMillis: 100,
 });
 
 (async () => {
   await db.none("SET TIMEZONE='Brazil/West';");
+  await db.none(`CREATE TABLE IF NOT EXISTS users (
+    id UUID PRIMARY KEY,
+    created_at TIMESTAMP,
+    username TEXT NOT NULL,
+    password TEXT NOT NULL,
+    type SMALLINT NOT NULL
+  );`);
   await db.none(`CREATE TABLE IF NOT EXISTS medidores_md30 (
-    id SMALLSERIAL PRIMARY KEY,
+    id UUID PRIMARY KEY,
     ip TEXT NOT NULL,
     created_at TIMESTAMP,
     nome TEXT NOT NULL,
@@ -24,7 +31,7 @@ const db = pgp({
     intervalo_ponta INTEGER NOT NULL
   );`);
   await db.none(`CREATE TABLE IF NOT EXISTS medicoes_md30 (
-    medidor_id SMALLINT NOT NULL,
+    medidor_id UUID NOT NULL,
     timestamp TIMESTAMP NOT NULL,
     tensao_fase_a REAL NOT NULL,
     tensao_fase_b REAL NOT NULL,
@@ -51,13 +58,13 @@ const db = pgp({
     FOREIGN KEY (medidor_id) REFERENCES medidores_md30(id) ON DELETE CASCADE ON UPDATE CASCADE
   );`);
   await db.none(`CREATE TABLE IF NOT EXISTS feriados (
-    id SMALLSERIAL PRIMARY KEY,
+    id UUID PRIMARY KEY,
     nome TEXT NOT NULL,
     dia DATE NOT NULL
   );`);
   await db.none(`CREATE TABLE IF NOT EXISTS alarmes (
-    id SMALLSERIAL PRIMARY KEY,
-    medidor_id SMALLINT NOT NULL,
+    id UUID PRIMARY KEY,
+    medidor_id UUID NOT NULL,
     timestamp TIMESTAMP NOT NULL,
     message TEXT NOT NULL,
     FOREIGN KEY (medidor_id) REFERENCES medidores_md30(id) ON DELETE CASCADE ON UPDATE CASCADE

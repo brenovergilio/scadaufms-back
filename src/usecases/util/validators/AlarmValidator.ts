@@ -1,7 +1,7 @@
-import AlarmRepository from '@src/usecases/repositories/AlarmRepository';
+import AlarmRepository from '@src/entities/repositories/AlarmRepository';
 
 export async function existsByID(
-  id: number,
+  id: string,
   alarmRepository: AlarmRepository
 ): Promise<boolean> {
   const alarm = await alarmRepository.getAlarmByID(id);

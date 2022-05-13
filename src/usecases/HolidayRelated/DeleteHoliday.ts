@@ -1,20 +1,21 @@
 import Holiday from '@src/entities/Holiday';
-import HolidayRepository from '../repositories/HolidayRepository';
 import NotFoundError from '../util/errors/NotFoundError';
 import { existsByID } from '../util/validators/HolidayValidator';
+import { validateAuthenticatedAdmin } from '../util/validators/UserValidator';
+import BaseHolidayUseCases from './BaseHolidayUseCases';
+import { InputDeleteHoliday } from './Inputs';
 
-export default class DeleteHoliday {
-  holidayRepository: HolidayRepository;
+export default class DeleteHoliday extends BaseHolidayUseCases {
+  async execute(input: InputDeleteHoliday): Promise<Holiday> {
+    await validateAuthenticatedAdmin(input.userID, this.userRepository);
 
-  constructor(alarmRepository: HolidayRepository) {
-    this.holidayRepository = alarmRepository;
-  }
-
-  async execute(id: number): Promise<Holiday> {
-    const holidayExists: boolean = await existsByID(id, this.holidayRepository);
+    const holidayExists: boolean = await existsByID(
+      input.holidayID,
+      this.holidayRepository
+    );
 
     if (!holidayExists) throw new NotFoundError();
 
-    return await this.holidayRepository.deleteHoliday(id);
+    return await this.holidayRepository.deleteHoliday(input.holidayID);
   }
 }

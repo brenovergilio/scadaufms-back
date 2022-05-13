@@ -1,13 +1,7 @@
 import Alarm from '@src/entities/Alarm';
-import AlarmRepository from '../repositories/AlarmRepository';
+import BaseAlarmUseCases from './BaseAlarmUseCases';
 
-export default class GetAllAlarmsForSpecificMeasurer {
-  alarmRepository: AlarmRepository;
-
-  constructor(alarmRepository: AlarmRepository) {
-    this.alarmRepository = alarmRepository;
-  }
-
+export default class GetAllAlarmsForSpecificMeasurer extends BaseAlarmUseCases {
   async execute(measurerID: number): Promise<Array<Alarm>> {
     return this.alarmRepository.getAllAlarmsForSpecificMeasurer(measurerID);
   }

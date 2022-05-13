@@ -1,21 +1,10 @@
-import { validateAlarmParams } from './util/EntityFieldsValidators';
+import { v4 } from 'uuid';
+
 export default class Alarm {
-  id: number;
-  measurerID: number;
-  timestamp: Date;
-  message: string;
-
   constructor(
-    id: number,
-    measurerID: number,
-    timestamp: Date,
-    message: string
-  ) {
-    validateAlarmParams(message);
-
-    this.id = id;
-    this.measurerID = measurerID;
-    this.timestamp = timestamp;
-    this.message = message;
-  }
+    public measurerID: string,
+    public timestamp: Date,
+    public message: string,
+    public id: string = v4()
+  ) {}
 }

@@ -1,13 +1,7 @@
 import Holiday from '@src/entities/Holiday';
-import HolidayRepository from '../repositories/HolidayRepository';
+import BaseHolidayUseCases from './BaseHolidayUseCases';
 
-export default class GetAllHolidays {
-  holidayRepository: HolidayRepository;
-
-  constructor(holidayRepository: HolidayRepository) {
-    this.holidayRepository = holidayRepository;
-  }
-
+export default class GetAllHolidays extends BaseHolidayUseCases {
   async execute(): Promise<Array<Holiday>> {
     return await this.holidayRepository.getAllHolidays();
   }

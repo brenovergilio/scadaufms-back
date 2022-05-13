@@ -1,163 +1,222 @@
-import HolidayRepositorySQL from '@src/external/repositories/postgres/HolidayRepositorySQL';
-import MedicaoMD30RepositorySQL from '@src/external/repositories/postgres/MedicaoMD30RepositorySQL';
-import MedidorMD30RepositorySQL from '@src/external/repositories/postgres/MedidorMD30RepositorySQL';
 import ExpressAdapter from '@src/infra/adapters/ExpressAdapter';
 import HolidayController from '@src/infra/controllers/HolidayController';
 import MedicaoMD30Controller from '@src/infra/controllers/MedicaoMD30Controller';
 import MedidorMD30Controller from '@src/infra/controllers/MedidorMD30Controller';
-import MedicaoMD30Repository from '@src/usecases/repositories/MedicaoMD30Repository';
-import MedidorMD30Repository from '@src/usecases/repositories/MedidorMD30Repository';
-import HolidayRepository from '@src/usecases/repositories/HolidayRepository';
 import { Router } from 'express';
 import AlarmController from '@src/infra/controllers/AlarmController';
-import AlarmRepositorySQL from '@src/external/repositories/postgres/AlarmRepositorySQL';
-import AlarmRepository from '@src/usecases/repositories/AlarmRepository';
 import ModbusChecker from '@src/external/modbus/ModbusChecker';
+import repos from '@src/external/repositories/repos';
+import authChecker from './authChecker';
+import UserController from '@src/infra/controllers/UserController';
 
 const router: Router = Router();
-const medidorMD30Repository: MedidorMD30Repository =
-  new MedidorMD30RepositorySQL();
-const medicaoMD30Repository: MedicaoMD30Repository =
-  new MedicaoMD30RepositorySQL();
-const holidayRepository: HolidayRepository = new HolidayRepositorySQL();
-const alarmRepository: AlarmRepository = new AlarmRepositorySQL();
+
+router.post(
+  '/users',
+  authChecker,
+  ExpressAdapter.create(UserController.createUser, 201, undefined, repos.users)
+);
+
+router.post(
+  '/auth/users',
+  ExpressAdapter.create(UserController.login, 200, undefined, repos.users)
+);
 
 router.get(
   '/medidores',
+  authChecker,
   ExpressAdapter.create(
     MedidorMD30Controller.getAllMedidoresMD30,
-    medidorMD30Repository,
-    200
+    200,
+    undefined,
+    repos.medidoresMD30,
+    repos.users
   )
 );
 router.get(
   '/medidores/:id',
+  authChecker,
   ExpressAdapter.create(
     MedidorMD30Controller.getMedidorMD30ByID,
-    medidorMD30Repository,
-    200
+    200,
+    undefined,
+    repos.medidoresMD30,
+    repos.users
   )
 );
 router.get(
   '/medidores/:ip',
+  authChecker,
   ExpressAdapter.create(
     MedidorMD30Controller.getMedidorMD30ByIP,
-    medidorMD30Repository,
-    200
+    200,
+    undefined,
+    repos.medidoresMD30,
+    repos.users
   )
 );
 router.delete(
   '/medidores/:id',
+  authChecker,
   ExpressAdapter.create(
     MedidorMD30Controller.deleteMedidorMD30,
-    medidorMD30Repository,
-    200
+    200,
+    undefined,
+    repos.medidoresMD30,
+    repos.users
   )
 );
 router.post(
   '/medidores',
+  authChecker,
   ExpressAdapter.create(
     MedidorMD30Controller.addMedidorMD30,
-    medidorMD30Repository,
     201,
-    new ModbusChecker()
+    new ModbusChecker(),
+    repos.medidoresMD30,
+    repos.users
   )
 );
 
 router.get(
   '/medicoes/tensoes/:measurerID',
+  authChecker,
   ExpressAdapter.create(
     MedicaoMD30Controller.getTensoesPerDateRange,
-    medicaoMD30Repository,
-    200
+    200,
+    undefined,
+    repos.medicoesMD30
   )
 );
 router.get(
   '/medicoes/correntes/:measurerID',
+  authChecker,
   ExpressAdapter.create(
     MedicaoMD30Controller.getCorrentesPerDateRange,
-    medicaoMD30Repository,
-    200
+    200,
+    undefined,
+    repos.medicoesMD30
   )
 );
 router.get(
   '/medicoes/potencias-ativas/:measurerID',
+  authChecker,
   ExpressAdapter.create(
     MedicaoMD30Controller.getPotenciasAtivasPerDateRange,
-    medicaoMD30Repository,
-    200
+    200,
+    undefined,
+    repos.medicoesMD30
   )
 );
 router.get(
   '/medicoes/potencias-reativas/:measurerID',
+  authChecker,
   ExpressAdapter.create(
     MedicaoMD30Controller.getPotenciasReativasPerDateRange,
-    medicaoMD30Repository,
-    200
+    200,
+    undefined,
+    repos.medicoesMD30
   )
 );
 router.get(
   '/medicoes/potencias-aparentes/:measurerID',
+  authChecker,
   ExpressAdapter.create(
     MedicaoMD30Controller.getPotenciasAparentesPerDateRange,
-    medicaoMD30Repository,
-    200
+    200,
+    undefined,
+    repos.medicoesMD30
   )
 );
 router.get(
   '/medicoes/fatores-potencia/:measurerID',
+  authChecker,
   ExpressAdapter.create(
     MedicaoMD30Controller.getFatoresDePotenciaPerDateRange,
-    medicaoMD30Repository,
-    200
+    200,
+    undefined,
+    repos.medicoesMD30
   )
 );
 
 router.get(
   '/holidays',
+  authChecker,
   ExpressAdapter.create(
     HolidayController.getAllHolidays,
-    holidayRepository,
-    200
+    200,
+    undefined,
+    repos.holidays,
+    repos.users
   )
 );
 router.get(
   '/holidays/:id',
+  authChecker,
   ExpressAdapter.create(
     HolidayController.getHolidayByID,
-    holidayRepository,
-    200
+    200,
+    undefined,
+    repos.holidays,
+    repos.users
   )
 );
 router.get(
-  '/holidays:name',
+  '/holidays/:name',
+  authChecker,
   ExpressAdapter.create(
     HolidayController.getHolidayByName,
-    holidayRepository,
-    200
+    200,
+    undefined,
+    repos.holidays,
+    repos.users
   )
 );
 router.delete(
   '/holidays/:id',
-  ExpressAdapter.create(HolidayController.deleteHoliday, holidayRepository, 200)
+  authChecker,
+  ExpressAdapter.create(
+    HolidayController.deleteHoliday,
+    200,
+    undefined,
+    repos.holidays,
+    repos.users
+  )
 );
 router.post(
   '/holidays',
-  ExpressAdapter.create(HolidayController.addHoliday, holidayRepository, 201)
+  authChecker,
+  ExpressAdapter.create(
+    HolidayController.addHoliday,
+    201,
+    undefined,
+    repos.holidays,
+    repos.users
+  )
 );
 
 router.get(
   '/alarms/:measurerID',
+  authChecker,
   ExpressAdapter.create(
     AlarmController.getAllAlarmsForSpecificMeasurer,
-    alarmRepository,
-    200
+    200,
+    undefined,
+    repos.alarms,
+    repos.users
   )
 );
 
 router.delete(
   '/alarms/:id',
-  ExpressAdapter.create(AlarmController.deleteAlarm, alarmRepository, 200)
+  authChecker,
+  ExpressAdapter.create(
+    AlarmController.deleteAlarm,
+    200,
+    undefined,
+    repos.alarms,
+    repos.users
+  )
 );
 
 export { router };

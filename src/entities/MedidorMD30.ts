@@ -1,27 +1,16 @@
+import { v4 } from 'uuid';
 import Measurer from './interfaces/Measurer';
 import Rush from './interfaces/Rush';
-import { validateMedidorMD30Params } from './util/EntityFieldsValidators';
+import { isValidRush } from './util/validators/RushValidator';
 
 export default class MedidorMD30 implements Measurer {
-  id: number;
-  ip: string;
-  name: string;
-  port: number;
-  rush: Rush;
-
   constructor(
-    id: number,
-    ip: string,
-    name: string,
-    port: number,
-    rush: Rush = { hour: 17, minute: 30, interval: 3 }
+    public ip: string,
+    public name: string,
+    public port: number,
+    public rush: Rush = { hour: 17, minute: 30, interval: 3 },
+    public id: string = v4()
   ) {
-    validateMedidorMD30Params(ip, name, port, rush);
-
-    this.id = id;
-    this.ip = ip;
-    this.name = name;
-    this.port = port;
-    this.rush = rush;
+    isValidRush(rush);
   }
 }

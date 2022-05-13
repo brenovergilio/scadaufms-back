@@ -1,14 +1,8 @@
 import Holiday from '@src/entities/Holiday';
-import HolidayRepository from '../repositories/HolidayRepository';
 import NotFoundError from '../util/errors/NotFoundError';
+import BaseHolidayUseCases from './BaseHolidayUseCases';
 
-export default class GetHolidayByID {
-  holidayRepository: HolidayRepository;
-
-  constructor(alarmRepository: HolidayRepository) {
-    this.holidayRepository = alarmRepository;
-  }
-
+export default class GetHolidayByID extends BaseHolidayUseCases {
   async execute(id: number): Promise<Holiday> {
     const holiday = await this.holidayRepository.getHolidayByID(id);
 

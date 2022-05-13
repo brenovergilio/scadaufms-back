@@ -1,29 +1,29 @@
 import MedicaoMD30 from '@src/entities/MedicaoMD30';
-import DateRange from '../util/DateRange';
+import DateRange from '../../usecases/util/DateRange';
 
 export default interface MedicaoMD30Repository {
   getTensoesPerDateRange(
-    measurerID: number,
+    measurerID: string,
     dateRange: DateRange
   ): Promise<Array<MedicaoMD30>>;
   getCorrentesPerDateRange(
-    measurerID: number,
+    measurerID: string,
     dateRange: DateRange
   ): Promise<Array<MedicaoMD30>>;
   getPotenciasAtivasPerDateRange(
-    measurerID: number,
+    measurerID: string,
     dateRange: DateRange
   ): Promise<Array<MedicaoMD30>>;
   getPotenciasReativasPerDateRange(
-    measurerID: number,
+    measurerID: string,
     dateRange: DateRange
   ): Promise<Array<MedicaoMD30>>;
   getPotenciasAparentesPerDateRange(
-    measurerID: number,
+    measurerID: string,
     dateRange: DateRange
   ): Promise<Array<MedicaoMD30>>;
   getFatoresDePotenciaPerDateRange(
-    measurerID: number,
+    measurerID: string,
     dateRange: DateRange
   ): Promise<Array<MedicaoMD30>>;
 }

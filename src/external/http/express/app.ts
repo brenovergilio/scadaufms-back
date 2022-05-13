@@ -25,12 +25,12 @@ export class App {
   private errorHandler(): void {
     this.server.use(errorHandler);
   }
-  
+
   private enableCors(): void {
     const allowedOrigins = ['http://localhost:4200'];
     const options: cors.CorsOptions = {
-      origin: allowedOrigins
-    }
+      origin: allowedOrigins,
+    };
 
     this.server.use(cors(options));
   }

@@ -1,13 +1,7 @@
 import MedidorMD30 from '@src/entities/MedidorMD30';
-import MedidorMD30Repository from '../repositories/MedidorMD30Repository';
+import BaseMedidorMD30UseCases from './BaseMedidorMD30UseCases';
 
-export default class GetAllMedidoresMD30 {
-  medidorMD30Repository: MedidorMD30Repository;
-
-  constructor(medidorMD30Repository: MedidorMD30Repository) {
-    this.medidorMD30Repository = medidorMD30Repository;
-  }
-
+export default class GetAllMedidoresMD30 extends BaseMedidorMD30UseCases {
   async execute(): Promise<Array<MedidorMD30>> {
     return await this.medidorMD30Repository.getAllMedidoresMD30();
   }

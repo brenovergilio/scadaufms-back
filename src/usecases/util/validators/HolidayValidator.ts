@@ -1,4 +1,4 @@
-import HolidayRepository from '@src/usecases/repositories/HolidayRepository';
+import HolidayRepository from '@src/entities/repositories/HolidayRepository';
 
 export async function duplicatedName(
   name: string,
@@ -9,7 +9,7 @@ export async function duplicatedName(
 }
 
 export async function existsByID(
-  id: number,
+  id: string,
   holidayRepository: HolidayRepository
 ): Promise<boolean> {
   const holiday = await holidayRepository.getHolidayByID(id);

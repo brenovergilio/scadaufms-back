@@ -1,15 +1,9 @@
 import MedicaoMD30 from '@src/entities/MedicaoMD30';
-import MedicaoMD30Repository from '../repositories/MedicaoMD30Repository';
 import DateRange from '../util/DateRange';
+import BaseMedicaoMD30UseCases from './BaseMedicaoMD30UseCases';
 
-export default class GetFatoresDePotenciaPerDateRange {
-  medicaoMD30Repository: MedicaoMD30Repository;
-
-  constructor(medicaoMD30Repository: MedicaoMD30Repository) {
-    this.medicaoMD30Repository = medicaoMD30Repository;
-  }
-
-  async execute(id: number, dateRange: DateRange): Promise<Array<MedicaoMD30>> {
+export default class GetFatoresDePotenciaPerDateRange extends BaseMedicaoMD30UseCases {
+  async execute(id: string, dateRange: DateRange): Promise<Array<MedicaoMD30>> {
     const fatoresDePotencia: Array<MedicaoMD30> =
       await this.medicaoMD30Repository.getFatoresDePotenciaPerDateRange(
         id,

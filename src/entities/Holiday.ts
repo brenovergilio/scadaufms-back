@@ -1,16 +1,7 @@
-import { validateHolidayParams } from './util/EntityFieldsValidators';
+import { v4 } from 'uuid';
 
 export default class Holiday {
-  id: number;
-  name: string;
-  day: Date;
-
-  constructor(id: number, name: string, day: Date) {
-    validateHolidayParams(name);
-
-    this.id = id;
-    this.name = name;
-
+  constructor(public name: string, public day: Date, public id: string = v4()) {
     this.day = this.setTimeToMin(day);
   }
 

@@ -1,36 +1,62 @@
-import HolidayRepository from '@src/usecases/repositories/HolidayRepository';
+import HolidayRepository from '@src/entities/repositories/HolidayRepository';
 import AddHoliday from '@src/usecases/HolidayRelated/AddHoliday';
 import DeleteHoliday from '@src/usecases/HolidayRelated/DeleteHoliday';
 import GetAllHolidays from '@src/usecases/HolidayRelated/GetAllHolidays';
 import Holiday from '@src/entities/Holiday';
 import GetHolidayByID from '@src/usecases/HolidayRelated/GetHolidayByID';
 import GetHolidayByName from '@src/usecases/HolidayRelated/GetHolidayByName';
+import BaseController from './BaseController';
+import UserRepository from '@src/entities/repositories/UserRepository';
+import {
+  InputAddHoliday,
+  InputDeleteHoliday,
+} from '@src/usecases/HolidayRelated/Inputs';
 
-export default class HolidayController {
-  static addHoliday(
+export default class HolidayController extends BaseController {
+  static async addHoliday(
     params: any,
     body: any,
     query: any,
-    holidayRepository: HolidayRepository
+    headers: any,
+    holidayRepository: HolidayRepository,
+    userRepository: UserRepository
   ): Promise<Holiday> {
     const { name, day } = body;
-    const addHolidayUseCase = new AddHoliday(holidayRepository).execute(
+    const token = headers.authorization.split(' ')[1];
+    const sourceUserID = BaseController.decodeIDFromToken(token);
+    const input: InputAddHoliday = new InputAddHoliday(
+      sourceUserID,
       name.trim(),
-      day
+      new Date(day)
     );
+
+    await BaseController.validateInput(input);
+
+    const addHolidayUseCase = new AddHoliday(
+      holidayRepository,
+      userRepository
+    ).execute(input);
     return addHolidayUseCase;
   }
 
-  static deleteHoliday(
+  static async deleteHoliday(
     params: any,
     body: any,
     query: any,
-    holidayRepository: HolidayRepository
+    headers: any,
+    holidayRepository: HolidayRepository,
+    userRepository: UserRepository
   ): Promise<Holiday> {
     const { id } = params;
-    const deleteHolidayUseCase = new DeleteHoliday(holidayRepository).execute(
-      id
-    );
+    const token = headers.authorization.split(' ')[1];
+    const sourceUserID = BaseController.decodeIDFromToken(token);
+    const input: InputDeleteHoliday = new InputDeleteHoliday(sourceUserID, id);
+
+    await BaseController.validateInput(input);
+    const deleteHolidayUseCase = new DeleteHoliday(
+      holidayRepository,
+      userRepository
+    ).execute(input);
     return deleteHolidayUseCase;
   }
 
@@ -38,10 +64,13 @@ export default class HolidayController {
     params: any,
     body: any,
     query: any,
-    holidayRepository: HolidayRepository
+    headers: any,
+    holidayRepository: HolidayRepository,
+    userRepository: UserRepository
   ): Promise<Array<Holiday>> {
     const getAllHolidaysUsecase = new GetAllHolidays(
-      holidayRepository
+      holidayRepository,
+      userRepository
     ).execute();
     return getAllHolidaysUsecase;
   }
@@ -50,10 +79,15 @@ export default class HolidayController {
     params: any,
     body: any,
     query: any,
-    holidayRepository: HolidayRepository
+    headers: any,
+    holidayRepository: HolidayRepository,
+    userRepository: UserRepository
   ): Promise<Holiday> {
     const { id } = params;
-    const getHolidayByID = new GetHolidayByID(holidayRepository).execute(id);
+    const getHolidayByID = new GetHolidayByID(
+      holidayRepository,
+      userRepository
+    ).execute(id);
     return getHolidayByID;
   }
 
@@ -61,12 +95,15 @@ export default class HolidayController {
     params: any,
     body: any,
     query: any,
-    holidayRepository: HolidayRepository
+    headers: any,
+    holidayRepository: HolidayRepository,
+    userRepository: UserRepository
   ): Promise<Holiday> {
     const { name } = params;
-    const getHolidayByName = new GetHolidayByName(holidayRepository).execute(
-      name.trim()
-    );
+    const getHolidayByName = new GetHolidayByName(
+      holidayRepository,
+      userRepository
+    ).execute(name.trim());
     return getHolidayByName;
   }
 }

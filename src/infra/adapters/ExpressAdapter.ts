@@ -1,18 +1,33 @@
 import { NextFunction, Request, Response } from 'express';
-import { GenericRepository } from '@src/usecases/repositories/GenericRepository';
+import { GenericRepository } from '@src/entities/repositories/GenericRepository';
 import MeasurerChecker from '@src/entities/interfaces/MeasurerChecker';
 
 export default class ExpressAdapter {
   static create(
     fn: unknown,
-    repository: GenericRepository,
     expectedStatusCode: number,
-    measurerChecker?: MeasurerChecker
+    measurerChecker?: MeasurerChecker,
+    ...repositories: GenericRepository[]
   ) {
     return async (req: Request, res: Response, next: NextFunction) => {
       try {
         if (fn instanceof Function) {
-          const obj = measurerChecker ? await fn(req.params, req.body, req.query, repository, measurerChecker) : await fn(req.params, req.body, req.query, repository);
+          const obj = measurerChecker
+            ? await fn(
+                req.params,
+                req.body,
+                req.query,
+                req.headers,
+                ...repositories,
+                measurerChecker
+              )
+            : await fn(
+                req.params,
+                req.body,
+                req.query,
+                req.headers,
+                ...repositories
+              );
 
           if (obj)
             if (obj instanceof Array)
