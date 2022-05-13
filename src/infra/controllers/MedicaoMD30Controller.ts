@@ -1,0 +1,133 @@
+import MedicaoMD30 from '@src/entities/MedicaoMD30';
+import GetTensoesPerDateRange from '@src/usecases/MedicaoMD30Related/GetTensoesPerDateRange';
+import GetCorrentesPerDateRange from '@src/usecases/MedicaoMD30Related/GetCorrentesPerDateRange';
+import GetPotenciasAtivasPerDateRange from '@src/usecases/MedicaoMD30Related/GetPotenciasAtivasPerDateRange';
+import GetPotenciasReativasPerDateRange from '@src/usecases/MedicaoMD30Related/GetPotenciasReativasPerDateRange';
+import GetPotenciasAparentesPerDateRange from '@src/usecases/MedicaoMD30Related/GetPotenciasAparentesPerDateRange';
+import GetFatoresDePotenciaPerDateRange from '@src/usecases/MedicaoMD30Related/GetFatoresDePotenciaPerDateRange';
+import MedicaoMD30Repository from '@src/entities/repositories/MedicaoMD30Repository';
+import DateRange from '@src/usecases/util/DateRange';
+
+export default class MedicaoMD30Controller {
+  static getTensoesPerDateRange(
+    params: any,
+    body: any,
+    query: any,
+    headers: any,
+    medicaoMD30Repository: MedicaoMD30Repository
+  ): Promise<Array<MedicaoMD30>> {
+    const { measurerID } = params;
+    const { initialDate, finalDate } = query;
+    const dateRange: DateRange = new DateRange(
+      new Date(initialDate),
+      new Date(finalDate)
+    );
+    const getTensoesPerDateRangeUseCase = new GetTensoesPerDateRange(
+      medicaoMD30Repository
+    ).execute(measurerID, dateRange);
+    return getTensoesPerDateRangeUseCase;
+  }
+
+  static getCorrentesPerDateRange(
+    params: any,
+    body: any,
+    query: any,
+    headers: any,
+    medicaoMD30Repository: MedicaoMD30Repository
+  ): Promise<Array<MedicaoMD30>> {
+    const { measurerID } = params;
+    const { initialDate, finalDate } = query;
+    const dateRange: DateRange = new DateRange(
+      new Date(initialDate),
+      new Date(finalDate)
+    );
+    const getCorrentesPerDateRangeUseCase = new GetCorrentesPerDateRange(
+      medicaoMD30Repository
+    ).execute(measurerID, dateRange);
+    return getCorrentesPerDateRangeUseCase;
+  }
+
+  static getPotenciasAtivasPerDateRange(
+    params: any,
+    body: any,
+    query: any,
+    headers: any,
+    medicaoMD30Repository: MedicaoMD30Repository
+  ): Promise<Array<MedicaoMD30>> {
+    const { measurerID } = params;
+    const { initialDate, finalDate } = query;
+    const dateRange: DateRange = new DateRange(
+      new Date(initialDate),
+      new Date(finalDate)
+    );
+    const getPotenciasAtivasPerDateRangeUseCase =
+      new GetPotenciasAtivasPerDateRange(medicaoMD30Repository).execute(
+        measurerID,
+        dateRange
+      );
+    return getPotenciasAtivasPerDateRangeUseCase;
+  }
+
+  static getPotenciasReativasPerDateRange(
+    params: any,
+    body: any,
+    query: any,
+    headers: any,
+    medicaoMD30Repository: MedicaoMD30Repository
+  ): Promise<Array<MedicaoMD30>> {
+    const { measurerID } = params;
+    const { initialDate, finalDate } = query;
+    const dateRange: DateRange = new DateRange(
+      new Date(initialDate),
+      new Date(finalDate)
+    );
+    const getPotenciasReativasPerDateRangeUseCase =
+      new GetPotenciasReativasPerDateRange(medicaoMD30Repository).execute(
+        measurerID,
+        dateRange
+      );
+    return getPotenciasReativasPerDateRangeUseCase;
+  }
+
+  static getPotenciasAparentesPerDateRange(
+    params: any,
+    body: any,
+    query: any,
+    headers: any,
+    medicaoMD30Repository: MedicaoMD30Repository
+  ): Promise<Array<MedicaoMD30>> {
+    const { measurerID } = params;
+    const { initialDate, finalDate } = query;
+    const dateRange: DateRange = new DateRange(
+      new Date(initialDate),
+      new Date(finalDate)
+    );
+    const getPotenciasAparentesPerDateRangeUseCase =
+      new GetPotenciasAparentesPerDateRange(medicaoMD30Repository).execute(
+        measurerID,
+        dateRange
+      );
+    return getPotenciasAparentesPerDateRangeUseCase;
+  }
+
+  static getFatoresDePotenciaPerDateRange(
+    params: any,
+    body: any,
+    query: any,
+    headers: any,
+    medicaoMD30Repository: MedicaoMD30Repository
+  ): Promise<Array<MedicaoMD30>> {
+    const { measurerID } = params;
+    const { initialDate, finalDate } = query;
+    const dateRange: DateRange = new DateRange(
+      new Date(initialDate),
+      new Date(finalDate)
+    );
+    const getFatoresDePotenciaPerDateRangeUseCase =
+      new GetFatoresDePotenciaPerDateRange(medicaoMD30Repository).execute(
+        measurerID,
+        dateRange
+      );
+    return getFatoresDePotenciaPerDateRangeUseCase;
+  }
+}
