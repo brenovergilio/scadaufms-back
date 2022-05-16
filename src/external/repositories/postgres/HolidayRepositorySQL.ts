@@ -9,9 +9,9 @@ export default class HolidayRepositorySQL implements HolidayRepository {
       [newHoliday.id, newHoliday.name, newHoliday.day]
     );
     const holiday: Holiday = new Holiday(
-      holidayData.id,
       holidayData.nome,
-      holidayData.dia
+      holidayData.dia,
+      holidayData.id
     );
     return holiday;
   }
@@ -22,9 +22,8 @@ export default class HolidayRepositorySQL implements HolidayRepository {
       [id]
     );
     const holiday: Holiday = new Holiday(
-      holidayData.id,
-      holidayData.nome,
-      holidayData.dia
+            holidayData.nome,
+      holidayData.dia,holidayData.id
     );
     return holiday;
   }
@@ -36,7 +35,7 @@ export default class HolidayRepositorySQL implements HolidayRepository {
     );
 
     if (holidayData)
-      return new Holiday(holidayData.id, holidayData.nome, holidayData.dia);
+      return new Holiday(holidayData.nome, holidayData.dia,holidayData.id);
 
     return null;
   }
@@ -48,7 +47,7 @@ export default class HolidayRepositorySQL implements HolidayRepository {
     );
 
     if (holidayData)
-      return new Holiday(holidayData.id, holidayData.nome, holidayData.dia);
+      return new Holiday(holidayData.nome, holidayData.dia,holidayData.id);
 
     return null;
   }
@@ -58,7 +57,7 @@ export default class HolidayRepositorySQL implements HolidayRepository {
       'SELECT * FROM feriados ORDER BY id'
     );
     const holidays: Array<Holiday> = holidaysData.map(
-      (holiday) => new Holiday(holiday.id, holiday.nome, holiday.dia)
+      (holiday) => new Holiday(holiday.nome, holiday.dia, holiday.id)
     );
     return holidays;
   }

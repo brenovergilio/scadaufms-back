@@ -161,17 +161,7 @@ router.get(
     repos.users
   )
 );
-router.get(
-  '/holidays/:name',
-  authChecker,
-  ExpressAdapter.create(
-    HolidayController.getHolidayByName,
-    200,
-    undefined,
-    repos.holidays,
-    repos.users
-  )
-);
+
 router.delete(
   '/holidays/:id',
   authChecker,

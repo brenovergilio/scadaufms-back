@@ -9,10 +9,10 @@ export default class AlarmRepositorySQL implements AlarmRepository {
       [id]
     );
     const alarm: Alarm = new Alarm(
-      alarmData.id,
       alarmData.medidor_id,
       alarmData.timestamp,
-      alarmData.message
+      alarmData.message,
+      alarmData.id
     );
     return alarm;
   }
@@ -24,10 +24,10 @@ export default class AlarmRepositorySQL implements AlarmRepository {
 
     if (alarmsData)
       return new Alarm(
-        alarmsData.id,
         alarmsData.medidor_id,
         alarmsData.timestamp,
-        alarmsData.message
+        alarmsData.message,
+        alarmsData.id
       );
 
     return null;
@@ -42,7 +42,7 @@ export default class AlarmRepositorySQL implements AlarmRepository {
     );
     const alarms = alarmsData.map(
       (alarm) =>
-        new Alarm(alarm.id, alarm.medidor_id, alarm.timestamp, alarm.message)
+        new Alarm(alarm.medidor_id, alarm.timestamp, alarm.message, alarm.id)
     );
     return alarms;
   }

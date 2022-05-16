@@ -2,7 +2,7 @@ import { v4 } from 'uuid';
 
 export default class Holiday {
   constructor(public name: string, public day: Date, public id: string = v4()) {
-    this.day = this.setTimeToMin(day);
+    this.day = this.setTimeToMin(new Date(day));
   }
 
   // Workaround to get rid of time on javascript Date object
