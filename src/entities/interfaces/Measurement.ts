@@ -1,5 +1,5 @@
 export default interface Measurement {
   measurerID: string;
-  timestamp: Date;
+  timestamp: Date | string;
   values: Map<string, number>;
 }

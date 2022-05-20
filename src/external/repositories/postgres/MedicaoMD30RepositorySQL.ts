@@ -21,8 +21,8 @@ export default class MedicaoMD30RepositorySQL implements MedicaoMD30Repository {
       const keys = Object.keys(measurement).slice(1);
       const values = Object.values(measurement).slice(1) as Array<number>;
       const valuesMap = new Map<string, number>();
-      keys.forEach((key, index) => valuesMap.set(key, values[index]));
-      return new MedicaoMD30(measurerID, measurement.timestamp, valuesMap);
+      keys.forEach((key, index) => valuesMap.set(`${this.formatMeasurementKey(key)} (V)`, values[index]));
+      return new MedicaoMD30(measurerID, this.formatDate(measurement.timestamp), valuesMap);
     });
 
     return medicoesMD30;
@@ -45,8 +45,8 @@ export default class MedicaoMD30RepositorySQL implements MedicaoMD30Repository {
       const keys = Object.keys(measurement).slice(1);
       const values = Object.values(measurement).slice(1) as Array<number>;
       const valuesMap = new Map<string, number>();
-      keys.forEach((key, index) => valuesMap.set(key, values[index]));
-      return new MedicaoMD30(measurerID, measurement.timestamp, valuesMap);
+      keys.forEach((key, index) => valuesMap.set(`${this.formatMeasurementKey(key)} (A)`, values[index]));
+      return new MedicaoMD30(measurerID, this.formatDate(measurement.timestamp), valuesMap);
     });
 
     return medicoesMD30;
@@ -69,8 +69,8 @@ export default class MedicaoMD30RepositorySQL implements MedicaoMD30Repository {
       const keys = Object.keys(measurement).slice(1);
       const values = Object.values(measurement).slice(1) as Array<number>;
       const valuesMap = new Map<string, number>();
-      keys.forEach((key, index) => valuesMap.set(key, values[index]));
-      return new MedicaoMD30(measurerID, measurement.timestamp, valuesMap);
+      keys.forEach((key, index) => valuesMap.set(`${this.formatMeasurementKey(key)} (kW)`, values[index]/1000));
+      return new MedicaoMD30(measurerID, this.formatDate(measurement.timestamp), valuesMap);
     });
 
     return medicoesMD30;
@@ -93,8 +93,8 @@ export default class MedicaoMD30RepositorySQL implements MedicaoMD30Repository {
       const keys = Object.keys(measurement).slice(1);
       const values = Object.values(measurement).slice(1) as Array<number>;
       const valuesMap = new Map<string, number>();
-      keys.forEach((key, index) => valuesMap.set(key, values[index]));
-      return new MedicaoMD30(measurerID, measurement.timestamp, valuesMap);
+      keys.forEach((key, index) => valuesMap.set(`${this.formatMeasurementKey(key)} (KVAr)`, values[index]/1000));
+      return new MedicaoMD30(measurerID, this.formatDate(measurement.timestamp), valuesMap);
     });
 
     return medicoesMD30;
@@ -117,8 +117,8 @@ export default class MedicaoMD30RepositorySQL implements MedicaoMD30Repository {
       const keys = Object.keys(measurement).slice(1);
       const values = Object.values(measurement).slice(1) as Array<number>;
       const valuesMap = new Map<string, number>();
-      keys.forEach((key, index) => valuesMap.set(key, values[index]));
-      return new MedicaoMD30(measurerID, measurement.timestamp, valuesMap);
+      keys.forEach((key, index) => valuesMap.set(`${this.formatMeasurementKey(key)} (kVA)`, values[index]));
+      return new MedicaoMD30(measurerID, this.formatDate(measurement.timestamp), valuesMap);
     });
 
     return medicoesMD30;
@@ -141,10 +141,26 @@ export default class MedicaoMD30RepositorySQL implements MedicaoMD30Repository {
       const keys = Object.keys(measurement).slice(1);
       const values = Object.values(measurement).slice(1) as Array<number>;
       const valuesMap = new Map<string, number>();
-      keys.forEach((key, index) => valuesMap.set(key, values[index]));
-      return new MedicaoMD30(measurerID, measurement.timestamp, valuesMap);
+      keys.forEach((key, index) => valuesMap.set(`${this.formatMeasurementKey(key)}`, values[index]));
+      return new MedicaoMD30(measurerID, this.formatDate(measurement.timestamp), valuesMap);
     });
 
     return medicoesMD30;
+  }
+
+  private formatMeasurementKey(key: string): string {
+    const splittedKey = key.replaceAll("_", " ").split(" ");
+    for (var i = 0; i < splittedKey.length; i++) {
+      splittedKey[i] = splittedKey[i].charAt(0).toUpperCase() + splittedKey[i].slice(1);
+    }
+    return splittedKey.join(" ");
+  }
+
+  private formatDate(date: string): string {
+    const regex = /^([0-9]{4})-(0[1-9]|1[0-2])-(0[1-9]|1[0-9]|2[0-9]|3[0-1])\s*([0-9]{2}):([0-9]{2}):([0-9]{2}).*/;
+    const pieces = regex.exec(date);
+    if(pieces === null) return "";
+    const [full, year, month, day, hour, minute, second] = pieces;
+    return `${day}/${month}/${year} ${hour}:${minute}:${second}`;
   }
 }
