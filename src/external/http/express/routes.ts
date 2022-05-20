@@ -79,7 +79,7 @@ router.post(
 );
 
 router.get(
-  '/medicoes/tensoes/:measurerID',
+  '/:measurerID/medicoes/tensoes',
   authChecker,
   ExpressAdapter.create(
     MedicaoMD30Controller.getTensoesPerDateRange,
@@ -89,7 +89,7 @@ router.get(
   )
 );
 router.get(
-  '/medicoes/correntes/:measurerID',
+  '/:measurerID/medicoes/correntes',
   authChecker,
   ExpressAdapter.create(
     MedicaoMD30Controller.getCorrentesPerDateRange,
@@ -99,7 +99,7 @@ router.get(
   )
 );
 router.get(
-  '/medicoes/potencias-ativas/:measurerID',
+  '/:measurerID/medicoes/potencias-ativas',
   authChecker,
   ExpressAdapter.create(
     MedicaoMD30Controller.getPotenciasAtivasPerDateRange,
@@ -109,7 +109,7 @@ router.get(
   )
 );
 router.get(
-  '/medicoes/potencias-reativas/:measurerID',
+  '/:measurerID/medicoes/potencias-reativas',
   authChecker,
   ExpressAdapter.create(
     MedicaoMD30Controller.getPotenciasReativasPerDateRange,
@@ -119,7 +119,7 @@ router.get(
   )
 );
 router.get(
-  '/medicoes/potencias-aparentes/:measurerID',
+  '/:measurerID/medicoes/potencias-aparentes',
   authChecker,
   ExpressAdapter.create(
     MedicaoMD30Controller.getPotenciasAparentesPerDateRange,
@@ -129,7 +129,7 @@ router.get(
   )
 );
 router.get(
-  '/medicoes/fatores-potencia/:measurerID',
+  '/:measurerID/medicoes/fatores-potencia',
   authChecker,
   ExpressAdapter.create(
     MedicaoMD30Controller.getFatoresDePotenciaPerDateRange,
@@ -186,7 +186,7 @@ router.post(
 );
 
 router.get(
-  '/alarms/:measurerID',
+  '/:measurerID/alarms',
   authChecker,
   ExpressAdapter.create(
     AlarmController.getAllAlarmsForSpecificMeasurer,
