@@ -26,4 +26,20 @@ export default interface MedicaoMD30Repository {
     measurerID: string,
     dateRange: DateRange
   ): Promise<Array<MedicaoMD30>>;
+  getConsumosAtivosPerDateRange(
+    measurerID: string,
+    dateRange: DateRange
+  ): Promise<Array<MedicaoMD30>>;
+  getConsumosReativosPerDateRange(
+    measurerID: string,
+    dateRange: DateRange
+  ): Promise<Array<MedicaoMD30>>;
+  getDemandasAtivasPerDateRange(
+    measurerID: string,
+    dateRange: DateRange
+  ): Promise<Array<MedicaoMD30>>;
+  getDemandasReativasPerDateRange(
+    measurerID: string,
+    dateRange: DateRange
+  ): Promise<Array<MedicaoMD30>>;
 }

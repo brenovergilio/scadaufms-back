@@ -140,6 +140,50 @@ router.get(
 );
 
 router.get(
+  '/:measurerID/medicoes/demandas-ativas',
+  authChecker,
+  ExpressAdapter.create(
+    MedicaoMD30Controller.getDemandasAtivasPerDateRange,
+    200,
+    undefined,
+    repos.medicoesMD30
+  )
+);
+
+router.get(
+  '/:measurerID/medicoes/demandas-reativas',
+  authChecker,
+  ExpressAdapter.create(
+    MedicaoMD30Controller.getDemandasReativasPerDateRange,
+    200,
+    undefined,
+    repos.medicoesMD30
+  )
+);
+
+router.get(
+  '/:measurerID/medicoes/consumos-ativos',
+  authChecker,
+  ExpressAdapter.create(
+    MedicaoMD30Controller.getConsumosAtivosPerDateRange,
+    200,
+    undefined,
+    repos.medicoesMD30
+  )
+);
+
+router.get(
+  '/:measurerID/medicoes/consumos-reativos',
+  authChecker,
+  ExpressAdapter.create(
+    MedicaoMD30Controller.getConsumosReativosPerDateRange,
+    200,
+    undefined,
+    repos.medicoesMD30
+  )
+);
+
+router.get(
   '/holidays',
   authChecker,
   ExpressAdapter.create(
