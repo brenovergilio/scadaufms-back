@@ -79,7 +79,7 @@ router.post(
 );
 
 router.get(
-  '/:measurerID/medicoes/tensoes',
+  '/medidores/:measurerID/medicoes/tensoes',
   authChecker,
   ExpressAdapter.create(
     MedicaoMD30Controller.getTensoesPerDateRange,
@@ -89,7 +89,7 @@ router.get(
   )
 );
 router.get(
-  '/:measurerID/medicoes/correntes',
+  '/medidores/:measurerID/medicoes/correntes',
   authChecker,
   ExpressAdapter.create(
     MedicaoMD30Controller.getCorrentesPerDateRange,
@@ -99,7 +99,7 @@ router.get(
   )
 );
 router.get(
-  '/:measurerID/medicoes/potencias-ativas',
+  '/medidores/:measurerID/medicoes/potencias-ativas',
   authChecker,
   ExpressAdapter.create(
     MedicaoMD30Controller.getPotenciasAtivasPerDateRange,
@@ -109,7 +109,7 @@ router.get(
   )
 );
 router.get(
-  '/:measurerID/medicoes/potencias-reativas',
+  '/medidores/:measurerID/medicoes/potencias-reativas',
   authChecker,
   ExpressAdapter.create(
     MedicaoMD30Controller.getPotenciasReativasPerDateRange,
@@ -119,7 +119,7 @@ router.get(
   )
 );
 router.get(
-  '/:measurerID/medicoes/potencias-aparentes',
+  '/medidores/:measurerID/medicoes/potencias-aparentes',
   authChecker,
   ExpressAdapter.create(
     MedicaoMD30Controller.getPotenciasAparentesPerDateRange,
@@ -129,7 +129,7 @@ router.get(
   )
 );
 router.get(
-  '/:measurerID/medicoes/fatores-potencia',
+  '/medidores/:measurerID/medicoes/fatores-potencia',
   authChecker,
   ExpressAdapter.create(
     MedicaoMD30Controller.getFatoresDePotenciaPerDateRange,
@@ -140,7 +140,7 @@ router.get(
 );
 
 router.get(
-  '/:measurerID/medicoes/demandas-ativas',
+  '/medidores/:measurerID/medicoes/demandas-ativas',
   authChecker,
   ExpressAdapter.create(
     MedicaoMD30Controller.getDemandasAtivasPerDateRange,
@@ -151,7 +151,7 @@ router.get(
 );
 
 router.get(
-  '/:measurerID/medicoes/demandas-reativas',
+  '/medidores/:measurerID/medicoes/demandas-reativas',
   authChecker,
   ExpressAdapter.create(
     MedicaoMD30Controller.getDemandasReativasPerDateRange,
@@ -162,7 +162,7 @@ router.get(
 );
 
 router.get(
-  '/:measurerID/medicoes/consumos-ativos',
+  '/medidores/:measurerID/medicoes/consumos-ativos',
   authChecker,
   ExpressAdapter.create(
     MedicaoMD30Controller.getConsumosAtivosPerDateRange,
@@ -173,7 +173,7 @@ router.get(
 );
 
 router.get(
-  '/:measurerID/medicoes/consumos-reativos',
+  '/medidores/:measurerID/medicoes/consumos-reativos',
   authChecker,
   ExpressAdapter.create(
     MedicaoMD30Controller.getConsumosReativosPerDateRange,
@@ -184,7 +184,7 @@ router.get(
 );
 
 router.get(
-  '/holidays',
+  '/feriados',
   authChecker,
   ExpressAdapter.create(
     HolidayController.getAllHolidays,
@@ -195,7 +195,7 @@ router.get(
   )
 );
 router.get(
-  '/holidays/:id',
+  '/feriados/:id',
   authChecker,
   ExpressAdapter.create(
     HolidayController.getHolidayByID,
@@ -207,7 +207,7 @@ router.get(
 );
 
 router.delete(
-  '/holidays/:id',
+  '/feriados/:id',
   authChecker,
   ExpressAdapter.create(
     HolidayController.deleteHoliday,
@@ -218,7 +218,7 @@ router.delete(
   )
 );
 router.post(
-  '/holidays',
+  '/feriados',
   authChecker,
   ExpressAdapter.create(
     HolidayController.addHoliday,
@@ -230,7 +230,7 @@ router.post(
 );
 
 router.get(
-  '/:measurerID/alarms',
+  '/medidores/:measurerID/alarmes',
   authChecker,
   ExpressAdapter.create(
     AlarmController.getAllAlarmsForSpecificMeasurer,
@@ -242,7 +242,7 @@ router.get(
 );
 
 router.delete(
-  '/alarms/:id',
+  '/medidores/alarmes/:id',
   authChecker,
   ExpressAdapter.create(
     AlarmController.deleteAlarm,
