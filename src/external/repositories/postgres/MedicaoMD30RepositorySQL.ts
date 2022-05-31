@@ -216,8 +216,11 @@ export default class MedicaoMD30RepositorySQL implements MedicaoMD30Repository {
     measurerID: string,
     dateRange: DateRange
   ): Promise<Array<MedicaoMD30>> {
+    /* Caso um dia se torne necessário retornar os fatores por fase, basta substituir a query abaixo pela seguinte:
+    'SELECT timestamp, fator_potencia_a, fator_potencia_b, fator_potencia_c, fator_potencia_total FROM medicoes_md30 WHERE medidor_id=$1 AND timestamp::date >= $2 AND timestamp::date <= $3 ORDER BY timestamp',
+    */
     const medicoesMD30Data = await db.manyOrNone(
-      'SELECT timestamp, fator_potencia_a, fator_potencia_b, fator_potencia_c, fator_potencia_total FROM medicoes_md30 WHERE medidor_id=$1 AND timestamp::date >= $2 AND timestamp::date <= $3 ORDER BY timestamp',
+      'SELECT timestamp, fator_potencia_total FROM medicoes_md30 WHERE medidor_id=$1 AND timestamp::date >= $2 AND timestamp::date <= $3 ORDER BY timestamp',
       [
         measurerID,
         dateRange.initialDate.toISOString().split('T')[0],
@@ -232,7 +235,7 @@ export default class MedicaoMD30RepositorySQL implements MedicaoMD30Repository {
       keys.forEach((key, index) => valuesMap.set(`${this.formatMeasurementKey(key)}`, values[index]));
       return new MedicaoMD30(measurerID, this.formatDate(measurement.timestamp), valuesMap);
     });
-
+    console.log(medicoesMD30Data)
     return medicoesMD30;
   }
 
