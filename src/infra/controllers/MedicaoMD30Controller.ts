@@ -26,9 +26,11 @@ export default class MedicaoMD30Controller {
       new Date(initialDate),
       new Date(finalDate)
     );
-    const getConsumosAtivosPerDateRangeUseCase = new GetConsumosAtivosPerDateRange(
-      medicaoMD30Repository
-    ).execute(measurerID, dateRange);
+    const getConsumosAtivosPerDateRangeUseCase =
+      new GetConsumosAtivosPerDateRange(medicaoMD30Repository).execute(
+        measurerID,
+        dateRange
+      );
     return getConsumosAtivosPerDateRangeUseCase;
   }
 
@@ -45,9 +47,11 @@ export default class MedicaoMD30Controller {
       new Date(initialDate),
       new Date(finalDate)
     );
-    const getConsumosReativosPerDateRangeUseCase = new GetConsumosReativosPerDateRange(
-      medicaoMD30Repository
-    ).execute(measurerID, dateRange);
+    const getConsumosReativosPerDateRangeUseCase =
+      new GetConsumosReativosPerDateRange(medicaoMD30Repository).execute(
+        measurerID,
+        dateRange
+      );
     return getConsumosReativosPerDateRangeUseCase;
   }
 
@@ -64,9 +68,11 @@ export default class MedicaoMD30Controller {
       new Date(initialDate),
       new Date(finalDate)
     );
-    const getDemandasAtivasPerDateRangeUseCase = new GetDemandasAtivasPerDateRange(
-      medicaoMD30Repository
-    ).execute(measurerID, dateRange);
+    const getDemandasAtivasPerDateRangeUseCase =
+      new GetDemandasAtivasPerDateRange(medicaoMD30Repository).execute(
+        measurerID,
+        dateRange
+      );
     return getDemandasAtivasPerDateRangeUseCase;
   }
 
@@ -83,9 +89,11 @@ export default class MedicaoMD30Controller {
       new Date(initialDate),
       new Date(finalDate)
     );
-    const getDemandasReativasPerDateRangeUseCase = new GetDemandasReativasPerDateRange(
-      medicaoMD30Repository
-    ).execute(measurerID, dateRange);
+    const getDemandasReativasPerDateRangeUseCase =
+      new GetDemandasReativasPerDateRange(medicaoMD30Repository).execute(
+        measurerID,
+        dateRange
+      );
     return getDemandasReativasPerDateRangeUseCase;
   }
 

@@ -8,6 +8,7 @@ import ModbusChecker from '@src/external/modbus/ModbusChecker';
 import repos from '@src/external/repositories/repos';
 import authChecker from './authChecker';
 import UserController from '@src/infra/controllers/UserController';
+import TaxesController from '@src/infra/controllers/TaxesController';
 
 const router: Router = Router();
 
@@ -250,6 +251,39 @@ router.delete(
     undefined,
     repos.alarms,
     repos.users
+  )
+);
+
+router.get(
+  '/taxes',
+  authChecker,
+  ExpressAdapter.create(
+    TaxesController.getAllTaxes,
+    200,
+    undefined,
+    repos.taxes
+  )
+);
+
+router.get(
+  '/taxes/:type',
+  authChecker,
+  ExpressAdapter.create(
+    TaxesController.getSpecificTax,
+    200,
+    undefined,
+    repos.taxes
+  )
+);
+
+router.put(
+  '/taxes/:type',
+  authChecker,
+  ExpressAdapter.create(
+    TaxesController.updateSpecificTax,
+    200,
+    undefined,
+    repos.taxes
   )
 );
 

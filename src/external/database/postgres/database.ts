@@ -69,6 +69,15 @@ const db = pgp({
     message TEXT NOT NULL,
     FOREIGN KEY (medidor_id) REFERENCES medidores_md30(id) ON DELETE CASCADE ON UPDATE CASCADE
   );`);
+  await db.none(`CREATE TABLE IF NOT EXISTS tarifas (
+    id UUID PRIMARY KEY,
+    tipo SMALLINT NOT NULL,
+    demanda_ponta REAL,
+    demanda_fora_ponta REAL,
+    demanda_unica REAL,
+    consumo_ponta REAL,
+    consumo_fora_ponta REAL
+  );`);
 })();
 
 pgp.pg.types.setTypeParser(1114, (s) => s);

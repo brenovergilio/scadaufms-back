@@ -22,8 +22,9 @@ export default class HolidayRepositorySQL implements HolidayRepository {
       [id]
     );
     const holiday: Holiday = new Holiday(
-            holidayData.nome,
-      holidayData.dia,holidayData.id
+      holidayData.nome,
+      holidayData.dia,
+      holidayData.id
     );
     return holiday;
   }
@@ -35,7 +36,7 @@ export default class HolidayRepositorySQL implements HolidayRepository {
     );
 
     if (holidayData)
-      return new Holiday(holidayData.nome, holidayData.dia,holidayData.id);
+      return new Holiday(holidayData.nome, holidayData.dia, holidayData.id);
 
     return null;
   }
@@ -47,7 +48,7 @@ export default class HolidayRepositorySQL implements HolidayRepository {
     );
 
     if (holidayData)
-      return new Holiday(holidayData.nome, holidayData.dia,holidayData.id);
+      return new Holiday(holidayData.nome, holidayData.dia, holidayData.id);
 
     return null;
   }

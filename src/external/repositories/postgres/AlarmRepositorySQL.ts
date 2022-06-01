@@ -42,15 +42,21 @@ export default class AlarmRepositorySQL implements AlarmRepository {
     );
     const alarms = alarmsData.map(
       (alarm) =>
-        new Alarm(alarm.medidor_id, this.formatDate(alarm.timestamp), alarm.message, alarm.id)
+        new Alarm(
+          alarm.medidor_id,
+          this.formatDate(alarm.timestamp),
+          alarm.message,
+          alarm.id
+        )
     );
     return alarms;
   }
 
   private formatDate(date: string): string {
-    const regex = /^([0-9]{4})-(0[1-9]|1[0-2])-(0[1-9]|1[0-9]|2[0-9]|3[0-1])\s*([0-9]{2}):([0-9]{2}):([0-9]{2}).*/;
+    const regex =
+      /^([0-9]{4})-(0[1-9]|1[0-2])-(0[1-9]|1[0-9]|2[0-9]|3[0-1])\s*([0-9]{2}):([0-9]{2}):([0-9]{2}).*/;
     const pieces = regex.exec(date);
-    if(pieces === null) return "";
+    if (pieces === null) return '';
     const [full, year, month, day, hour, minute, second] = pieces;
     return `${day}/${month}/${year} ${hour}:${minute}:${second}`;
   }
