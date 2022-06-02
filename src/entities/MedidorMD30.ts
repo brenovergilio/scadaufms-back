@@ -1,4 +1,5 @@
 import { v4 } from 'uuid';
+import Measurement from './interfaces/Measurement';
 import Measurer from './interfaces/Measurer';
 import Rush from './interfaces/Rush';
 import { isValidRush } from './util/validators/RushValidator';
