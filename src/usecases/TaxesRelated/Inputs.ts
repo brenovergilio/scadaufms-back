@@ -1,5 +1,5 @@
 import { TaxType } from '@src/entities/Taxes';
-import { IsEnum, IsNumber, Min } from 'class-validator';
+import { IsEnum, IsNumber, IsOptional, Min } from 'class-validator';
 
 export class GetSpecificTaxInput {
   @IsEnum(TaxType, { message: 'Tipo de imposto inválido' })
@@ -14,22 +14,27 @@ export class UpdateSpecificTaxInput {
   @IsEnum(TaxType, { message: 'Tipo de imposto inválido' })
   type: TaxType;
 
+  @IsOptional()
   @IsNumber(undefined, { message: 'O valor deve ser um número' })
   @Min(0, { message: 'O valor deve ser maior ou igual a 0' })
   demandaPonta: number;
 
+  @IsOptional()
   @IsNumber(undefined, { message: 'O valor deve ser um número' })
   @Min(0, { message: 'O valor deve ser maior ou igual a 0' })
   demandaForaPonta: number;
 
+  @IsOptional()
   @IsNumber(undefined, { message: 'O valor deve ser um número' })
   @Min(0, { message: 'O valor deve ser maior ou igual a 0' })
   demandaUnica: number;
 
+  @IsOptional()
   @IsNumber(undefined, { message: 'O valor deve ser um número' })
   @Min(0, { message: 'O valor deve ser maior ou igual a 0' })
   consumoPonta: number;
 
+  @IsOptional()
   @IsNumber(undefined, { message: 'O valor deve ser um número' })
   @Min(0, { message: 'O valor deve ser maior ou igual a 0' })
   consumoForaPonta: number;

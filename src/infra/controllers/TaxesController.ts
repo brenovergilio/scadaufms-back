@@ -61,11 +61,11 @@ export default class TaxesController extends BaseController {
 
     const input: UpdateSpecificTaxInput = new UpdateSpecificTaxInput(
       Number.parseInt(type),
-      Number.parseFloat(demandaPonta),
-      Number.parseFloat(demandaForaPonta),
-      Number.parseFloat(demandaUnica),
-      Number.parseFloat(consumoPonta),
-      Number.parseFloat(consumoForaPonta)
+     demandaPonta,
+     demandaForaPonta,
+     demandaUnica,
+     consumoPonta,
+     consumoForaPonta
     );
 
     await BaseController.validateInput(input);
@@ -74,13 +74,5 @@ export default class TaxesController extends BaseController {
       taxesRepository
     ).execute(input);
     return updateSpecificTax;
-  }
-
-  static floatParser(value: number | string | null): number | null {
-    if (!value) return null;
-    if (typeof value == 'number') return value;
-    const floatValue = Number.parseFloat(value);
-    if (floatValue === NaN) return null;
-    return floatValue;
   }
 }
