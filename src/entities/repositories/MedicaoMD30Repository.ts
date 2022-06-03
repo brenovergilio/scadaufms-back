@@ -28,28 +28,32 @@ export default interface MedicaoMD30Repository {
   ): Promise<Array<MedicaoMD30>>;
   getConsumosAtivosPerDateRange(
     measurerID: string,
+    interval: number,
     dateRange: DateRange
   ): Promise<Array<MedicaoMD30>>;
   getConsumosReativosPerDateRange(
     measurerID: string,
+    interval: number,
     dateRange: DateRange
   ): Promise<Array<MedicaoMD30>>;
   getDemandasAtivasPerDateRange(
     measurerID: string,
+    interval: number,
     dateRange: DateRange
   ): Promise<Array<MedicaoMD30>>;
   getDemandasReativasPerDateRange(
     measurerID: string,
+    interval: number,
     dateRange: DateRange
   ): Promise<Array<MedicaoMD30>>;
-  getConsumosAtivosPerMonthAndYear(
-    measurerID: string,
-    month: number,
-    year: number
-  ): Promise<Array<MedicaoMD30>>;
-  getConsumosReativosPerMonthAndYear(
-    measurerID: string,
-    month: number,
-    year: number
-  ): Promise<Array<MedicaoMD30>>;
+  // getConsumosAtivosPerMonthAndYear(
+  //   measurerID: string,
+  //   month: number,
+  //   year: number
+  // ): Promise<Array<MedicaoMD30>>;
+  // getConsumosReativosPerMonthAndYear(
+  //   measurerID: string,
+  //   month: number,
+  //   year: number
+  // ): Promise<Array<MedicaoMD30>>;
 }

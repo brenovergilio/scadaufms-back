@@ -1,8 +1,8 @@
 import { v4 } from "uuid";
 import Holiday from "./Holiday";
 import Measurement from "./interfaces/Measurement";
-import Rush from "./interfaces/Rush";
 import MedicaoMD30 from "./MedicaoMD30";
+import MedidorMD30 from "./MedidorMD30";
 import Taxes, { TaxType } from "./Taxes";
 import { isInsideRushHour, measurementAcumulator } from "./util/helpers";
 
@@ -22,7 +22,7 @@ export default class Bill {
     public consumosReativos: Array<MedicaoMD30>,
     public demandasAtivas: Array<MedicaoMD30>,
     public demandasReativas: Array<MedicaoMD30>,
-    public rush: Rush,
+    public medidor: MedidorMD30,
     public taxes: Taxes,
     public id: string = v4()
   ) {
@@ -30,30 +30,43 @@ export default class Bill {
     [this.demandasAtivasPonta, this.demandasAtivasForaPonta] = this.splitPontaAndForaPonta(demandasAtivas);
   }
 
-  calculate(): number {
-    return this.taxes.type === TaxType.VERDE ? this.calculateGreen() : this.calculateBlue(); 
+  simulate(): number {
+    const consumoAtivoPontaMedido = this.calculateConsumoAtivoPonta();
+    const consumoAtivoForaPontaMedido = this.calculateConsumoAtivoForaPonta();
+    const demandaAtivaPontaMedida = this.calculateDemandaAtivaPonta();
+    const demandaAtivaForaPontaMedida = this.calculateDemandaAtivaForaPonta();
+
+    const consumoAtivoFinalPrice = (consumoAtivoPontaMedido * this.taxes.consumoPonta) + (consumoAtivoForaPontaMedido * this.taxes.consumoForaPonta);
+    const demandaAtivaFinalPrice = this.taxes.type === TaxType.AZUL ? (demandaAtivaPontaMedida * this.taxes.demandaPonta) + (demandaAtivaForaPontaMedida * this.taxes.demandaForaPonta) : (demandaAtivaPontaMedida + demandaAtivaForaPontaMedida) * this.taxes.demandaUnica;
+
+    return consumoAtivoFinalPrice + demandaAtivaFinalPrice;
   }
 
-  private calculateGreen(): number {
-    return 0;
+  private calculateConsumoAtivoPonta(): number {
+    return this.consumosAtivosPonta.reduce((acc, current) => acc + measurementAcumulator(current), 0);
   }
 
-  private calculateBlue(): number {
-    return 0;
+  private calculateConsumoAtivoForaPonta(): number {
+    return this.consumosAtivosForaPonta.reduce((acc, current) => acc + measurementAcumulator(current), 0);
   }
 
-  // private calculateConsumoAtivo(): number {
-  //   const consumoPontaMedido = this.consumosAtivosPonta.reduce((acc, current) => acc + measurementAcumulator(current), 0);
-  //   const consumoForaPontaMedido = this.consumosAtivosForaPonta.reduce((acc, current) => acc + measurementAcumulator(current), 0);
+  private calculateDemandaAtivaPonta(): number {
+   return this.demandasAtivasPonta.reduce((acc, current) => acc + measurementAcumulator(current), 0);
+  }
 
+  private calculateDemandaAtivaForaPonta(): number {
+    return this.demandasAtivasForaPonta.reduce((acc, current) => acc + measurementAcumulator(current), 0);
+  }
 
+  // private calculateDemandaReativaExcedente(): number {
+    
   // }
 
   private splitPontaAndForaPonta(measurements: Array<Measurement>): [Array<Measurement>, Array<Measurement>] {
     const insidePonta = new Array<Measurement>();
     const outsidePonta = new Array<Measurement>();
     for(const measurement of measurements) {
-      if(isInsideRushHour(measurement, this.rush, this.holidays)) insidePonta.push(measurement);
+      if(isInsideRushHour(measurement, this.medidor.rush, this.holidays)) insidePonta.push(measurement);
       else outsidePonta.push(measurement);
     }
     return [insidePonta, outsidePonta];

@@ -7,6 +7,7 @@ export default class GetConsumosAtivosPerDateRange extends BaseMedicaoMD30UseCas
     const consumosAtivos: Array<MedicaoMD30> =
       await this.medicaoMD30Repository.getConsumosAtivosPerDateRange(
         id,
+        900,
         dateRange
       );
     return consumosAtivos;

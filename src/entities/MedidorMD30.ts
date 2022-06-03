@@ -14,4 +14,10 @@ export default class MedidorMD30 implements Measurer {
   ) {
     isValidRush(rush);
   }
+
+  public calculateEnergiaAtiva(potenciasAtivas: Array<Measurement>): number {
+    //TODO
+    
+    return 0;
+  }
 }

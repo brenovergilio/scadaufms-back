@@ -7,6 +7,7 @@ export default class GetDemandasAtivasPerDateRange extends BaseMedicaoMD30UseCas
     const demandasAtivas: Array<MedicaoMD30> =
       await this.medicaoMD30Repository.getDemandasAtivasPerDateRange(
         id,
+        900,
         dateRange
       );
     return demandasAtivas;
