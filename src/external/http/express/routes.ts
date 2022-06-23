@@ -9,6 +9,7 @@ import repos from '@src/external/repositories/repos';
 import authChecker from './authChecker';
 import UserController from '@src/infra/controllers/UserController';
 import TaxesController from '@src/infra/controllers/TaxesController';
+import BillController from '@src/infra/controllers/BillController';
 
 const router: Router = Router();
 
@@ -283,6 +284,20 @@ router.put(
     TaxesController.updateSpecificTax,
     200,
     undefined,
+    repos.taxes
+  )
+);
+
+router.get(
+  '/medidores/:medidorID/simulate',
+  authChecker,
+  ExpressAdapter.create(
+    BillController.simulateBill,
+    200,
+    undefined,
+    repos.medidoresMD30,
+    repos.medicoesMD30,
+    repos.holidays,
     repos.taxes
   )
 );

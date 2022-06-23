@@ -3,7 +3,6 @@ import GenericClassValidatorError from '../errors/GenericClassValidatorError';
 import { hash, genSalt, compare } from 'bcrypt';
 import * as jwt from 'jsonwebtoken';
 import { GenericInputClass } from '@src/usecases/util/GenericInputClass';
-import User from '@src/entities/User';
 
 export interface DecodedJWT {
   id: string;

@@ -1,5 +1,5 @@
 import DateRange from '@src/usecases/util/DateRange';
-import InvalidDateRangeError from '@src/usecases/util/errors/InvalidDateRangeError';
+import InvalidDateRangeError from '@src/infra/errors/InvalidDateRangeError';
 
 describe('DateRange instantiation', () => {
   it('Should instantiate a DateRange', () => {

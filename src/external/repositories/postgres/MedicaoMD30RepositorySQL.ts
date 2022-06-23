@@ -34,7 +34,7 @@ export default class MedicaoMD30RepositorySQL implements MedicaoMD30Repository {
   //   console.log(medicoesMD30);
   //   return medicoesMD30;
   // }
-  
+
   async getConsumosAtivosPerDateRange(
     measurerID: string,
     interval: number,

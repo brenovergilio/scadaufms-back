@@ -1,4 +1,4 @@
-import InvalidDateRangeError from './errors/InvalidDateRangeError';
+import InvalidDateRangeError from '../../infra/errors/InvalidDateRangeError';
 import isValidDateRange from './validators/DateRangeValidator';
 
 export default class DateRange {

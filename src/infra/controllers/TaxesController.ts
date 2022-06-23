@@ -61,11 +61,11 @@ export default class TaxesController extends BaseController {
 
     const input: UpdateSpecificTaxInput = new UpdateSpecificTaxInput(
       Number.parseInt(type),
-     demandaPonta,
-     demandaForaPonta,
-     demandaUnica,
-     consumoPonta,
-     consumoForaPonta
+      demandaPonta,
+      demandaForaPonta,
+      demandaUnica,
+      consumoPonta,
+      consumoForaPonta
     );
 
     await BaseController.validateInput(input);

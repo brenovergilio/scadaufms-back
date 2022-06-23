@@ -7,7 +7,7 @@ const db = pgp({
   password: 'ufms123',
   host: 'localhost',
   port: 5432,
-  database: 'test',
+  database: 'testmm',
   idleTimeoutMillis: 100,
 });
 
@@ -39,22 +39,8 @@ const db = pgp({
     corrente_fase_a REAL NOT NULL,
     corrente_fase_b REAL NOT NULL,
     corrente_fase_c REAL NOT NULL,
-    potencia_ativa_a REAL NOT NULL,
-    potencia_ativa_b REAL NOT NULL,
-    potencia_ativa_c REAL NOT NULL,
     potencia_ativa_total REAL NOT NULL,
-    potencia_reativa_a REAL NOT NULL,
-    potencia_reativa_b REAL NOT NULL,
-    potencia_reativa_c REAL NOT NULL,
     potencia_reativa_total REAL NOT NULL,
-    potencia_aparente_a REAL NOT NULL,
-    potencia_aparente_b REAL NOT NULL,
-    potencia_aparente_c REAL NOT NULL,
-    potencia_aparente_total REAL NOT NULL,
-    fator_potencia_a REAL NOT NULL,
-    fator_potencia_b REAL NOT NULL,
-    fator_potencia_c REAL NOT NULL,
-    fator_potencia_total REAL NOT NULL,
     FOREIGN KEY (medidor_id) REFERENCES medidores_md30(id) ON DELETE CASCADE ON UPDATE CASCADE
   );`);
   await db.none(`CREATE TABLE IF NOT EXISTS feriados (

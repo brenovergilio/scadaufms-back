@@ -8,7 +8,7 @@ import AlreadyExistsError from '@src/usecases/util/errors/AlreadyExistsError';
 import ConnectionTimedOutError from '@src/usecases/util/errors/ConnectionTimedOutError';
 import DuplicatedNameError from '@src/usecases/util/errors/DuplicatedNameError';
 import InsufficientPermissionError from '@src/usecases/util/errors/InsufficientPermissionError';
-import InvalidDateRangeError from '@src/usecases/util/errors/InvalidDateRangeError';
+import InvalidDateRangeError from '@src/infra/errors/InvalidDateRangeError';
 import NotFoundError from '@src/usecases/util/errors/NotFoundError';
 import { NextFunction, Request, Response } from 'express';
 
