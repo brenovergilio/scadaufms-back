@@ -1,5 +1,5 @@
 import { TaxType } from '@src/entities/Taxes';
-import { IsEnum, IsNumber, IsOptional, Min } from 'class-validator';
+import { IsEnum, IsNumber, IsOptional, IsUUID, Min } from 'class-validator';
 
 export class GetSpecificTaxInput {
   @IsEnum(TaxType, { message: 'Tipo de imposto inválido' })
@@ -13,6 +13,9 @@ export class GetSpecificTaxInput {
 export class UpdateSpecificTaxInput {
   @IsEnum(TaxType, { message: 'Tipo de imposto inválido' })
   type: TaxType;
+
+  @IsUUID(4, { message: 'ID do usuário inválido' })
+  sourceUserID: string;
 
   @IsOptional()
   @IsNumber(undefined, { message: 'O valor deve ser um número' })
@@ -41,6 +44,7 @@ export class UpdateSpecificTaxInput {
 
   constructor(
     type: TaxType,
+    sourceUserID: string,
     demandaPonta: number,
     demandaForaPonta: number,
     demandaUnica: number,
@@ -48,6 +52,7 @@ export class UpdateSpecificTaxInput {
     consumoForaPonta: number
   ) {
     this.type = type;
+    this.sourceUserID = sourceUserID;
     this.demandaPonta = demandaPonta;
     this.demandaForaPonta = demandaForaPonta;
     this.demandaUnica = demandaUnica;

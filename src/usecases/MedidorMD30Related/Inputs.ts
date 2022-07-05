@@ -1,5 +1,7 @@
 import MeasurerChecker from '@src/entities/interfaces/MeasurerChecker';
 import Rush from '@src/entities/interfaces/Rush';
+import InvalidRushError from '@src/entities/util/errors/InvalidRushError';
+import { isValidRush } from '@src/entities/util/validators/RushValidator';
 import { IsInt, IsIP, Min, Max, MinLength, IsUUID } from 'class-validator';
 
 export class InputAddMedidorMD30 {
@@ -47,5 +49,36 @@ export class InputDeleteMedidorMD30 {
   constructor(sourceUserID: string, medidorID: string) {
     this.sourceUserID = sourceUserID;
     this.medidorID = medidorID;
+  }
+}
+
+export class InputUpdateSpecificMedidorMD30 {
+  @IsUUID(4, { message: 'ID do usuário inválido' })
+  sourceUserID: string;
+
+  @IsUUID(4, { message: 'ID do Medidor MD30 inválido' })
+  medidorID: string;
+
+  @IsIP(4, { message: 'IPv4 inválido' })
+  ip: string;
+
+  @MinLength(2, { message: 'Insira um nome com no mínimo dois caracteres' })
+  name: string;
+
+  @IsInt({ message: 'O número de porta deve ser um inteiro' })
+  @Min(0, { message: 'O valor mínimo para uma porta é 0' })
+  @Max(65535, { message: 'O valor máximo para uma porta é 65535' })
+  port: number;
+
+  rush: Rush;
+
+  constructor(sourceUserID: string, medidorID: string, ip: string, name: string, port: number, rush: Rush) {
+    this.sourceUserID = sourceUserID;
+    this.medidorID = medidorID;
+    this.ip = ip;
+    this.name = name;
+    this.port = port;
+    if(!isValidRush(rush)) throw new InvalidRushError();
+    this.rush = rush;
   }
 }

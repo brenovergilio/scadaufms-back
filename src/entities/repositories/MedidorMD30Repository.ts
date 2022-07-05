@@ -5,5 +5,6 @@ export default interface MedidorMD30Repository {
   getMedidorMD30ByID(id: string): Promise<MedidorMD30 | null>;
   getMedidorMD30ByIP(ip: string): Promise<MedidorMD30 | null>;
   getAllMedidoresMD30(): Promise<Array<MedidorMD30>>;
+  updateMedidorMD30ByID(medidorMD30: MedidorMD30): Promise<MedidorMD30>;
   deleteMedidorMD30(id: string): Promise<MedidorMD30>;
 }

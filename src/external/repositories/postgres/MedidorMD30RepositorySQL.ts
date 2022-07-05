@@ -95,6 +95,24 @@ export default class MedidorMD30RepositorySQL implements MedidorMD30Repository {
     return medidoresMD30;
   }
 
+  async updateMedidorMD30ByID(medidorMD30: MedidorMD30): Promise<MedidorMD30> {
+    const medidorMD30Data = await db.one('UPDATE medidores_md30 SET ip=$1, nome=$2, porta=$3, hora_ponta=$4, minuto_ponta=$5, intervalo_ponta=$6 WHERE id=$7 RETURNING *', [
+      medidorMD30.ip, medidorMD30.name, medidorMD30.port, medidorMD30.rush.hour, medidorMD30.rush.minute, medidorMD30.rush.interval, medidorMD30.id
+    ]);
+
+    return new MedidorMD30(
+      medidorMD30Data.ip,
+      medidorMD30Data.nome,
+      medidorMD30Data.porta,
+      {
+        hour: medidorMD30Data.hora_ponta,
+        minute: medidorMD30Data.minuto_ponta,
+        interval: medidorMD30Data.intervalo_ponta,
+      },
+      medidorMD30Data.id
+    );
+  }
+
   async deleteMedidorMD30(id: string): Promise<MedidorMD30> {
     const medidorMD30Data = await db.one(
       'DELETE FROM medidores_md30 WHERE id=$1 RETURNING *',

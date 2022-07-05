@@ -4,6 +4,7 @@ import {
   InputAddMedidorMD30,
   InputDeleteMedidorMD30,
 } from '../MedidorMD30Related/Inputs';
+import UpdateSpecificMedidorMD30 from '../MedidorMD30Related/UpdateSpecificMedidorMD30';
 import {
   GetSpecificTaxInput,
   UpdateSpecificTaxInput,
@@ -18,4 +19,5 @@ export type GenericInputClass =
   | InputDeleteHoliday
   | InputDeleteAlarm
   | GetSpecificTaxInput
-  | UpdateSpecificTaxInput;
+  | UpdateSpecificTaxInput
+  | UpdateSpecificMedidorMD30;
