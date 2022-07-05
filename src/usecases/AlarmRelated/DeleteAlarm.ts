@@ -16,6 +16,6 @@ export default class DeleteAlarm extends BaseAlarmUseCases {
 
     if (!alarmExists) throw new NotFoundError();
 
-    return await this.alarmRepository.deleteAlarm(input.alarmID);
+    return this.alarmRepository.deleteAlarm(input.alarmID);
   }
 }

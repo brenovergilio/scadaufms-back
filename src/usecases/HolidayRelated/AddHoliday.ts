@@ -18,6 +18,6 @@ export default class AddHoliday extends BaseHolidayUseCases {
 
     const newHoliday: Holiday = new Holiday(input.name, input.day);
 
-    return await this.holidayRepository.addHoliday(newHoliday);
+    return this.holidayRepository.addHoliday(newHoliday);
   }
 }

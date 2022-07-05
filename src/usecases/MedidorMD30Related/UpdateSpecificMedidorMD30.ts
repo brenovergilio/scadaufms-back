@@ -16,6 +16,6 @@ export default class UpdateSpecificMedidorMD30 extends BaseMedidorMD30UseCases {
     if(input.port) medidorMD30.port = input.port;
     if(input.rush) medidorMD30.rush = input.rush;
 
-    return await this.medidorMD30Repository.updateMedidorMD30ByID(medidorMD30);
+    return this.medidorMD30Repository.updateMedidorMD30ByID(medidorMD30);
   }
 }

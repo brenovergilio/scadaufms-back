@@ -16,6 +16,6 @@ export default class DeleteMedidorMD30 extends BaseMedidorMD30UseCases {
 
     if (!medidorMD30Exists) throw new NotFoundError();
 
-    return await this.medidorMD30Repository.deleteMedidorMD30(input.medidorID);
+    return this.medidorMD30Repository.deleteMedidorMD30(input.medidorID);
   }
 }

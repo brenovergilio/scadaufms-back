@@ -31,6 +31,6 @@ export default class AddMedidorMD30 extends BaseMedidorMD30UseCases {
       input.rush
     );
 
-    return await this.medidorMD30Repository.addMedidorMD30(newMedidorMD30);
+    return this.medidorMD30Repository.addMedidorMD30(newMedidorMD30);
   }
 }

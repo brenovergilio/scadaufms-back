@@ -16,6 +16,6 @@ export default class DeleteHoliday extends BaseHolidayUseCases {
 
     if (!holidayExists) throw new NotFoundError();
 
-    return await this.holidayRepository.deleteHoliday(input.holidayID);
+    return this.holidayRepository.deleteHoliday(input.holidayID);
   }
 }
