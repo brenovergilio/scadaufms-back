@@ -86,11 +86,11 @@ router.put(
   ExpressAdapter.create(
     MedidorMD30Controller.updateMedidorMD30,
     200,
-    undefined,
+    new ModbusChecker(),
     repos.medidoresMD30,
     repos.users
   )
-)
+);
 
 router.get(
   '/medidores/:measurerID/medicoes/tensoes',

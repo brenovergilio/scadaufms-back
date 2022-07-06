@@ -17,10 +17,11 @@ export default class UpdateSpecificTaxUseCase extends BaseTaxesUseCases {
       taxes.demandaForaPonta = input.demandaForaPonta;
     if (input.demandaUnica !== undefined && input.type === TaxType.VERDE)
       taxes.demandaUnica = input.demandaUnica;
-    if (input.consumoPonta !== undefined) taxes.consumoPonta = input.consumoPonta;
-    if (input.consumoForaPonta !== undefined) taxes.consumoForaPonta = input.consumoForaPonta;
+    if (input.consumoPonta !== undefined)
+      taxes.consumoPonta = input.consumoPonta;
+    if (input.consumoForaPonta !== undefined)
+      taxes.consumoForaPonta = input.consumoForaPonta;
 
-    const updatedTaxes = await this.taxesRepository.updateTaxes(taxes);
-    return updatedTaxes;
+    return this.taxesRepository.updateTaxes(taxes);
   }
 }

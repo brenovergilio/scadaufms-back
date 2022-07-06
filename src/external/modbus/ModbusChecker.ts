@@ -9,13 +9,22 @@ export default class ModbusChecker implements MeasurerChecker {
   }
 
   async isOpen(ip: string, port: number): Promise<boolean> {
+    let isOpen = true;
     try {
-      await this.client.connectTCP(ip, { port: port });
-      return true;
-    } catch {
-      return false;
-    } finally {
-      this.client.close(() => console.log('TCP connection closed'));
+      await new Promise(async (resolve, reject) => {
+        const connectionTimeoutID = setTimeout(() => reject(false), 5000);
+        try {
+          await this.client.connectTCP(ip, { port: port });
+          clearTimeout(connectionTimeoutID);
+          resolve(true);
+        } catch {
+          resolve(false);
+        }
+      });
+    } catch (e) {
+      isOpen = e;
     }
+
+    return isOpen;
   }
 }

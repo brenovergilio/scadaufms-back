@@ -124,22 +124,25 @@ export default class MedidorMD30Controller extends BaseController {
     query: any,
     headers: any,
     medidorMD30Repository: MedidorMD30Repository,
-    userRepository: UserRepository
+    userRepository: UserRepository,
+    measurerChecker: MeasurerChecker
   ): Promise<MedidorMD30> {
     const { measurerID } = params;
     const { ip, name, port, rushHour, rushMinute, rushInterval } = body;
     const token = headers.authorization.split(' ')[1];
     const sourceUserID = BaseController.decodeIDFromToken(token);
-    const input: InputUpdateSpecificMedidorMD30 = new InputUpdateSpecificMedidorMD30(
-      sourceUserID,
-      measurerID,
-      ip,
-      name,
-      port,
-      rushHour,
-      rushMinute,
-      rushInterval
-    );
+    const input: InputUpdateSpecificMedidorMD30 =
+      new InputUpdateSpecificMedidorMD30(
+        sourceUserID,
+        measurerID,
+        measurerChecker,
+        ip,
+        name,
+        port,
+        rushHour,
+        rushMinute,
+        rushInterval
+      );
 
     await BaseController.validateInput(input);
 

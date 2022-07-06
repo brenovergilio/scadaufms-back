@@ -1,6 +1,14 @@
 import MeasurerChecker from '@src/entities/interfaces/MeasurerChecker';
 import Rush from '@src/entities/interfaces/Rush';
-import { IsInt, IsIP, Min, Max, MinLength, IsUUID, IsOptional } from 'class-validator';
+import {
+  IsInt,
+  IsIP,
+  Min,
+  Max,
+  MinLength,
+  IsUUID,
+  IsOptional,
+} from 'class-validator';
 
 export class InputAddMedidorMD30 {
   @IsUUID(4, { message: 'ID do usuário inválido' })
@@ -61,6 +69,8 @@ export class InputUpdateSpecificMedidorMD30 {
   @IsIP(4, { message: 'IPv4 inválido' })
   ip?: string;
 
+  measurerChecker: MeasurerChecker;
+
   @IsOptional()
   @MinLength(2, { message: 'Insira um nome com no mínimo dois caracteres' })
   name?: string;
@@ -80,9 +90,20 @@ export class InputUpdateSpecificMedidorMD30 {
   @IsOptional()
   rushInterval?: number;
 
-  constructor(sourceUserID: string, medidorID: string, ip?: string, name?: string, port?: number, rushHour?: number, rushMinute?: number, rushInterval?: number) {
+  constructor(
+    sourceUserID: string,
+    medidorID: string,
+    measurerChecker: MeasurerChecker,
+    ip?: string,
+    name?: string,
+    port?: number,
+    rushHour?: number,
+    rushMinute?: number,
+    rushInterval?: number
+  ) {
     this.sourceUserID = sourceUserID;
     this.medidorID = medidorID;
+    this.measurerChecker = measurerChecker;
     this.ip = ip ? ip.trim() : undefined;
     this.name = name ? name.trim() : undefined;
     this.port = port;

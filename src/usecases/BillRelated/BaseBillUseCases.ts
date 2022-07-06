@@ -1,7 +1,7 @@
-import HolidayRepository from "@src/entities/repositories/HolidayRepository";
-import MedicaoMD30Repository from "@src/entities/repositories/MedicaoMD30Repository";
-import MedidorMD30Repository from "@src/entities/repositories/MedidorMD30Repository";
-import TaxesRepository from "@src/entities/repositories/TaxesRepository";
+import HolidayRepository from '@src/entities/repositories/HolidayRepository';
+import MedicaoMD30Repository from '@src/entities/repositories/MedicaoMD30Repository';
+import MedidorMD30Repository from '@src/entities/repositories/MedidorMD30Repository';
+import TaxesRepository from '@src/entities/repositories/TaxesRepository';
 
 export default class DeleteAlarm {
   holidayRepository: HolidayRepository;

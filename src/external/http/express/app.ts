@@ -27,11 +27,11 @@ export class App {
   }
 
   private enableCors(): void {
-    const allowedOrigins = ['http://localhost:4200'];
-    const options: cors.CorsOptions = {
-      origin: allowedOrigins,
-    };
+    // const allowedOrigins = ['http://localhost:4200'];
+    // const options: cors.CorsOptions = {
+    //   origin: allowedOrigins,
+    // };
 
-    this.server.use(cors(options));
+    this.server.use(cors());
   }
 }

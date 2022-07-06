@@ -1,12 +1,12 @@
-import HolidayRepository from "@src/entities/repositories/HolidayRepository";
-import MedicaoMD30Repository from "@src/entities/repositories/MedicaoMD30Repository";
-import MedidorMD30Repository from "@src/entities/repositories/MedidorMD30Repository";
-import TaxesRepository from "@src/entities/repositories/TaxesRepository";
-import { TaxType } from "@src/entities/Taxes";
-import { SimulateBillInput } from "@src/usecases/BillRelated/Inputs";
-import SimulateBill from "@src/usecases/BillRelated/SimulateBill";
-import DateRange from "@src/usecases/util/DateRange";
-import BaseController from "./BaseController";
+import HolidayRepository from '@src/entities/repositories/HolidayRepository';
+import MedicaoMD30Repository from '@src/entities/repositories/MedicaoMD30Repository';
+import MedidorMD30Repository from '@src/entities/repositories/MedidorMD30Repository';
+import TaxesRepository from '@src/entities/repositories/TaxesRepository';
+import { TaxType } from '@src/entities/Taxes';
+import { SimulateBillInput } from '@src/usecases/BillRelated/Inputs';
+import SimulateBill from '@src/usecases/BillRelated/SimulateBill';
+import DateRange from '@src/usecases/util/DateRange';
+import BaseController from './BaseController';
 
 export default class BillController extends BaseController {
   static async simulateBill(
@@ -21,17 +21,27 @@ export default class BillController extends BaseController {
   ): Promise<number> {
     const { medidorID } = params;
     const { demandaContratada, type, initialDate, finalDate } = query;
-    
+
     const dateRange: DateRange = new DateRange(
       new Date(initialDate),
       new Date(finalDate)
     );
 
-    const input: SimulateBillInput = new SimulateBillInput(Number.parseFloat(demandaContratada), Number.parseInt(type), dateRange, medidorID);
-    
+    const input: SimulateBillInput = new SimulateBillInput(
+      Number.parseFloat(demandaContratada),
+      Number.parseInt(type),
+      dateRange,
+      medidorID
+    );
+
     await BaseController.validateInput(input);
 
-    const simulateBill = new SimulateBill(holidayRepository, medicaoMD30Repository, medidorMD30Repository, taxesRepository);
+    const simulateBill = new SimulateBill(
+      holidayRepository,
+      medicaoMD30Repository,
+      medidorMD30Repository,
+      taxesRepository
+    );
     return simulateBill.execute(input);
   }
 }
