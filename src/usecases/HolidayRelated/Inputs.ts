@@ -12,7 +12,7 @@ export class InputAddHoliday {
 
   constructor(sourceUserID: string, name: string, day: Date) {
     this.sourceUserID = sourceUserID;
-    this.name = name;
+    this.name = name.trim();
     this.day = day;
   }
 }

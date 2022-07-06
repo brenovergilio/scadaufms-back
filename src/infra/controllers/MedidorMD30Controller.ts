@@ -10,8 +10,10 @@ import BaseController from './BaseController';
 import {
   InputAddMedidorMD30,
   InputDeleteMedidorMD30,
+  InputUpdateSpecificMedidorMD30,
 } from '@src/usecases/MedidorMD30Related/Inputs';
 import UserRepository from '@src/entities/repositories/UserRepository';
+import UpdateSpecificMedidorMD30 from '@src/usecases/MedidorMD30Related/UpdateSpecificMedidorMD30';
 
 export default class MedidorMD30Controller extends BaseController {
   static async addMedidorMD30(
@@ -28,9 +30,9 @@ export default class MedidorMD30Controller extends BaseController {
     const sourceUserID = BaseController.decodeIDFromToken(token);
     const input: InputAddMedidorMD30 = new InputAddMedidorMD30(
       sourceUserID,
-      ip.trim(),
-      name.trim(),
-      Number.parseInt(port),
+      ip,
+      name,
+      port,
       measurerChecker
     );
 
@@ -97,7 +99,7 @@ export default class MedidorMD30Controller extends BaseController {
     const getMedidorMD30ByIPUseCase = new GetMedidorMD30ByIP(
       medidorMD30Repository,
       userRepository
-    ).execute(ip.trim());
+    ).execute(ip);
     return getMedidorMD30ByIPUseCase;
   }
 
@@ -114,5 +116,37 @@ export default class MedidorMD30Controller extends BaseController {
       userRepository
     ).execute();
     return getAllMedidoresMD30UseCase;
+  }
+
+  static async updateMedidorMD30(
+    params: any,
+    body: any,
+    query: any,
+    headers: any,
+    medidorMD30Repository: MedidorMD30Repository,
+    userRepository: UserRepository
+  ): Promise<MedidorMD30> {
+    const { measurerID } = params;
+    const { ip, name, port, rushHour, rushMinute, rushInterval } = body;
+    const token = headers.authorization.split(' ')[1];
+    const sourceUserID = BaseController.decodeIDFromToken(token);
+    const input: InputUpdateSpecificMedidorMD30 = new InputUpdateSpecificMedidorMD30(
+      sourceUserID,
+      measurerID,
+      ip,
+      name,
+      port,
+      rushHour,
+      rushMinute,
+      rushInterval
+    );
+
+    await BaseController.validateInput(input);
+
+    const updateMedidorMD30 = new UpdateSpecificMedidorMD30(
+      medidorMD30Repository,
+      userRepository
+    ).execute(input);
+    return updateMedidorMD30;
   }
 }

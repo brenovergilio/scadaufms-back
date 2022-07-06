@@ -11,14 +11,14 @@ export default class UpdateSpecificTaxUseCase extends BaseTaxesUseCases {
 
     if (!taxes) throw new NotFoundError();
 
-    if (input.demandaPonta && input.type === TaxType.AZUL)
+    if (input.demandaPonta !== undefined && input.type === TaxType.AZUL)
       taxes.demandaPonta = input.demandaPonta;
-    if (input.demandaForaPonta && input.type === TaxType.AZUL)
+    if (input.demandaForaPonta !== undefined && input.type === TaxType.AZUL)
       taxes.demandaForaPonta = input.demandaForaPonta;
-    if (input.demandaUnica && input.type === TaxType.VERDE)
+    if (input.demandaUnica !== undefined && input.type === TaxType.VERDE)
       taxes.demandaUnica = input.demandaUnica;
-    if (input.consumoPonta) taxes.consumoPonta = input.consumoPonta;
-    if (input.consumoForaPonta) taxes.consumoForaPonta = input.consumoForaPonta;
+    if (input.consumoPonta !== undefined) taxes.consumoPonta = input.consumoPonta;
+    if (input.consumoForaPonta !== undefined) taxes.consumoForaPonta = input.consumoForaPonta;
 
     const updatedTaxes = await this.taxesRepository.updateTaxes(taxes);
     return updatedTaxes;

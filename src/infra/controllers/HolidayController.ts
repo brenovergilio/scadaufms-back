@@ -26,7 +26,7 @@ export default class HolidayController extends BaseController {
     const sourceUserID = BaseController.decodeIDFromToken(token);
     const input: InputAddHoliday = new InputAddHoliday(
       sourceUserID,
-      name.trim(),
+      name,
       new Date(day)
     );
 
@@ -103,7 +103,7 @@ export default class HolidayController extends BaseController {
     const getHolidayByName = new GetHolidayByName(
       holidayRepository,
       userRepository
-    ).execute(name.trim());
+    ).execute(name);
     return getHolidayByName;
   }
 }

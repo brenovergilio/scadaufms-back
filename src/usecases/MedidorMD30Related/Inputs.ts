@@ -1,8 +1,6 @@
 import MeasurerChecker from '@src/entities/interfaces/MeasurerChecker';
 import Rush from '@src/entities/interfaces/Rush';
-import InvalidRushError from '@src/entities/util/errors/InvalidRushError';
-import { isValidRush } from '@src/entities/util/validators/RushValidator';
-import { IsInt, IsIP, Min, Max, MinLength, IsUUID } from 'class-validator';
+import { IsInt, IsIP, Min, Max, MinLength, IsUUID, IsOptional } from 'class-validator';
 
 export class InputAddMedidorMD30 {
   @IsUUID(4, { message: 'ID do usuário inválido' })
@@ -31,8 +29,8 @@ export class InputAddMedidorMD30 {
     rush: Rush = { hour: 17, minute: 30, interval: 3 }
   ) {
     this.sourceUserID = sourceUserID;
-    this.ip = ip;
-    this.name = name;
+    this.ip = ip.trim();
+    this.name = name.trim();
     this.port = port;
     this.rush = rush;
     this.measurerChecker = measurerChecker;
@@ -59,26 +57,37 @@ export class InputUpdateSpecificMedidorMD30 {
   @IsUUID(4, { message: 'ID do Medidor MD30 inválido' })
   medidorID: string;
 
+  @IsOptional()
   @IsIP(4, { message: 'IPv4 inválido' })
-  ip: string;
+  ip?: string;
 
+  @IsOptional()
   @MinLength(2, { message: 'Insira um nome com no mínimo dois caracteres' })
-  name: string;
+  name?: string;
 
+  @IsOptional()
   @IsInt({ message: 'O número de porta deve ser um inteiro' })
   @Min(0, { message: 'O valor mínimo para uma porta é 0' })
   @Max(65535, { message: 'O valor máximo para uma porta é 65535' })
-  port: number;
+  port?: number;
 
-  rush: Rush;
+  @IsOptional()
+  rushHour?: number;
 
-  constructor(sourceUserID: string, medidorID: string, ip: string, name: string, port: number, rush: Rush) {
+  @IsOptional()
+  rushMinute?: number;
+
+  @IsOptional()
+  rushInterval?: number;
+
+  constructor(sourceUserID: string, medidorID: string, ip?: string, name?: string, port?: number, rushHour?: number, rushMinute?: number, rushInterval?: number) {
     this.sourceUserID = sourceUserID;
     this.medidorID = medidorID;
-    this.ip = ip;
-    this.name = name;
+    this.ip = ip ? ip.trim() : undefined;
+    this.name = name ? name.trim() : undefined;
     this.port = port;
-    if(!isValidRush(rush)) throw new InvalidRushError();
-    this.rush = rush;
+    this.rushHour = rushHour;
+    this.rushMinute = rushMinute;
+    this.rushInterval = rushInterval;
   }
 }

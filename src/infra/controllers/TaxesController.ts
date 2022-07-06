@@ -1,4 +1,5 @@
 import TaxesRepository from '@src/entities/repositories/TaxesRepository';
+import UserRepository from '@src/entities/repositories/UserRepository';
 import Taxes from '@src/entities/Taxes';
 import GetAllTaxesUseCase from '@src/usecases/TaxesRelated/GetAllTaxesUseCase';
 import GetSpecificTaxUseCase from '@src/usecases/TaxesRelated/GetSpecificTaxUseCase';
@@ -15,10 +16,12 @@ export default class TaxesController extends BaseController {
     body: any,
     query: any,
     headers: any,
-    taxesRepository: TaxesRepository
+    taxesRepository: TaxesRepository,
+    userRepository: UserRepository
   ): Promise<Array<Taxes>> {
     const getAllTaxesUseCase = new GetAllTaxesUseCase(
-      taxesRepository
+      taxesRepository,
+      userRepository
     ).execute();
     return getAllTaxesUseCase;
   }
@@ -28,7 +31,8 @@ export default class TaxesController extends BaseController {
     body: any,
     query: any,
     headers: any,
-    taxesRepository: TaxesRepository
+    taxesRepository: TaxesRepository,
+    userRepository: UserRepository
   ): Promise<Taxes> {
     const { type } = params;
     const input: GetSpecificTaxInput = new GetSpecificTaxInput(
@@ -38,7 +42,8 @@ export default class TaxesController extends BaseController {
     await BaseController.validateInput(input);
 
     const getSpecificTaxUseCase = new GetSpecificTaxUseCase(
-      taxesRepository
+      taxesRepository,
+      userRepository
     ).execute(input);
     return getSpecificTaxUseCase;
   }
@@ -48,7 +53,8 @@ export default class TaxesController extends BaseController {
     body: any,
     query: any,
     headers: any,
-    taxesRepository: TaxesRepository
+    taxesRepository: TaxesRepository,
+    userRepository: UserRepository
   ): Promise<Taxes> {
     const { type } = params;
     const {
@@ -58,9 +64,12 @@ export default class TaxesController extends BaseController {
       consumoPonta,
       consumoForaPonta,
     } = body;
+    const token = headers.authorization.split(' ')[1];
+    const sourceUserID = BaseController.decodeIDFromToken(token);
 
     const input: UpdateSpecificTaxInput = new UpdateSpecificTaxInput(
       Number.parseInt(type),
+      sourceUserID,
       demandaPonta,
       demandaForaPonta,
       demandaUnica,
@@ -71,7 +80,8 @@ export default class TaxesController extends BaseController {
     await BaseController.validateInput(input);
 
     const updateSpecificTax = new UpdateSpecificTaxUseCase(
-      taxesRepository
+      taxesRepository,
+      userRepository
     ).execute(input);
     return updateSpecificTax;
   }

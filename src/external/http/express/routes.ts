@@ -80,6 +80,18 @@ router.post(
   )
 );
 
+router.put(
+  '/medidores/:measurerID',
+  authChecker,
+  ExpressAdapter.create(
+    MedidorMD30Controller.updateMedidorMD30,
+    200,
+    undefined,
+    repos.medidoresMD30,
+    repos.users
+  )
+)
+
 router.get(
   '/medidores/:measurerID/medicoes/tensoes',
   authChecker,
@@ -262,7 +274,8 @@ router.get(
     TaxesController.getAllTaxes,
     200,
     undefined,
-    repos.taxes
+    repos.taxes,
+    repos.users
   )
 );
 
@@ -273,7 +286,8 @@ router.get(
     TaxesController.getSpecificTax,
     200,
     undefined,
-    repos.taxes
+    repos.taxes,
+    repos.users
   )
 );
 
@@ -284,7 +298,8 @@ router.put(
     TaxesController.updateSpecificTax,
     200,
     undefined,
-    repos.taxes
+    repos.taxes,
+    repos.users
   )
 );
 
