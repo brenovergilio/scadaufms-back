@@ -25,14 +25,17 @@ export default class MedidorMD30Controller extends BaseController {
     userRepository: UserRepository,
     measurerChecker: MeasurerChecker
   ): Promise<MedidorMD30> {
-    const { ip, name, port } = body;
-    const token = headers.authorization.split(' ')[1];
+    const { ip, name, port, rushHour, rushMinute, rushInterval } = body;
+    const token = headers.authorization.split(' ')[ 1 ];
     const sourceUserID = BaseController.decodeIDFromToken(token);
     const input: InputAddMedidorMD30 = new InputAddMedidorMD30(
       sourceUserID,
       ip,
       name,
       port,
+      rushHour,
+      rushMinute,
+      rushInterval,
       measurerChecker
     );
 
@@ -54,7 +57,7 @@ export default class MedidorMD30Controller extends BaseController {
     userRepository: UserRepository
   ): Promise<MedidorMD30> {
     const { id } = params;
-    const token = headers.authorization.split(' ')[1];
+    const token = headers.authorization.split(' ')[ 1 ];
     const sourceUserID = BaseController.decodeIDFromToken(token);
 
     const input: InputDeleteMedidorMD30 = new InputDeleteMedidorMD30(
@@ -129,7 +132,7 @@ export default class MedidorMD30Controller extends BaseController {
   ): Promise<MedidorMD30> {
     const { measurerID } = params;
     const { ip, name, port, rushHour, rushMinute, rushInterval } = body;
-    const token = headers.authorization.split(' ')[1];
+    const token = headers.authorization.split(' ')[ 1 ];
     const sourceUserID = BaseController.decodeIDFromToken(token);
     const input: InputUpdateSpecificMedidorMD30 =
       new InputUpdateSpecificMedidorMD30(

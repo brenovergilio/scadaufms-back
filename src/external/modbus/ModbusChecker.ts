@@ -12,7 +12,7 @@ export default class ModbusChecker implements MeasurerChecker {
     let isOpen = true;
     try {
       await new Promise(async (resolve, reject) => {
-        const connectionTimeoutID = setTimeout(() => reject(false), 5000);
+        const connectionTimeoutID = setTimeout(() => reject(false), 3000);
         try {
           await this.client.connectTCP(ip, { port: port });
           clearTimeout(connectionTimeoutID);

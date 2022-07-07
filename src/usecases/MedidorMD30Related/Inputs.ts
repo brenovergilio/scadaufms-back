@@ -20,12 +20,19 @@ export class InputAddMedidorMD30 {
   @MinLength(2, { message: 'Insira um nome com no mínimo dois caracteres' })
   name: string;
 
-  @IsInt({ message: 'O número de porta deve ser um inteiro' })
   @Min(0, { message: 'O valor mínimo para uma porta é 0' })
   @Max(65535, { message: 'O valor máximo para uma porta é 65535' })
+  @IsInt({ message: 'O número de porta deve ser um inteiro' })
   port: number;
 
-  rush: Rush;
+  @IsOptional()
+  rushHour?: number;
+
+  @IsOptional()
+  rushMinute?: number;
+
+  @IsOptional()
+  rushInterval?: number;
   measurerChecker: MeasurerChecker;
 
   constructor(
@@ -33,14 +40,18 @@ export class InputAddMedidorMD30 {
     ip: string,
     name: string,
     port: number,
+    rushHour: number,
+    rushMinute: number,
+    rushInterval: number,
     measurerChecker: MeasurerChecker,
-    rush: Rush = { hour: 17, minute: 30, interval: 3 }
   ) {
     this.sourceUserID = sourceUserID;
     this.ip = ip.trim();
     this.name = name.trim();
     this.port = port;
-    this.rush = rush;
+    this.rushHour = rushHour;
+    this.rushMinute = rushMinute;
+    this.rushInterval = rushInterval;
     this.measurerChecker = measurerChecker;
   }
 }
@@ -76,9 +87,9 @@ export class InputUpdateSpecificMedidorMD30 {
   name?: string;
 
   @IsOptional()
-  @IsInt({ message: 'O número de porta deve ser um inteiro' })
   @Min(0, { message: 'O valor mínimo para uma porta é 0' })
   @Max(65535, { message: 'O valor máximo para uma porta é 65535' })
+  @IsInt({ message: 'O número de porta deve ser um inteiro' })
   port?: number;
 
   @IsOptional()
