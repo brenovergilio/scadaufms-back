@@ -23,6 +23,8 @@ export default class ModbusChecker implements MeasurerChecker {
       });
     } catch (e) {
       isOpen = e;
+    } finally {
+      this.client.close(() => console.log('ModbusTCP Connection Closed'));
     }
 
     return isOpen;
