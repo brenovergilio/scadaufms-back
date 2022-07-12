@@ -11,7 +11,7 @@ export default class UserRepositorySQL implements UserRepository {
 
     const newUser: User = new User(
       userData.username,
-      userData.password,
+      null,
       userData.type,
       user.id
     );
@@ -40,7 +40,7 @@ export default class UserRepositorySQL implements UserRepository {
     if (userData) {
       const user: User = new User(
         userData.username,
-        userData.password,
+        null,
         userData.type,
         userData.id
       );
@@ -56,10 +56,25 @@ export default class UserRepositorySQL implements UserRepository {
     );
     const user: User = new User(
       userData.username,
-      userData.password,
+      null,
       userData.type,
       userData.id
     );
     return user;
+  }
+
+  async getAll(): Promise<Array<User>> {
+    const usersData = await db.manyOrNone('SELECT * FROM users');
+
+    const users = usersData.map((user) => {
+      return new User(
+        user.username,
+        null,
+        user.type,
+        user.id
+      );
+    });
+
+    return users;
   }
 }

@@ -9,7 +9,7 @@ import {
   GetSpecificTaxInput,
   UpdateSpecificTaxInput,
 } from '../TaxesRelated/Inputs';
-import { InputCreateUser } from '../UserRelated/Inputs';
+import { InputCreateUser, InputDeleteUser } from '../UserRelated/Inputs';
 
 export type GenericInputClass =
   | InputAddMedidorMD30
@@ -20,4 +20,5 @@ export type GenericInputClass =
   | InputDeleteAlarm
   | GetSpecificTaxInput
   | UpdateSpecificTaxInput
-  | UpdateSpecificMedidorMD30;
+  | UpdateSpecificMedidorMD30
+  | InputDeleteUser;

@@ -19,6 +19,18 @@ router.post(
   ExpressAdapter.create(UserController.createUser, 201, undefined, repos.users)
 );
 
+router.delete(
+  '/users/:id',
+  authChecker,
+  ExpressAdapter.create(UserController.deleteUser, 200, undefined, repos.users)
+);
+
+router.get(
+  '/users',
+  authChecker,
+  ExpressAdapter.create(UserController.getAll, 200, undefined, repos.users)
+)
+
 router.post(
   '/auth/users',
   ExpressAdapter.create(UserController.login, 200, undefined, repos.users)

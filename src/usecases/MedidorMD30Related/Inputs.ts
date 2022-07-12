@@ -1,5 +1,4 @@
 import MeasurerChecker from '@src/entities/interfaces/MeasurerChecker';
-import Rush from '@src/entities/interfaces/Rush';
 import {
   IsInt,
   IsIP,

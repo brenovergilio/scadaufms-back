@@ -1,7 +1,9 @@
 import UserRepository from '@src/entities/repositories/UserRepository';
 import User from '@src/entities/User';
 import CreateUserUseCase from '@src/usecases/UserRelated/CreateUserUseCase';
-import { InputCreateUser } from '@src/usecases/UserRelated/Inputs';
+import DeleteUserUseCase from '@src/usecases/UserRelated/DeleteUserUseCase';
+import GetAllUsersUseCase from '@src/usecases/UserRelated/GetAllUsersUseCase';
+import { InputCreateUser, InputDeleteUser } from '@src/usecases/UserRelated/Inputs';
 import LoginUseCase from '@src/usecases/UserRelated/LoginUseCase';
 import InvalidPasswordError from '../errors/InvalidPasswordError';
 import InvalidUsernameError from '../errors/InvalidUsernameError';
@@ -15,13 +17,14 @@ export default class UserController extends BaseController {
     headers: any,
     userRepository: UserRepository
   ): Promise<User> {
-    const { username, password } = body;
-    const token = headers.authorization.split(' ')[1];
+    const { username, password, type } = body;
+    const token = headers.authorization.split(' ')[ 1 ];
     const sourceUserID = BaseController.decodeIDFromToken(token);
     const input: InputCreateUser = new InputCreateUser(
       sourceUserID,
       username,
-      password
+      password,
+      type
     );
 
     await BaseController.validateInput(input);
@@ -30,6 +33,43 @@ export default class UserController extends BaseController {
     input.password = hashedPassword;
 
     return new CreateUserUseCase(userRepository).execute(input);
+  }
+
+  static async deleteUser(
+    params: any,
+    body: any,
+    query: any,
+    headers: any,
+    userRepository: UserRepository
+  ): Promise<User> {
+    const { id } = params;
+    const token = headers.authorization.split(' ')[ 1 ];
+    const sourceUserID = BaseController.decodeIDFromToken(token);
+
+    const input: InputDeleteUser = new InputDeleteUser(
+      sourceUserID,
+      id
+    );
+
+    await BaseController.validateInput(input);
+
+    const deleteUserUseCase = new DeleteUserUseCase(
+      userRepository
+    ).execute(input);
+    return deleteUserUseCase;
+  }
+
+  static async getAll(
+    params: any,
+    body: any,
+    query: any,
+    headers: any,
+    userRepository: UserRepository
+  ): Promise<Array<User>> {
+    const getAllUsers = new GetAllUsersUseCase(
+      userRepository
+    ).execute();
+    return getAllUsers;
   }
 
   static async login(

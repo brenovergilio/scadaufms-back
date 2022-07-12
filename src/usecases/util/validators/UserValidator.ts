@@ -9,6 +9,15 @@ export async function existsByUsername(
   return user ? true : false;
 }
 
+export async function existsByID(
+  id: string,
+  userRepository: UserRepository
+): Promise<boolean> {
+  const user = await userRepository.getByID(id);
+  return user ? true : false;
+}
+
+
 export async function validateAuthenticatedAdmin(
   id: string,
   userRepository: UserRepository
