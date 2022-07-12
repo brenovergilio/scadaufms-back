@@ -103,6 +103,16 @@ router.get(
   )
 );
 router.get(
+  '/medidores/:measurerID/medicoes/all',
+  authChecker,
+  ExpressAdapter.create(
+    MedicaoMD30Controller.getAllMedicoesPerDateRange,
+    200,
+    undefined,
+    repos.medicoesMD30
+  )
+);
+router.get(
   '/medidores/:measurerID/medicoes/correntes',
   authChecker,
   ExpressAdapter.create(

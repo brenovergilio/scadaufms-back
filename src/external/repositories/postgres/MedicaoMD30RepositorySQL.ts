@@ -194,6 +194,34 @@ export default class MedicaoMD30RepositorySQL implements MedicaoMD30Repository {
     return medicoesMD30;
   }
 
+  async getAllMedicoesPerDateRange(
+    measurerID: string,
+    dateRange: DateRange
+  ): Promise<Array<MedicaoMD30>> {
+    const medicoesMD30Data = await db.manyOrNone(
+      "SELECT timestamp, tensao_fase_a, tensao_fase_b, tensao_fase_c, corrente_fase_a, corrente_fase_b, corrente_fase_c, potencia_ativa_total, potencia_reativa_total FROM medicoes_md30 WHERE medidor_id=$1 AND timestamp >= ($2::DATE + (15 || ' minutes')::INTERVAL) AND timestamp <= ($3::DATE + (1455 || ' minutes')::INTERVAL) ORDER BY timestamp",
+      [
+        measurerID,
+        dateRange.initialDate.toISOString().split('T')[ 0 ],
+        dateRange.finalDate.toISOString().split('T')[ 0 ],
+      ]
+    );
+    const medicoesMD30 = medicoesMD30Data.map((measurement) => {
+      const keys = Object.keys(measurement).slice(1);
+      const values = Object.values(measurement).slice(1) as Array<number>;
+      const valuesMap = new Map<string, number>();
+      keys.forEach((key, index) =>
+        valuesMap.set(`${this.formatMeasurementKey(key)}`, values[ index ])
+      );
+      return new MedicaoMD30(
+        measurerID,
+        this.formatDate(measurement.timestamp),
+        valuesMap
+      );
+    });
+    return medicoesMD30;
+  }
+
   async getTensoesPerDateRange(
     measurerID: string,
     dateRange: DateRange
@@ -221,6 +249,7 @@ export default class MedicaoMD30RepositorySQL implements MedicaoMD30Repository {
     });
     return medicoesMD30;
   }
+
 
   async getCorrentesPerDateRange(
     measurerID: string,

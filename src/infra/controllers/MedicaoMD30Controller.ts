@@ -11,6 +11,7 @@ import GetConsumosAtivosPerDateRange from '@src/usecases/MedicaoMD30Related/GetC
 import GetConsumosReativosPerDateRange from '@src/usecases/MedicaoMD30Related/GetConsumosReativosPerDateRange';
 import GetDemandasAtivasPerDateRange from '@src/usecases/MedicaoMD30Related/GetDemandasAtivasPerDateRange';
 import GetDemandasReativasPerDateRange from '@src/usecases/MedicaoMD30Related/GetDemandasReativasPerDateRange';
+import GetAllMedicoesPerDateRange from '@src/usecases/MedicaoMD30Related/GetAllMedicoesPerDateRange';
 
 export default class MedicaoMD30Controller {
   static getConsumosAtivosPerDateRange(
@@ -95,6 +96,25 @@ export default class MedicaoMD30Controller {
         dateRange
       );
     return getDemandasReativasPerDateRangeUseCase;
+  }
+
+  static getAllMedicoesPerDateRange(
+    params: any,
+    body: any,
+    query: any,
+    headers: any,
+    medicaoMD30Repository: MedicaoMD30Repository
+  ): Promise<Array<MedicaoMD30>> {
+    const { measurerID } = params;
+    const { initialDate, finalDate } = query;
+    const dateRange: DateRange = new DateRange(
+      new Date(initialDate),
+      new Date(finalDate)
+    );
+    const getAllMedicoesPerDateRangeUseCase = new GetAllMedicoesPerDateRange(
+      medicaoMD30Repository
+    ).execute(measurerID, dateRange);
+    return getAllMedicoesPerDateRangeUseCase;
   }
 
   static getTensoesPerDateRange(

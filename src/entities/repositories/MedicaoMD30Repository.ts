@@ -2,6 +2,10 @@ import MedicaoMD30 from '@src/entities/MedicaoMD30';
 import DateRange from '../../usecases/util/DateRange';
 
 export default interface MedicaoMD30Repository {
+  getAllMedicoesPerDateRange(
+    measurerID: string,
+    dateRange: DateRange
+  ): Promise<Array<MedicaoMD30>>;
   getTensoesPerDateRange(
     measurerID: string,
     dateRange: DateRange

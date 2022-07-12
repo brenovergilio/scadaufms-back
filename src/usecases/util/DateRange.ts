@@ -7,7 +7,7 @@ export default class DateRange {
 
   constructor(initialDate: Date, finalDate: Date) {
     initialDate = this.setTimeToMin(initialDate);
-    finalDate = this.setTimeToMax(finalDate);
+    finalDate = this.setTimeToMin(finalDate);
 
     if (!isValidDateRange(initialDate, finalDate))
       throw new InvalidDateRangeError();
