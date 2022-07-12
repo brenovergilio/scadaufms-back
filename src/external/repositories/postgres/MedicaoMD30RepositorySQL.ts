@@ -210,9 +210,16 @@ export default class MedicaoMD30RepositorySQL implements MedicaoMD30Repository {
       const keys = Object.keys(measurement).slice(1);
       const values = Object.values(measurement).slice(1) as Array<number>;
       const valuesMap = new Map<string, number>();
-      keys.forEach((key, index) =>
-        valuesMap.set(`${this.formatMeasurementKey(key)}`, values[ index ])
-      );
+      keys.forEach((key, index) => {
+        if (key.includes('tensao'))
+          valuesMap.set(`${this.formatMeasurementKey(key)} (V)`, values[ index ])
+        else if (key.includes('corrente'))
+          valuesMap.set(`${this.formatMeasurementKey(key)} (A)`, values[ index ])
+        else if (key.includes('potencia_ativa'))
+          valuesMap.set(`${this.formatMeasurementKey(key)} (kW)`, values[ index ] / 1000)
+        else if (key.includes('potencia_reativa'))
+          valuesMap.set(`${this.formatMeasurementKey(key)} (kVAr)`, values[ index ] / 1000)
+      });
       return new MedicaoMD30(
         measurerID,
         this.formatDate(measurement.timestamp),
