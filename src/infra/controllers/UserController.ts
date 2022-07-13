@@ -3,6 +3,7 @@ import User from '@src/entities/User';
 import CreateUserUseCase from '@src/usecases/UserRelated/CreateUserUseCase';
 import DeleteUserUseCase from '@src/usecases/UserRelated/DeleteUserUseCase';
 import GetAllUsersUseCase from '@src/usecases/UserRelated/GetAllUsersUseCase';
+import GetUserByIDUseCase from '@src/usecases/UserRelated/GetUserByIDUseCase';
 import { InputCreateUser, InputDeleteUser } from '@src/usecases/UserRelated/Inputs';
 import LoginUseCase from '@src/usecases/UserRelated/LoginUseCase';
 import InvalidPasswordError from '../errors/InvalidPasswordError';
@@ -72,6 +73,20 @@ export default class UserController extends BaseController {
     return getAllUsers;
   }
 
+  static getUserByID(
+    params: any,
+    body: any,
+    query: any,
+    headers: any,
+    userRepository: UserRepository
+  ): Promise<User> {
+    const { id } = params;
+    const getUserByIDUseCase = new GetUserByIDUseCase(
+      userRepository
+    ).execute(id);
+    return getUserByIDUseCase;
+  }
+
   static async login(
     params: any,
     body: any,
@@ -87,7 +102,7 @@ export default class UserController extends BaseController {
 
     const passwordMatches = await BaseController.compareHashedPassword(
       password,
-      user.password
+      user.password!
     );
 
     if (!passwordMatches) throw new InvalidPasswordError();

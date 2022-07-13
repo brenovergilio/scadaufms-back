@@ -31,6 +31,12 @@ router.get(
   ExpressAdapter.create(UserController.getAll, 200, undefined, repos.users)
 )
 
+router.get(
+  '/users/:id',
+  authChecker,
+  ExpressAdapter.create(UserController.getUserByID, 200, undefined, repos.users)
+)
+
 router.post(
   '/auth/users',
   ExpressAdapter.create(UserController.login, 200, undefined, repos.users)
