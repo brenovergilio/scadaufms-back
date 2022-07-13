@@ -137,7 +137,7 @@ export default class MedicaoMD30RepositorySQL implements MedicaoMD30Repository {
     dateRange: DateRange
   ): Promise<Array<MedicaoMD30>> {
     const medicoesMD30Data = await db.manyOrNone(
-      "SELECT to_timestamp(FLOOR(extract('epoch' FROM timestamp::timestamptz) / $1) * $1) AS interval, MAX(potencia_ativa_total) FROM medicoes_md30 WHERE medidor_id=$2 AND to_timestamp(FLOOR(extract('epoch' FROM timestamp::timestamptz) / $1) * $1) >= ($3::DATE + (15 || ' minutes')::INTERVAL) AND to_timestamp(FLOOR(extract('epoch' FROM timestamp::timestamptz) / $1) * $1) <= ($4::DATE + (1455( || ' minutes')::INTERVAL) GROUP BY interval ORDER BY interval",
+      "SELECT to_timestamp(FLOOR(extract('epoch' FROM timestamp::timestamptz) / $1) * $1) AS interval, MAX(potencia_ativa_total) FROM medicoes_md30 WHERE medidor_id=$2 AND to_timestamp(FLOOR(extract('epoch' FROM timestamp::timestamptz) / $1) * $1) >= ($3::DATE + (15 || ' minutes')::INTERVAL) AND to_timestamp(FLOOR(extract('epoch' FROM timestamp::timestamptz) / $1) * $1) <= ($4::DATE + (1455 || ' minutes')::INTERVAL) GROUP BY interval ORDER BY interval",
       [
         interval,
         measurerID,
@@ -145,7 +145,6 @@ export default class MedicaoMD30RepositorySQL implements MedicaoMD30Repository {
         dateRange.finalDate.toISOString().split('T')[ 0 ],
       ]
     );
-    console.log(medicoesMD30Data);
     const medicoesMD30 = medicoesMD30Data.map((measurement) => {
       const keys = Object.keys(measurement).slice(1);
       const values = Object.values(measurement).slice(1) as Array<number>;
