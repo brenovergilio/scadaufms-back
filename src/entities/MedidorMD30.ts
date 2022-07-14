@@ -3,7 +3,7 @@ import Holiday from './Holiday';
 import Measurement from './interfaces/Measurement';
 import Measurer from './interfaces/Measurer';
 import Rush from './interfaces/Rush';
-import { datesMatch, DayOfWeek } from './util/helpers';
+import { convertBrazilianDateStringToDate, datesMatch, DayOfWeek } from './util/helpers';
 import { isValidRush } from './util/validators/RushValidator';
 
 export default class MedidorMD30 implements Measurer {
@@ -34,7 +34,7 @@ export default class MedidorMD30 implements Measurer {
     holidays: Array<Holiday>
   ): boolean {
     if (typeof measurement.timestamp === 'string')
-      measurement.timestamp = new Date(measurement.timestamp);
+      measurement.timestamp = convertBrazilianDateStringToDate(measurement.timestamp);
 
     const dayOfWeek = measurement.timestamp.getUTCDay();
 

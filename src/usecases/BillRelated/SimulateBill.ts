@@ -11,6 +11,8 @@ export default class SimulateBill extends BaseBillUseCases {
 
     if (!medidor) throw new NotFoundError();
 
+    const demandaContratadaInKw = input.demandaContratada * 1000;
+
     const taxes = await this.taxesRepository.getSpecificTax(input.type);
 
     const holidays = await this.holidayRepository.getAllHolidays();
@@ -18,30 +20,30 @@ export default class SimulateBill extends BaseBillUseCases {
     const consumosAtivos =
       await this.medicaoMD30Repository.getConsumosAtivosPerDateRange(
         input.medidorID,
-        3600,
+        900,
         input.dateRange
       );
     const consumosReativos =
       await this.medicaoMD30Repository.getConsumosReativosPerDateRange(
         input.medidorID,
-        3600,
+        900,
         input.dateRange
       );
     const demandasAtivas =
       await this.medicaoMD30Repository.getDemandasAtivasPerDateRange(
         input.medidorID,
-        3600,
+        900,
         input.dateRange
       );
     const demandasReativas =
       await this.medicaoMD30Repository.getDemandasReativasPerDateRange(
         input.medidorID,
-        3600,
+        900,
         input.dateRange
       );
 
     const bill = new Bill(
-      input.demandaContratada,
+      demandaContratadaInKw,
       holidays,
       consumosAtivos,
       consumosReativos,

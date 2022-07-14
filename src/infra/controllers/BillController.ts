@@ -2,7 +2,6 @@ import HolidayRepository from '@src/entities/repositories/HolidayRepository';
 import MedicaoMD30Repository from '@src/entities/repositories/MedicaoMD30Repository';
 import MedidorMD30Repository from '@src/entities/repositories/MedidorMD30Repository';
 import TaxesRepository from '@src/entities/repositories/TaxesRepository';
-import { TaxType } from '@src/entities/Taxes';
 import { SimulateBillInput } from '@src/usecases/BillRelated/Inputs';
 import SimulateBill from '@src/usecases/BillRelated/SimulateBill';
 import DateRange from '@src/usecases/util/DateRange';

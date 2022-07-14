@@ -53,12 +53,15 @@ export default class MedicaoMD30RepositorySQL implements MedicaoMD30Repository {
       ]
     );
 
+    // Número que vai dividir todo o resultado de medicoesMD30Array para obter o consumo proporcional a uma hora
+    const divideBy = 3600 / interval;
+
     const medicoesMD30 = medicoesMD30Data.map((measurement) => {
       const keys = Object.keys(measurement).slice(1);
       const values = Object.values(measurement).slice(1) as Array<number>;
       const valuesMap = new Map<string, number>();
       keys.forEach((key, index) =>
-        valuesMap.set('Consumo Ativo (kWh)', values[ index ] / 1000)
+        valuesMap.set('Consumo Ativo (kWh)', values[ index ] / 1000 / divideBy)
       );
       const timestamp = this.formatDate(
         measurement.interval.toISOString().replace('T', ' ')
@@ -114,12 +117,15 @@ export default class MedicaoMD30RepositorySQL implements MedicaoMD30Repository {
       ]
     );
 
+    // Número que vai dividir todo o resultado de medicoesMD30Array para obter o consumo proporcional a uma hora
+    const divideBy = 3600 / interval;
+
     const medicoesMD30 = medicoesMD30Data.map((measurement) => {
       const keys = Object.keys(measurement).slice(1);
       const values = Object.values(measurement).slice(1) as Array<number>;
       const valuesMap = new Map<string, number>();
       keys.forEach((key, index) =>
-        valuesMap.set('Consumo Reativo (kVarh)', values[ index ] / 1000)
+        valuesMap.set('Consumo Reativo (kVarh)', values[ index ] / 1000 / divideBy)
       );
       return new MedicaoMD30(
         measurerID,
