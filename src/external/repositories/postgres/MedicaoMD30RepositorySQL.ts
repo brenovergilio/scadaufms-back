@@ -61,7 +61,7 @@ export default class MedicaoMD30RepositorySQL implements MedicaoMD30Repository {
       const values = Object.values(measurement).slice(1) as Array<number>;
       const valuesMap = new Map<string, number>();
       keys.forEach((key, index) =>
-        valuesMap.set('Consumo Ativo (kWh)', values[ index ] / 1000 / divideBy)
+        valuesMap.set('Consumo Ativo (kWh)', Number((values[ index ] / 1000 / divideBy).toFixed(2)))
       );
       const timestamp = this.formatDate(
         measurement.interval.toISOString().replace('T', ' ')
@@ -125,7 +125,7 @@ export default class MedicaoMD30RepositorySQL implements MedicaoMD30Repository {
       const values = Object.values(measurement).slice(1) as Array<number>;
       const valuesMap = new Map<string, number>();
       keys.forEach((key, index) =>
-        valuesMap.set('Consumo Reativo (kVarh)', values[ index ] / 1000 / divideBy)
+        valuesMap.set('Consumo Reativo (kVarh)', Number((values[ index ] / 1000 / divideBy).toFixed(2)))
       );
       return new MedicaoMD30(
         measurerID,
@@ -156,7 +156,7 @@ export default class MedicaoMD30RepositorySQL implements MedicaoMD30Repository {
       const values = Object.values(measurement).slice(1) as Array<number>;
       const valuesMap = new Map<string, number>();
       keys.forEach((key, index) =>
-        valuesMap.set('Demanda Ativa (kV)', values[ index ] / 1000)
+        valuesMap.set('Demanda Ativa (kV)', Number((values[ index ] / 1000).toFixed(2)))
       );
       return new MedicaoMD30(
         measurerID,
@@ -187,7 +187,7 @@ export default class MedicaoMD30RepositorySQL implements MedicaoMD30Repository {
       const values = Object.values(measurement).slice(1) as Array<number>;
       const valuesMap = new Map<string, number>();
       keys.forEach((key, index) =>
-        valuesMap.set('Demanda Reativa (kVar)', values[ index ] / 1000)
+        valuesMap.set('Demanda Reativa (kVar)', Number((values[ index ] / 1000).toFixed(2)))
       );
       return new MedicaoMD30(
         measurerID,
@@ -217,13 +217,13 @@ export default class MedicaoMD30RepositorySQL implements MedicaoMD30Repository {
       const valuesMap = new Map<string, number>();
       keys.forEach((key, index) => {
         if (key.includes('tensao'))
-          valuesMap.set(`${this.formatMeasurementKey(key)} (V)`, values[ index ])
+          valuesMap.set(`${this.formatMeasurementKey(key)} (V)`, Number((values[ index ]).toFixed(2)))
         else if (key.includes('corrente'))
-          valuesMap.set(`${this.formatMeasurementKey(key)} (A)`, values[ index ])
+          valuesMap.set(`${this.formatMeasurementKey(key)} (A)`, Number((values[ index ]).toFixed(2)))
         else if (key.includes('potencia_ativa'))
-          valuesMap.set(`${this.formatMeasurementKey(key)} (kW)`, values[ index ] / 1000)
+          valuesMap.set(`${this.formatMeasurementKey(key)} (kW)`, Number((values[ index ] / 1000).toFixed(2)))
         else if (key.includes('potencia_reativa'))
-          valuesMap.set(`${this.formatMeasurementKey(key)} (kVAr)`, values[ index ] / 1000)
+          valuesMap.set(`${this.formatMeasurementKey(key)} (kVAr)`, Number((values[ index ] / 1000).toFixed(2)))
       });
       return new MedicaoMD30(
         measurerID,
@@ -251,7 +251,7 @@ export default class MedicaoMD30RepositorySQL implements MedicaoMD30Repository {
       const values = Object.values(measurement).slice(1) as Array<number>;
       const valuesMap = new Map<string, number>();
       keys.forEach((key, index) =>
-        valuesMap.set(`${this.formatMeasurementKey(key)} (V)`, values[ index ])
+        valuesMap.set(`${this.formatMeasurementKey(key)} (V)`, Number((values[ index ]).toFixed(2)))
       );
       return new MedicaoMD30(
         measurerID,
@@ -281,7 +281,7 @@ export default class MedicaoMD30RepositorySQL implements MedicaoMD30Repository {
       const values = Object.values(measurement).slice(1) as Array<number>;
       const valuesMap = new Map<string, number>();
       keys.forEach((key, index) =>
-        valuesMap.set(`${this.formatMeasurementKey(key)} (A)`, values[ index ])
+        valuesMap.set(`${this.formatMeasurementKey(key)} (A)`, Number((values[ index ]).toFixed(2)))
       );
       return new MedicaoMD30(
         measurerID,
@@ -313,7 +313,7 @@ export default class MedicaoMD30RepositorySQL implements MedicaoMD30Repository {
       keys.forEach((key, index) =>
         valuesMap.set(
           `${this.formatMeasurementKey(key)} (kW)`,
-          values[ index ] / 1000
+          Number((values[ index ] / 1000).toFixed(2))
         )
       );
       return new MedicaoMD30(
@@ -346,7 +346,7 @@ export default class MedicaoMD30RepositorySQL implements MedicaoMD30Repository {
       keys.forEach((key, index) =>
         valuesMap.set(
           `${this.formatMeasurementKey(key)} (KVAr)`,
-          values[ index ] / 1000
+          Number((values[ index ] / 1000).toFixed(2))
         )
       );
       return new MedicaoMD30(
@@ -377,7 +377,7 @@ export default class MedicaoMD30RepositorySQL implements MedicaoMD30Repository {
       const values = Object.values(measurement).slice(1) as Array<number>;
       const valuesMap = new Map<string, number>();
       keys.forEach((key, index) =>
-        valuesMap.set(`${this.formatMeasurementKey(key)}`, values[ index ])
+        valuesMap.set(`${this.formatMeasurementKey(key)}`, Number((values[ index ]).toFixed(2)))
       );
       return new MedicaoMD30(
         measurerID,
