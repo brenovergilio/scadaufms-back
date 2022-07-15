@@ -22,6 +22,10 @@ export default interface MedicaoMD30Repository {
     measurerID: string,
     dateRange: DateRange
   ): Promise<Array<MedicaoMD30>>;
+  getPotenciasAparentesPerDateRange(
+    measurerID: string,
+    dateRange: DateRange
+  ): Promise<Array<MedicaoMD30>>;
   getFatoresDePotenciaPerDateRange(
     measurerID: string,
     dateRange: DateRange
@@ -46,14 +50,4 @@ export default interface MedicaoMD30Repository {
     interval: number,
     dateRange: DateRange
   ): Promise<Array<MedicaoMD30>>;
-  // getConsumosAtivosPerMonthAndYear(
-  //   measurerID: string,
-  //   month: number,
-  //   year: number
-  // ): Promise<Array<MedicaoMD30>>;
-  // getConsumosReativosPerMonthAndYear(
-  //   measurerID: string,
-  //   month: number,
-  //   year: number
-  // ): Promise<Array<MedicaoMD30>>;
 }

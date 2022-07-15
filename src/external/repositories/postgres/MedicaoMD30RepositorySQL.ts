@@ -4,39 +4,33 @@ import DateRange from '@src/usecases/util/DateRange';
 import db from '@src/external/database/postgres/database';
 
 export default class MedicaoMD30RepositorySQL implements MedicaoMD30Repository {
-  getPotenciasAparentesPerDateRange(measurerID: string, dateRange: DateRange): Promise<MedicaoMD30[]> {
-    throw new Error('Method not implemented.');
+  async getPotenciasAparentesPerDateRange(
+    measurerID: string,
+    dateRange: DateRange
+  ): Promise<Array<MedicaoMD30>> {
+    const medicoesMD30Data = await db.manyOrNone(
+      "SELECT timestamp, sqrt(((potencia_ativa_total*potencia_ativa_total)+(potencia_reativa_total*potencia_reativa_total))) as potencia_aparente_total FROM medicoes_md30 WHERE medidor_id=$1 AND timestamp >= ($2::DATE + (15 || ' minutes')::INTERVAL) AND timestamp <= ($3::DATE + (1455 || ' minutes')::INTERVAL) ORDER BY timestamp",
+      [
+        measurerID,
+        dateRange.initialDate.toISOString().split('T')[ 0 ],
+        dateRange.finalDate.toISOString().split('T')[ 0 ],
+      ]
+    );
+    const medicoesMD30 = medicoesMD30Data.map((measurement) => {
+      const keys = Object.keys(measurement).slice(1);
+      const values = Object.values(measurement).slice(1) as Array<number>;
+      const valuesMap = new Map<string, number>();
+      keys.forEach((key, index) =>
+        valuesMap.set(`${this.formatMeasurementKey(key)} (VA)`, Number((values[ index ] / 1000).toFixed(2)))
+      );
+      return new MedicaoMD30(
+        measurerID,
+        this.formatDate(measurement.timestamp),
+        valuesMap
+      );
+    });
+    return medicoesMD30;
   }
-  // async getConsumosAtivosPerMonthAndYear(
-  //   measurerID: string,
-  //   month: number,
-  //   year: number
-  // ): Promise<Array<MedicaoMD30>> {
-  //   const medicoesMD30Data = await db.manyOrNone(
-  //     "SELECT to_timestamp(FLOOR(extract('epoch' FROM timestamp::timestamptz) / $1) * $1) AS interval, AVG(potencia_ativa_total) FROM medicoes_md30 WHERE medidor_id=$2 AND EXTRACT(MONTH FROM to_timestamp(FLOOR(extract('epoch' FROM timestamp::timestamptz) / $1) * $1)) = $3 AND EXTRACT(YEAR FROM to_timestamp(FLOOR(extract('epoch' FROM timestamp::timestamptz) / $1) * $1)) = $4 GROUP BY interval ORDER BY interval;",
-  //     [
-  //       interval,
-  //       measurerID,
-  //       month,
-  //       year,
-  //     ]
-  //   );
-
-  //   const medicoesMD30 = medicoesMD30Data.map((measurement) => {
-  //     const keys = Object.keys(measurement).slice(1);
-  //     const values = Object.values(measurement).slice(1) as Array<number>;
-  //     const valuesMap = new Map<string, number>();
-  //     keys.forEach((key, index) =>
-  //       valuesMap.set('Consumo Ativo (kWh)', values[index] / 1000)
-  //     );
-  //     const timestamp = this.formatDate(
-  //       measurement.interval.toISOString().replace('T', ' ')
-  //     );
-  //     return new MedicaoMD30(measurerID, timestamp, valuesMap);
-  //   });
-  //   console.log(medicoesMD30);
-  //   return medicoesMD30;
-  // }
 
   async getConsumosAtivosPerDateRange(
     measurerID: string,
@@ -70,37 +64,6 @@ export default class MedicaoMD30RepositorySQL implements MedicaoMD30Repository {
     });
     return medicoesMD30;
   }
-
-  // async getConsumosReativosPerMonthAndYear(
-  //   measurerID: string,
-  //   month: number,
-  //   year: number
-  // ): Promise<Array<MedicaoMD30>> {
-  //   const medicoesMD30Data = await db.manyOrNone(
-  //     "SELECT to_timestamp(FLOOR(extract('epoch' FROM timestamp::timestamptz) / $1) * $1) AS interval, AVG(potencia_reativa_total) FROM medicoes_md30 WHERE medidor_id=$2 AND EXTRACT(MONTH FROM to_timestamp(FLOOR(extract('epoch' FROM timestamp::timestamptz) / $1) * $1)) = $3 AND EXTRACT(YEAR FROM to_timestamp(FLOOR(extract('epoch' FROM timestamp::timestamptz) / $1) * $1)) = $4 GROUP BY interval ORDER BY interval;",
-  //     [
-  //       interval,
-  //       measurerID,
-  //       month,
-  //       year,
-  //     ]
-  //   );
-
-  //   const medicoesMD30 = medicoesMD30Data.map((measurement) => {
-  //     const keys = Object.keys(measurement).slice(1);
-  //     const values = Object.values(measurement).slice(1) as Array<number>;
-  //     const valuesMap = new Map<string, number>();
-  //     keys.forEach((key, index) =>
-  //       valuesMap.set('Consumo Reativo (kVarh)', values[index] / 1000)
-  //     );
-  //     const timestamp = this.formatDate(
-  //       measurement.interval.toISOString().replace('T', ' ')
-  //     );
-  //     return new MedicaoMD30(measurerID, timestamp, valuesMap);
-  //   });
-  //   console.log(medicoesMD30);
-  //   return medicoesMD30;
-  // }
 
   async getConsumosReativosPerDateRange(
     measurerID: string,
@@ -364,7 +327,7 @@ export default class MedicaoMD30RepositorySQL implements MedicaoMD30Repository {
     dateRange: DateRange
   ): Promise<Array<MedicaoMD30>> {
     const medicoesMD30Data = await db.manyOrNone(
-      "SELECT timestamp, fator_potencia_total FROM medicoes_md30 WHERE medidor_id=$1 AND timestamp >= ($2::DATE + (15 || ' minutes')::INTERVAL) AND timestamp <= ($3::DATE + (1455 || ' minutes')::INTERVAL) ORDER BY timestamp",
+      "SELECT timestamp, (potencia_ativa_total / sqrt(((potencia_ativa_total*potencia_ativa_total)+(potencia_reativa_total*potencia_reativa_total)))) as fator_de_potencia FROM medicoes_md30 WHERE medidor_id=$1 AND timestamp >= ($2::DATE + (15 || ' minutes')::INTERVAL) AND timestamp <= ($3::DATE + (1455 || ' minutes')::INTERVAL) ORDER BY timestamp",
       [
         measurerID,
         dateRange.initialDate.toISOString().split('T')[ 0 ],
@@ -377,7 +340,7 @@ export default class MedicaoMD30RepositorySQL implements MedicaoMD30Repository {
       const values = Object.values(measurement).slice(1) as Array<number>;
       const valuesMap = new Map<string, number>();
       keys.forEach((key, index) =>
-        valuesMap.set(`${this.formatMeasurementKey(key)}`, Number((values[ index ]).toFixed(2)))
+        valuesMap.set(`${this.formatMeasurementKey(key)}`, Number((values[ index ]).toFixed(3)))
       );
       return new MedicaoMD30(
         measurerID,
