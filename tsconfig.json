@@ -3,7 +3,13 @@
     "target": "es2017",
     "moduleResolution": "node",
     "module": "commonjs",
-    "lib": ["es2021", "dom", "dom.iterable", "es5", "es6"],
+    "lib": [
+      "es2021",
+      "dom",
+      "dom.iterable",
+      "es5",
+      "es6"
+    ],
     "sourceMap": true,
     "outDir": "dist",
     "strict": true,
@@ -20,13 +26,26 @@
     "allowSyntheticDefaultImports": true,
     "baseUrl": ".",
     "paths": {
-      "@src/*": ["./src/*"],
-      "@test/*": ["./test/*"]
+      "@src/*": [
+        "./src/*"
+      ],
+      "@test/*": [
+        "./test/*"
+      ]
     },
-    "rootDirs": ["./src", "./test"],
+    "rootDirs": [
+      "./src",
+      "./test"
+    ],
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true
   },
-  "include": ["./src/**/*.ts", "./test/**/*.ts"],
-  "exclude": ["./node_modules/*", "dist"]
+  "include": [
+    "./src/**/*.ts",
+    "./test/**/*.ts"
+  ],
+  "exclude": [
+    "./node_modules/*",
+    "dist"
+  ]
 }

@@ -21,34 +21,6 @@ export default class MedidorMD30 implements Measurer {
     isValidRush(rush);
   }
 
-  // public calculateConsumoAtivoPonta(): number {
-  //   return this.consumosAtivosPonta.reduce(
-  //     (acc, current) => acc + measurementAcumulator(current),
-  //     0
-  //   );
-  // }
-
-  // public calculateConsumoAtivoForaPonta(): number {
-  //   return this.consumosAtivosForaPonta.reduce(
-  //     (acc, current) => acc + measurementAcumulator(current),
-  //     0
-  //   );
-  // }
-
-  // public calculateDemandaAtivaPonta(): number {
-  //   return this.demandasAtivasPonta.reduce(
-  //     (acc, current) => acc + measurementAcumulator(current),
-  //     0
-  //   );
-  // }
-
-  // public calculateDemandaAtivaForaPonta(): number {
-  //   return this.demandasAtivasForaPonta.reduce(
-  //     (acc, current) => acc + measurementAcumulator(current),
-  //     0
-  //   );
-  // }
-
   public splitPontaAndForaPonta(
     measurements: Array<Measurement>,
     holidays: Array<Holiday>
@@ -77,8 +49,8 @@ export default class MedidorMD30 implements Measurer {
     if (dayOfWeek === DayOfWeek.SATURDAY || dayOfWeek === DayOfWeek.SUNDAY)
       return false;
 
-    for (let holiday of holidays)
-      if (datesMatch(holiday.day, measurement.timestamp as Date)) return false;
+    for (const holiday of holidays)
+      if (datesMatch(holiday.day, measurement.timestamp)) return false;
 
     const finalHour = this.rush.hour + this.rush.interval;
     const measurementHour = measurement.timestamp.getUTCHours();

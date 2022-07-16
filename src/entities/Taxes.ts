@@ -14,5 +14,5 @@ export default class Taxes {
     public consumoPonta: number,
     public consumoForaPonta: number,
     public id: string = v4()
-  ) {}
+  ) { }
 }

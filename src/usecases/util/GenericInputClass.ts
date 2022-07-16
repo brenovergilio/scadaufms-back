@@ -1,4 +1,5 @@
 import { InputDeleteAlarm } from '../AlarmRelated/Inputs';
+import { SimulateBillInput } from '../BillRelated/Inputs';
 import { InputAddHoliday, InputDeleteHoliday } from '../HolidayRelated/Inputs';
 import {
   InputAddMedidorMD30,
@@ -18,6 +19,7 @@ export type GenericInputClass =
   | InputAddHoliday
   | InputDeleteHoliday
   | InputDeleteAlarm
+  | SimulateBillInput
   | GetSpecificTaxInput
   | UpdateSpecificTaxInput
   | UpdateSpecificMedidorMD30

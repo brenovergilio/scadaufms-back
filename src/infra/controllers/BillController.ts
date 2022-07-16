@@ -3,6 +3,7 @@ import MedicaoMD30Repository from '@src/entities/repositories/MedicaoMD30Reposit
 import MedidorMD30Repository from '@src/entities/repositories/MedidorMD30Repository';
 import TaxesRepository from '@src/entities/repositories/TaxesRepository';
 import { SimulateBillInput } from '@src/usecases/BillRelated/Inputs';
+import { OutputSimulateBill } from '@src/usecases/BillRelated/Output';
 import SimulateBill from '@src/usecases/BillRelated/SimulateBill';
 import DateRange from '@src/usecases/util/DateRange';
 import BaseController from './BaseController';
@@ -17,8 +18,8 @@ export default class BillController extends BaseController {
     medicaoMD30Repository: MedicaoMD30Repository,
     holidayRepository: HolidayRepository,
     taxesRepository: TaxesRepository
-  ): Promise<number> {
-    const { type, initialDate, finalDate, ...medidoresID } = query;
+  ): Promise<OutputSimulateBill> {
+    const { initialDate, finalDate, ...medidoresID } = query;
 
     const dateRange: DateRange = new DateRange(
       new Date(initialDate),
@@ -26,7 +27,6 @@ export default class BillController extends BaseController {
     );
 
     const input: SimulateBillInput = new SimulateBillInput(
-      Number.parseInt(type),
       dateRange,
       Object.values(medidoresID)
     );
