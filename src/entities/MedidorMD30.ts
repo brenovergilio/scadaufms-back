@@ -3,7 +3,11 @@ import Holiday from './Holiday';
 import Measurement from './interfaces/Measurement';
 import Measurer from './interfaces/Measurer';
 import Rush from './interfaces/Rush';
-import { convertBrazilianDateStringToDate, datesMatch, DayOfWeek } from './util/helpers';
+import {
+  convertBrazilianDateStringToDate,
+  datesMatch,
+  DayOfWeek,
+} from './util/helpers';
 import { isValidRush } from './util/validators/RushValidator';
 
 export default class MedidorMD30 implements Measurer {
@@ -17,16 +21,46 @@ export default class MedidorMD30 implements Measurer {
     isValidRush(rush);
   }
 
-  calculateEnergiaAtiva(potenciasAtivas: Array<Measurement>): number {
-    //TODO
+  // public calculateConsumoAtivoPonta(): number {
+  //   return this.consumosAtivosPonta.reduce(
+  //     (acc, current) => acc + measurementAcumulator(current),
+  //     0
+  //   );
+  // }
 
-    return 0;
-  }
+  // public calculateConsumoAtivoForaPonta(): number {
+  //   return this.consumosAtivosForaPonta.reduce(
+  //     (acc, current) => acc + measurementAcumulator(current),
+  //     0
+  //   );
+  // }
 
-  calculateEnergiaReativa(potenciasReativas: Array<Measurement>): number {
-    //TODO
+  // public calculateDemandaAtivaPonta(): number {
+  //   return this.demandasAtivasPonta.reduce(
+  //     (acc, current) => acc + measurementAcumulator(current),
+  //     0
+  //   );
+  // }
 
-    return 0;
+  // public calculateDemandaAtivaForaPonta(): number {
+  //   return this.demandasAtivasForaPonta.reduce(
+  //     (acc, current) => acc + measurementAcumulator(current),
+  //     0
+  //   );
+  // }
+
+  public splitPontaAndForaPonta(
+    measurements: Array<Measurement>,
+    holidays: Array<Holiday>
+  ): [ Array<Measurement>, Array<Measurement> ] {
+    const insidePonta = new Array<Measurement>();
+    const outsidePonta = new Array<Measurement>();
+    for (const measurement of measurements) {
+      if (this.isInsideRushHour(measurement, holidays))
+        insidePonta.push(measurement);
+      else outsidePonta.push(measurement);
+    }
+    return [ insidePonta, outsidePonta ];
   }
 
   isInsideRushHour(
@@ -34,7 +68,9 @@ export default class MedidorMD30 implements Measurer {
     holidays: Array<Holiday>
   ): boolean {
     if (typeof measurement.timestamp === 'string')
-      measurement.timestamp = convertBrazilianDateStringToDate(measurement.timestamp);
+      measurement.timestamp = convertBrazilianDateStringToDate(
+        measurement.timestamp
+      );
 
     const dayOfWeek = measurement.timestamp.getUTCDay();
 

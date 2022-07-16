@@ -30,13 +30,7 @@ export default function errorHandler(
   if (error instanceof InvalidTokenError)
     return res.status(400).json({ statusCode: 400, message: error.message });
 
-  if (error instanceof InvalidPasswordError)
-    return res.status(401).json({ statusCode: 401, message: error.message });
-
   if (error instanceof UnauthorizedError)
-    return res.status(401).json({ statusCode: 401, message: error.message });
-
-  if (error instanceof InvalidUsernameError)
     return res.status(401).json({ statusCode: 401, message: error.message });
 
   if (error instanceof InsufficientPermissionError)

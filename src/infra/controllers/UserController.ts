@@ -4,10 +4,12 @@ import CreateUserUseCase from '@src/usecases/UserRelated/CreateUserUseCase';
 import DeleteUserUseCase from '@src/usecases/UserRelated/DeleteUserUseCase';
 import GetAllUsersUseCase from '@src/usecases/UserRelated/GetAllUsersUseCase';
 import GetUserByIDUseCase from '@src/usecases/UserRelated/GetUserByIDUseCase';
-import { InputCreateUser, InputDeleteUser } from '@src/usecases/UserRelated/Inputs';
+import {
+  InputCreateUser,
+  InputDeleteUser,
+} from '@src/usecases/UserRelated/Inputs';
 import LoginUseCase from '@src/usecases/UserRelated/LoginUseCase';
-import InvalidPasswordError from '../errors/InvalidPasswordError';
-import InvalidUsernameError from '../errors/InvalidUsernameError';
+import UnauthorizedError from '../errors/UnauthorizedError';
 import BaseController, { ResponseJWT } from './BaseController';
 
 export default class UserController extends BaseController {
@@ -19,7 +21,7 @@ export default class UserController extends BaseController {
     userRepository: UserRepository
   ): Promise<User> {
     const { username, password, type } = body;
-    const token = headers.authorization.split(' ')[ 1 ];
+    const token = headers.authorization.split(' ')[1];
     const sourceUserID = BaseController.decodeIDFromToken(token);
     const input: InputCreateUser = new InputCreateUser(
       sourceUserID,
@@ -44,19 +46,16 @@ export default class UserController extends BaseController {
     userRepository: UserRepository
   ): Promise<User> {
     const { id } = params;
-    const token = headers.authorization.split(' ')[ 1 ];
+    const token = headers.authorization.split(' ')[1];
     const sourceUserID = BaseController.decodeIDFromToken(token);
 
-    const input: InputDeleteUser = new InputDeleteUser(
-      sourceUserID,
-      id
-    );
+    const input: InputDeleteUser = new InputDeleteUser(sourceUserID, id);
 
     await BaseController.validateInput(input);
 
-    const deleteUserUseCase = new DeleteUserUseCase(
-      userRepository
-    ).execute(input);
+    const deleteUserUseCase = new DeleteUserUseCase(userRepository).execute(
+      input
+    );
     return deleteUserUseCase;
   }
 
@@ -67,9 +66,7 @@ export default class UserController extends BaseController {
     headers: any,
     userRepository: UserRepository
   ): Promise<Array<User>> {
-    const getAllUsers = new GetAllUsersUseCase(
-      userRepository
-    ).execute();
+    const getAllUsers = new GetAllUsersUseCase(userRepository).execute();
     return getAllUsers;
   }
 
@@ -81,9 +78,9 @@ export default class UserController extends BaseController {
     userRepository: UserRepository
   ): Promise<User> {
     const { id } = params;
-    const getUserByIDUseCase = new GetUserByIDUseCase(
-      userRepository
-    ).execute(id);
+    const getUserByIDUseCase = new GetUserByIDUseCase(userRepository).execute(
+      id
+    );
     return getUserByIDUseCase;
   }
 
@@ -96,7 +93,7 @@ export default class UserController extends BaseController {
   ): Promise<ResponseJWT> {
     const { username, password } = body;
 
-    if (!username) throw new InvalidUsernameError();
+    if (!username) throw new UnauthorizedError();
 
     const user = await new LoginUseCase(userRepository).execute(username);
 
@@ -105,7 +102,7 @@ export default class UserController extends BaseController {
       user.password!
     );
 
-    if (!passwordMatches) throw new InvalidPasswordError();
+    if (!passwordMatches) throw new UnauthorizedError();
 
     return { jwt: BaseController.generateJWT(user.id) };
   }

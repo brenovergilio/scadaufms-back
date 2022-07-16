@@ -29,7 +29,7 @@ export default class AddMedidorMD30 extends BaseMedidorMD30UseCases {
     const newMedidorMD30: MedidorMD30 = new MedidorMD30(
       input.ip,
       input.name,
-      input.port,
+      input.port
     );
 
     if (input.rushHour !== undefined) newMedidorMD30.rush.hour = input.rushHour;

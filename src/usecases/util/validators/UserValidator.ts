@@ -17,7 +17,6 @@ export async function existsByID(
   return user ? true : false;
 }
 
-
 export async function validateAuthenticatedAdmin(
   id: string,
   userRepository: UserRepository

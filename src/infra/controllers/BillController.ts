@@ -18,8 +18,7 @@ export default class BillController extends BaseController {
     holidayRepository: HolidayRepository,
     taxesRepository: TaxesRepository
   ): Promise<number> {
-    const { medidorID } = params;
-    const { demandaContratada, type, initialDate, finalDate } = query;
+    const { type, initialDate, finalDate, ...medidoresID } = query;
 
     const dateRange: DateRange = new DateRange(
       new Date(initialDate),
@@ -27,10 +26,9 @@ export default class BillController extends BaseController {
     );
 
     const input: SimulateBillInput = new SimulateBillInput(
-      Number.parseFloat(demandaContratada),
       Number.parseInt(type),
       dateRange,
-      medidorID
+      Object.values(medidoresID)
     );
 
     await BaseController.validateInput(input);

@@ -29,13 +29,13 @@ router.get(
   '/users',
   authChecker,
   ExpressAdapter.create(UserController.getAll, 200, undefined, repos.users)
-)
+);
 
 router.get(
   '/users/:id',
   authChecker,
   ExpressAdapter.create(UserController.getUserByID, 200, undefined, repos.users)
-)
+);
 
 router.post(
   '/auth/users',
@@ -354,7 +354,7 @@ router.put(
 );
 
 router.get(
-  '/medidores/:medidorID/simulate',
+  '/simulate-bill',
   authChecker,
   ExpressAdapter.create(
     BillController.simulateBill,

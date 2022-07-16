@@ -1,8 +1,11 @@
-import User from "@src/entities/User";
-import NotFoundError from "../util/errors/NotFoundError";
-import { existsByID, validateAuthenticatedAdmin } from "../util/validators/UserValidator";
-import BaseUserUseCases from "./BaseUserUseCases";
-import { InputDeleteUser } from "./Inputs";
+import User from '@src/entities/User';
+import NotFoundError from '../util/errors/NotFoundError';
+import {
+  existsByID,
+  validateAuthenticatedAdmin,
+} from '../util/validators/UserValidator';
+import BaseUserUseCases from './BaseUserUseCases';
+import { InputDeleteUser } from './Inputs';
 
 export default class DeleteUserUseCase extends BaseUserUseCases {
   async execute(input: InputDeleteUser): Promise<User> {

@@ -24,9 +24,20 @@ export function datesMatch(firstDate: Date, secondDate: Date): boolean {
   );
 }
 
-export function convertBrazilianDateStringToDate(brazilianDateString: string): Date {
-  const [ completeDay, completeHour ] = brazilianDateString.split(' ');
-  const [ day, month, year ] = completeDay.split('/');
-  const [ hour, minute, second ] = completeHour.split(':');
-  return new Date(Date.UTC(Number.parseInt(year), Number.parseInt(month) - 1, Number.parseInt(day), Number.parseInt(hour), Number.parseInt(minute), Number.parseInt(second)))
+export function convertBrazilianDateStringToDate(
+  brazilianDateString: string
+): Date {
+  const [completeDay, completeHour] = brazilianDateString.split(' ');
+  const [day, month, year] = completeDay.split('/');
+  const [hour, minute, second] = completeHour.split(':');
+  return new Date(
+    Date.UTC(
+      Number.parseInt(year),
+      Number.parseInt(month) - 1,
+      Number.parseInt(day),
+      Number.parseInt(hour),
+      Number.parseInt(minute),
+      Number.parseInt(second)
+    )
+  );
 }

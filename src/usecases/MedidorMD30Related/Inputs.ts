@@ -42,7 +42,7 @@ export class InputAddMedidorMD30 {
     rushHour: number,
     rushMinute: number,
     rushInterval: number,
-    measurerChecker: MeasurerChecker,
+    measurerChecker: MeasurerChecker
   ) {
     this.sourceUserID = sourceUserID;
     this.ip = ip.trim();

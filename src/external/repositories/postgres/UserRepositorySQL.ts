@@ -6,7 +6,7 @@ export default class UserRepositorySQL implements UserRepository {
   async addUser(user: User): Promise<User> {
     const userData = await db.one(
       'INSERT INTO users (id, created_at, username, password, type) VALUES ($1, NOW(), $2, $3, $4) RETURNING *',
-      [ user.id, user.username, user.password, user.type ]
+      [user.id, user.username, user.password, user.type]
     );
 
     const newUser: User = new User(
@@ -20,7 +20,7 @@ export default class UserRepositorySQL implements UserRepository {
   async getByUsername(username: string): Promise<User | null> {
     const userData = await db.oneOrNone(
       'SELECT * FROM users WHERE username=$1',
-      [ username ]
+      [username]
     );
     if (userData) {
       const user: User = new User(
@@ -50,10 +50,9 @@ export default class UserRepositorySQL implements UserRepository {
   }
 
   async deleteUser(id: string): Promise<User> {
-    const userData = await db.one(
-      'DELETE FROM users WHERE id=$1 RETURNING *',
-      [ id ]
-    );
+    const userData = await db.one('DELETE FROM users WHERE id=$1 RETURNING *', [
+      id,
+    ]);
     const user: User = new User(
       userData.username,
       null,
@@ -67,12 +66,7 @@ export default class UserRepositorySQL implements UserRepository {
     const usersData = await db.manyOrNone('SELECT * FROM users');
 
     const users = usersData.map((user) => {
-      return new User(
-        user.username,
-        null,
-        user.type,
-        user.id
-      );
+      return new User(user.username, null, user.type, user.id);
     });
 
     return users;

@@ -27,11 +27,6 @@ export class App {
   }
 
   private enableCors(): void {
-    // const allowedOrigins = ['http://localhost:4200'];
-    // const options: cors.CorsOptions = {
-    //   origin: allowedOrigins,
-    // };
-
     this.server.use(cors());
   }
 }

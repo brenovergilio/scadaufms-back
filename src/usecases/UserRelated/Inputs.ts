@@ -18,9 +18,14 @@ export class InputCreateUser {
   password: string;
 
   @IsEnum(UserType, { message: 'Tipo de usuário inválido' })
-  type: UserType
+  type: UserType;
 
-  constructor(sourceUserID: string, username: string, password: string, type: UserType) {
+  constructor(
+    sourceUserID: string,
+    username: string,
+    password: string,
+    type: UserType
+  ) {
     this.sourceUserID = sourceUserID;
     this.username = username;
     this.password = password;

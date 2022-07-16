@@ -233,11 +233,9 @@ export default class MedicaoMD30Controller {
       new Date(initialDate),
       new Date(finalDate)
     );
-    const getAllPotenciasPerDateRangeUseCase =
-      new GetAllPotenciasPerDateRange(medicaoMD30Repository).execute(
-        measurerID,
-        dateRange
-      );
+    const getAllPotenciasPerDateRangeUseCase = new GetAllPotenciasPerDateRange(
+      medicaoMD30Repository
+    ).execute(measurerID, dateRange);
     return getAllPotenciasPerDateRangeUseCase;
   }
 
