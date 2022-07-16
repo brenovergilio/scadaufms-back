@@ -14,6 +14,10 @@ export default interface MedicaoMD30Repository {
     measurerID: string,
     dateRange: DateRange
   ): Promise<Array<MedicaoMD30>>;
+  getTensoesAndCorrentesPerDateRange(
+    measurerID: string,
+    dateRange: DateRange
+  ): Promise<Array<MedicaoMD30>>;
   getPotenciasAtivasPerDateRange(
     measurerID: string,
     dateRange: DateRange
@@ -23,6 +27,10 @@ export default interface MedicaoMD30Repository {
     dateRange: DateRange
   ): Promise<Array<MedicaoMD30>>;
   getPotenciasAparentesPerDateRange(
+    measurerID: string,
+    dateRange: DateRange
+  ): Promise<Array<MedicaoMD30>>;
+  getAllPotenciasPerDateRange(
     measurerID: string,
     dateRange: DateRange
   ): Promise<Array<MedicaoMD30>>;

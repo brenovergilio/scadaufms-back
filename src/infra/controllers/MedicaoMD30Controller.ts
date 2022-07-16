@@ -12,6 +12,8 @@ import GetConsumosReativosPerDateRange from '@src/usecases/MedicaoMD30Related/Ge
 import GetDemandasAtivasPerDateRange from '@src/usecases/MedicaoMD30Related/GetDemandasAtivasPerDateRange';
 import GetDemandasReativasPerDateRange from '@src/usecases/MedicaoMD30Related/GetDemandasReativasPerDateRange';
 import GetAllMedicoesPerDateRange from '@src/usecases/MedicaoMD30Related/GetAllMedicoesPerDateRange';
+import GetAllPotenciasPerDateRange from '@src/usecases/MedicaoMD30Related/GetAllPotenciasAtivasPerDateRange';
+import GetTensoesAndCorrentesPerDateRange from '@src/usecases/MedicaoMD30Related/GetTensoesAndCorrentesPerDateRange';
 
 export default class MedicaoMD30Controller {
   static getConsumosAtivosPerDateRange(
@@ -216,6 +218,48 @@ export default class MedicaoMD30Controller {
         dateRange
       );
     return getPotenciasAparentesPerDateRangeUseCase;
+  }
+
+  static getAllPotenciasPerDateRange(
+    params: any,
+    body: any,
+    query: any,
+    headers: any,
+    medicaoMD30Repository: MedicaoMD30Repository
+  ): Promise<Array<MedicaoMD30>> {
+    const { measurerID } = params;
+    const { initialDate, finalDate } = query;
+    const dateRange: DateRange = new DateRange(
+      new Date(initialDate),
+      new Date(finalDate)
+    );
+    const getAllPotenciasPerDateRangeUseCase =
+      new GetAllPotenciasPerDateRange(medicaoMD30Repository).execute(
+        measurerID,
+        dateRange
+      );
+    return getAllPotenciasPerDateRangeUseCase;
+  }
+
+  static getTensoesAndCorrentesPerDateRange(
+    params: any,
+    body: any,
+    query: any,
+    headers: any,
+    medicaoMD30Repository: MedicaoMD30Repository
+  ): Promise<Array<MedicaoMD30>> {
+    const { measurerID } = params;
+    const { initialDate, finalDate } = query;
+    const dateRange: DateRange = new DateRange(
+      new Date(initialDate),
+      new Date(finalDate)
+    );
+    const getTensoesAndCorrentesPerDateRange =
+      new GetTensoesAndCorrentesPerDateRange(medicaoMD30Repository).execute(
+        measurerID,
+        dateRange
+      );
+    return getTensoesAndCorrentesPerDateRange;
   }
 
   static getFatoresDePotenciaPerDateRange(

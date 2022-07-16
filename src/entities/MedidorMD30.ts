@@ -53,8 +53,8 @@ export default class MedidorMD30 implements Measurer {
 
     if (
       (measurementHour === this.rush.hour &&
-        measurementMinute < this.rush.minute) ||
-      (measurementHour === finalHour && measurementMinute >= this.rush.minute)
+        measurementMinute <= this.rush.minute) ||
+      (measurementHour === finalHour && measurementMinute > this.rush.minute)
     )
       return false;
 

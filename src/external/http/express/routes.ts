@@ -109,22 +109,22 @@ router.put(
     repos.users
   )
 );
+router.get(
+  '/medidores/:measurerID/medicoes/all',
+  authChecker,
+  ExpressAdapter.create(
+    MedicaoMD30Controller.getAllMedicoesPerDateRange,
+    200,
+    undefined,
+    repos.medicoesMD30
+  )
+);
 
 router.get(
   '/medidores/:measurerID/medicoes/tensoes',
   authChecker,
   ExpressAdapter.create(
     MedicaoMD30Controller.getTensoesPerDateRange,
-    200,
-    undefined,
-    repos.medicoesMD30
-  )
-);
-router.get(
-  '/medidores/:measurerID/medicoes/all',
-  authChecker,
-  ExpressAdapter.create(
-    MedicaoMD30Controller.getAllMedicoesPerDateRange,
     200,
     undefined,
     repos.medicoesMD30
@@ -140,6 +140,18 @@ router.get(
     repos.medicoesMD30
   )
 );
+
+router.get(
+  '/medidores/:measurerID/medicoes/tensoes-correntes',
+  authChecker,
+  ExpressAdapter.create(
+    MedicaoMD30Controller.getTensoesAndCorrentesPerDateRange,
+    200,
+    undefined,
+    repos.medicoesMD30
+  )
+);
+
 router.get(
   '/medidores/:measurerID/medicoes/potencias-ativas',
   authChecker,
@@ -165,6 +177,16 @@ router.get(
   authChecker,
   ExpressAdapter.create(
     MedicaoMD30Controller.getPotenciasAparentesPerDateRange,
+    200,
+    undefined,
+    repos.medicoesMD30
+  )
+);
+router.get(
+  '/medidores/:measurerID/medicoes/all-potencias',
+  authChecker,
+  ExpressAdapter.create(
+    MedicaoMD30Controller.getAllPotenciasPerDateRange,
     200,
     undefined,
     repos.medicoesMD30
