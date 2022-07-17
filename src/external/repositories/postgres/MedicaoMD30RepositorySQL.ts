@@ -152,7 +152,7 @@ export default class MedicaoMD30RepositorySQL implements MedicaoMD30Repository {
     dateRange: DateRange
   ): Promise<Array<MedicaoMD30>> {
     const medicoesMD30Data = await db.manyOrNone(
-      "SELECT timestamp, tensao_fase_a, tensao_fase_b, tensao_fase_c, corrente_fase_a, corrente_fase_b, corrente_fase_c, potencia_ativa_total, potencia_reativa_total, sqrt(((potencia_ativa_total*potencia_ativa_total)+(potencia_reativa_total*potencia_reativa_total))) as potencia_aparente_total, (potencia_ativa_total / sqrt(((potencia_ativa_total*potencia_ativa_total)+(potencia_reativa_total*potencia_reativa_total)))) as fator_de_potencia FROM medicoes_md30 WHERE medidor_id=$1 AND timestamp >= ($2::DATE + (15 || ' minutes')::INTERVAL) AND timestamp <= ($3::DATE + (1440 || ' minutes')::INTERVAL) ORDER BY timestamp",
+      "SELECT timestamp, tensao_fase_a, tensao_fase_b, tensao_fase_c, corrente_fase_a, corrente_fase_b, corrente_fase_c, potencia_ativa_total, potencia_reativa_total, sqrt(((potencia_ativa_total*potencia_ativa_total)+(potencia_reativa_total*potencia_reativa_total))) as potencia_aparente_total, fator_de_potencia FROM medicoes_md30 WHERE medidor_id=$1 AND timestamp >= ($2::DATE + (15 || ' minutes')::INTERVAL) AND timestamp <= ($3::DATE + (1440 || ' minutes')::INTERVAL) ORDER BY timestamp",
       [
         measurerID,
         dateRange.initialDate.toISOString().split('T')[ 0 ],
@@ -333,7 +333,7 @@ export default class MedicaoMD30RepositorySQL implements MedicaoMD30Repository {
     dateRange: DateRange
   ): Promise<Array<MedicaoMD30>> {
     const medicoesMD30Data = await db.manyOrNone(
-      "SELECT timestamp, (potencia_ativa_total / sqrt(((potencia_ativa_total*potencia_ativa_total)+(potencia_reativa_total*potencia_reativa_total)))) as fator_de_potencia FROM medicoes_md30 WHERE medidor_id=$1 AND timestamp >= ($2::DATE + (15 || ' minutes')::INTERVAL) AND timestamp <= ($3::DATE + (1440 || ' minutes')::INTERVAL) ORDER BY timestamp",
+      "SELECT timestamp, fator_de_potencia FROM medicoes_md30 WHERE medidor_id=$1 AND timestamp >= ($2::DATE + (15 || ' minutes')::INTERVAL) AND timestamp <= ($3::DATE + (1440 || ' minutes')::INTERVAL) ORDER BY timestamp",
       [
         measurerID,
         dateRange.initialDate.toISOString().split('T')[ 0 ],

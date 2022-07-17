@@ -41,6 +41,8 @@ const db = pgp({
     corrente_fase_c REAL NOT NULL,
     potencia_ativa_total REAL NOT NULL,
     potencia_reativa_total REAL NOT NULL,
+    fator_de_potencia REAL NOT NULL,
+    PRIMARY KEY (medidor_id, timestamp),
     FOREIGN KEY (medidor_id) REFERENCES medidores_md30(id) ON DELETE CASCADE ON UPDATE CASCADE
   );`);
   await db.none(`CREATE TABLE IF NOT EXISTS feriados (
