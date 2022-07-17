@@ -10,3 +10,14 @@ export function formatNumberToBRL(number: number): string {
     formatedNumber += '0';
   return formatedNumber;
 }
+
+export function convertStringToUTCDate(date: string): Date {
+  const [ day, month, year ] = date.split('/');
+  return new Date(
+    Date.UTC(
+      Number.parseInt(year),
+      Number.parseInt(month) - 1,
+      Number.parseInt(day)
+    )
+  );
+}
