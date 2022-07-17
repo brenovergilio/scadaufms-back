@@ -1,8 +1,6 @@
 import InvalidRushError from '@src/entities/util/errors/InvalidRushError';
 import GenericClassValidatorError from '@src/infra/errors/GenericClassValidatorError';
-import InvalidPasswordError from '@src/infra/errors/InvalidPasswordError';
 import InvalidTokenError from '@src/infra/errors/InvalidTokenError';
-import InvalidUsernameError from '@src/infra/errors/InvalidUsernameError';
 import UnauthorizedError from '@src/infra/errors/UnauthorizedError';
 import AlreadyExistsError from '@src/usecases/util/errors/AlreadyExistsError';
 import ConnectionTimedOutError from '@src/usecases/util/errors/ConnectionTimedOutError';
@@ -11,6 +9,7 @@ import InsufficientPermissionError from '@src/usecases/util/errors/InsufficientP
 import InvalidDateRangeError from '@src/infra/errors/InvalidDateRangeError';
 import NotFoundError from '@src/usecases/util/errors/NotFoundError';
 import { NextFunction, Request, Response } from 'express';
+import InvalidValueForTaxesError from '@src/usecases/util/errors/InvalidValueForTaxesError';
 
 export default function errorHandler(
   error: Error,
@@ -26,6 +25,9 @@ export default function errorHandler(
     return res.status(400).json({ statusCode: 400, message: error.message });
 
   if (error instanceof InvalidRushError)
+    return res.status(400).json({ statusCode: 400, message: error.message });
+
+  if (error instanceof InvalidValueForTaxesError)
     return res.status(400).json({ statusCode: 400, message: error.message });
 
   if (error instanceof InvalidTokenError)

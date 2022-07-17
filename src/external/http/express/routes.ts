@@ -353,7 +353,7 @@ router.put(
   )
 );
 
-router.get(
+router.post(
   '/simulate-bill',
   authChecker,
   ExpressAdapter.create(

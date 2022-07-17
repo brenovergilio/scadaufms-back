@@ -1,4 +1,5 @@
 import Taxes, { TaxType } from '@src/entities/Taxes';
+import InvalidValueForTaxesError from '../util/errors/InvalidValueForTaxesError';
 import NotFoundError from '../util/errors/NotFoundError';
 import { validateAuthenticatedAdmin } from '../util/validators/UserValidator';
 import BaseTaxesUseCases from './BaseTaxesUseCases';
@@ -7,7 +8,17 @@ import { UpdateSpecificTaxInput } from './Inputs';
 export default class UpdateSpecificTaxUseCase extends BaseTaxesUseCases {
   async execute(input: UpdateSpecificTaxInput): Promise<Taxes> {
     await validateAuthenticatedAdmin(input.sourceUserID, this.userRepository);
+
     const taxes = await this.taxesRepository.getSpecificTax(input.type);
+
+    for (const inp of Object.entries(input)) {
+      if (inp[ 1 ] !== undefined && ![ 'type', 'sourceUserID' ].includes(inp[ 0 ]) && (Number.isNaN(Number(inp[ 1 ])) || inp[ 1 ] === null)) {
+
+        console.log(inp)
+        throw new InvalidValueForTaxesError();
+      }
+
+    }
 
     if (!taxes) throw new NotFoundError();
 

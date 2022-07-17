@@ -6,7 +6,7 @@ export default class HolidayRepositorySQL implements HolidayRepository {
   async addHoliday(newHoliday: Holiday): Promise<Holiday> {
     const holidayData = await db.one(
       'INSERT INTO feriados (id, nome, dia) VALUES ($1, $2, $3) RETURNING *',
-      [newHoliday.id, newHoliday.name, newHoliday.day]
+      [ newHoliday.id, newHoliday.name, newHoliday.day ]
     );
     const holiday: Holiday = new Holiday(
       holidayData.nome,
@@ -19,7 +19,7 @@ export default class HolidayRepositorySQL implements HolidayRepository {
   async deleteHoliday(id: string): Promise<Holiday> {
     const holidayData = await db.one(
       'DELETE FROM feriados WHERE id=$1 RETURNING *',
-      [id]
+      [ id ]
     );
     const holiday: Holiday = new Holiday(
       holidayData.nome,
@@ -32,7 +32,7 @@ export default class HolidayRepositorySQL implements HolidayRepository {
   async getHolidayByID(id: string): Promise<Holiday | null> {
     const holidayData = await db.oneOrNone(
       'SELECT * FROM feriados WHERE id=$1',
-      [id]
+      [ id ]
     );
 
     if (holidayData)
@@ -44,7 +44,7 @@ export default class HolidayRepositorySQL implements HolidayRepository {
   async getHolidayByName(name: string): Promise<Holiday | null> {
     const holidayData = await db.oneOrNone(
       'SELECT * FROM feriados WHERE nome=$1',
-      [name]
+      [ name ]
     );
 
     if (holidayData)
@@ -55,7 +55,7 @@ export default class HolidayRepositorySQL implements HolidayRepository {
 
   async getAllHolidays(): Promise<Array<Holiday>> {
     const holidaysData = await db.manyOrNone(
-      'SELECT * FROM feriados ORDER BY id'
+      'SELECT * FROM feriados ORDER BY dia DESC'
     );
     const holidays: Array<Holiday> = holidaysData.map(
       (holiday) => new Holiday(holiday.nome, holiday.dia, holiday.id)

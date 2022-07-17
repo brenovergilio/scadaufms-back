@@ -28,8 +28,8 @@ export default class SimulateBill extends BaseBillUseCases {
     let dayByDay = new DateRange(input.dateRange.initialDate, input.dateRange.initialDate);
     let consumoPontaTotal = 0;
     let consumoForaPontaTotal = 0;
-    let demandaPontaTotal = 0;
-    let demandaForaPontaTotal = 0;
+    const allDemandaPonta: number[] = [];
+    const allDemandaForaPonta: number[] = [];
     while (dayByDay.finalDate <= input.dateRange.finalDate) {
       const totalDemandasPontaArrayPerDay: Measurement[][] = [];
       const totalDemandasForaPontaArrayPerDay: Measurement[][] = [];
@@ -60,24 +60,32 @@ export default class SimulateBill extends BaseBillUseCases {
         if (!isEmptyArray(demandasAtivasForaPonta))
           totalDemandasForaPontaArrayPerDay.push(demandasAtivasForaPonta)
       }
+
       const demandasForaPontaSomada = SimulateBill.sumDemandasByTimestamp(totalDemandasForaPontaArrayPerDay);
       const demandasPontaSomada = SimulateBill.sumDemandasByTimestamp(totalDemandasPontaArrayPerDay);
+      allDemandaForaPonta.push(...demandasForaPontaSomada.map((curr) => curr.values.values().next().value));
+      allDemandaPonta.push(...demandasPontaSomada.map((curr) => curr.values.values().next().value))
 
-      demandaPontaTotal += Math.max(...demandasPontaSomada.map(curr => curr.values.values().next().value))
-      demandaForaPontaTotal += Math.max(...demandasForaPontaSomada.map(curr => curr.values.values().next().value))
       dayByDay.initialDate.setDate(dayByDay.initialDate.getDate() + 1);
       dayByDay.finalDate.setDate(dayByDay.finalDate.getDate() + 1);
     }
-    // console.log(consumoPontaTotal, consumoForaPontaTotal, demandaPontaTotal, demandaForaPontaTotal)
+    const demandaForaPontaTotal = Math.max(...allDemandaForaPonta);
+    const demandaPontaTotal = Math.max(...allDemandaPonta);
+    console.log(consumoPontaTotal, consumoForaPontaTotal, demandaPontaTotal, demandaForaPontaTotal)
     // const result = Bill.simulate(taxes, 59.62, 1014.43, 13, 30);
-    const valorAzul = Bill.simulate(taxAzul, consumoPontaTotal, consumoForaPontaTotal, demandaPontaTotal, demandaForaPontaTotal);
-    const valorVerde = Bill.simulate(taxVerde, consumoPontaTotal, consumoForaPontaTotal, demandaPontaTotal, demandaForaPontaTotal);
+    const valorAzul = Bill.simulate(taxAzul!, consumoPontaTotal, consumoForaPontaTotal, demandaPontaTotal, demandaForaPontaTotal);
+    const valorVerde = Bill.simulate(taxVerde!, consumoPontaTotal, consumoForaPontaTotal, demandaPontaTotal, demandaForaPontaTotal);
 
 
     return { valorAzul: formatNumberToBRL(valorAzul), valorVerde: formatNumberToBRL(valorVerde) };
   }
 
   static sumDemandasByTimestamp(totalPerDay: Measurement[][]): Measurement[] {
+    if (isEmptyArray(totalPerDay)) {
+      const mapValue = new Map<string, number>();
+      mapValue.set('demanda', 0);
+      return [ { measurerID: 'id', timestamp: 'empty', values: mapValue } ];
+    }
     const demandasSomadas: Measurement[] = [];
     for (let i = 0; i < totalPerDay[ 0 ].length; i++) {
       for (let j = 0; j < totalPerDay.length; j++) {
@@ -94,6 +102,6 @@ export default class SimulateBill extends BaseBillUseCases {
         }
       }
     }
-    return demandasSomadas
+    return demandasSomadas;
   }
 }

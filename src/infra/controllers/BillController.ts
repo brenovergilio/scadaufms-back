@@ -19,8 +19,9 @@ export default class BillController extends BaseController {
     holidayRepository: HolidayRepository,
     taxesRepository: TaxesRepository
   ): Promise<OutputSimulateBill> {
-    const { initialDate, finalDate, ...medidoresID } = query;
-
+    const { medidoresID } = body;
+    const { initialDate, finalDate } = query;
+    console.log(medidoresID)
     const dateRange: DateRange = new DateRange(
       new Date(initialDate),
       new Date(finalDate)
