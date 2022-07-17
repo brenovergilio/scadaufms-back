@@ -17,7 +17,6 @@ export default function errorHandler(
   res: Response,
   next: NextFunction
 ) {
-  console.log(error)
   if (error instanceof GenericClassValidatorError)
     return res.status(400).json({ statusCode: 400, message: error.message });
 

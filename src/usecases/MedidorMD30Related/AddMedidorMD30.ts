@@ -12,6 +12,13 @@ export default class AddMedidorMD30 extends BaseMedidorMD30UseCases {
   async execute(input: InputAddMedidorMD30): Promise<MedidorMD30> {
     await validateAuthenticatedAdmin(input.sourceUserID, this.userRepository);
 
+    const medidorMD30Exists: boolean = await existsByIP(
+      input.ip,
+      this.medidorMD30Repository
+    );
+
+    if (medidorMD30Exists) throw new AlreadyExistsError();
+
     const isOpen: boolean = await input.measurerChecker.isOpen(
       input.ip,
       input.port
@@ -19,12 +26,6 @@ export default class AddMedidorMD30 extends BaseMedidorMD30UseCases {
 
     if (!isOpen) throw new ConnectionTimedOutError();
 
-    const medidorMD30Exists: boolean = await existsByIP(
-      input.ip,
-      this.medidorMD30Repository
-    );
-
-    if (medidorMD30Exists) throw new AlreadyExistsError();
 
     const newMedidorMD30: MedidorMD30 = new MedidorMD30(
       input.ip,

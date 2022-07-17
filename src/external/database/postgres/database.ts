@@ -46,7 +46,7 @@ const db = pgp({
   await db.none(`CREATE TABLE IF NOT EXISTS feriados (
     id UUID PRIMARY KEY,
     nome TEXT NOT NULL,
-    dia DATE NOT NULL
+    dia TIMESTAMPTZ NOT NULL
   );`);
   await db.none(`CREATE TABLE IF NOT EXISTS alarmes (
     id UUID PRIMARY KEY,
@@ -75,7 +75,7 @@ enum ExitStatus {
 
 (async (): Promise<void> => {
   try {
-    const exitSignals: NodeJS.Signals[] = ['SIGINT', 'SIGTERM', 'SIGQUIT'];
+    const exitSignals: NodeJS.Signals[] = [ 'SIGINT', 'SIGTERM', 'SIGQUIT' ];
     exitSignals.map((sig) =>
       process.on(sig, async () => {
         try {

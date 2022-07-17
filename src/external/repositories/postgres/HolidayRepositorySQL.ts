@@ -8,7 +8,6 @@ export default class HolidayRepositorySQL implements HolidayRepository {
       'INSERT INTO feriados (id, nome, dia) VALUES ($1, $2, $3) RETURNING *',
       [ newHoliday.id, newHoliday.name, newHoliday.day ]
     );
-    console.log(newHoliday.day)
     const holiday: Holiday = new Holiday(
       holidayData.nome,
       holidayData.dia,
