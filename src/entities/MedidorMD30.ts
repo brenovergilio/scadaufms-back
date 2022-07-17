@@ -49,8 +49,10 @@ export default class MedidorMD30 implements Measurer {
     if (dayOfWeek === DayOfWeek.SATURDAY || dayOfWeek === DayOfWeek.SUNDAY)
       return false;
 
+    // datesMatch irá retornar false na última data de measurement pois essa data será no padrão holiday.day+1 00:00:00, mas não afeta o horário de pico
     for (const holiday of holidays)
       if (datesMatch(holiday.day, measurement.timestamp)) return false;
+
 
     const finalHour = this.rush.hour + this.rush.interval;
     const measurementHour = measurement.timestamp.getUTCHours();

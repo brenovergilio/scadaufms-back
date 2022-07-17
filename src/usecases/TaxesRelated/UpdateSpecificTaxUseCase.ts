@@ -1,5 +1,5 @@
 import Taxes, { TaxType } from '@src/entities/Taxes';
-import InvalidValueForTaxesError from '../util/errors/InvalidValueForTaxesError';
+import InvalidValueError from '../util/errors/InvalidValueError';
 import NotFoundError from '../util/errors/NotFoundError';
 import { validateAuthenticatedAdmin } from '../util/validators/UserValidator';
 import BaseTaxesUseCases from './BaseTaxesUseCases';
@@ -13,9 +13,7 @@ export default class UpdateSpecificTaxUseCase extends BaseTaxesUseCases {
 
     for (const inp of Object.entries(input)) {
       if (inp[ 1 ] !== undefined && ![ 'type', 'sourceUserID' ].includes(inp[ 0 ]) && (Number.isNaN(Number(inp[ 1 ])) || inp[ 1 ] === null)) {
-
-        console.log(inp)
-        throw new InvalidValueForTaxesError();
+        throw new InvalidValueError();
       }
 
     }

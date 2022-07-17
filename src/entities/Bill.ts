@@ -1,10 +1,4 @@
-import { v4 } from 'uuid';
-import Holiday from './Holiday';
-import Measurement from './interfaces/Measurement';
-import MedicaoMD30 from './MedicaoMD30';
-import MedidorMD30 from './MedidorMD30';
 import Taxes, { TaxType } from './Taxes';
-import { measurementAcumulator } from './util/helpers';
 
 export default class Bill {
 

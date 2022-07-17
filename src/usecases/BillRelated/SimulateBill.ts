@@ -42,11 +42,13 @@ export default class SimulateBill extends BaseBillUseCases {
           );
         if (isEmptyArray(consumosAtivos)) continue;
         const [ consumosAtivosPonta, consumosAtivosForaPonta ] = medidor!.splitPontaAndForaPonta(consumosAtivos, holidays);
-        if (!isEmptyArray(consumosAtivosPonta))
+
+        const consumosAtivosPontaIsEmpty = isEmptyArray(consumosAtivosPonta);
+        if (!consumosAtivosPontaIsEmpty)
           consumoPontaTotal += (consumosAtivosPonta.reduce((acc, curr) => acc + curr.values.values().next().value, 0) / consumosAtivosPonta.length) * medidor!.rush.interval * 4;
 
-        if (!isEmptyArray(consumosAtivosForaPonta))
-          consumoForaPontaTotal += (consumosAtivosForaPonta.reduce((acc, curr) => acc + curr.values.values().next().value, 0) / consumosAtivosForaPonta.length) * (24 - medidor!.rush.interval) * 4;
+        if (!isEmptyArray(consumosAtivosForaPonta)) { }
+        consumoForaPontaTotal += (consumosAtivosForaPonta.reduce((acc, curr) => acc + curr.values.values().next().value, 0) / consumosAtivosForaPonta.length) * (consumosAtivosPontaIsEmpty ? 24 : 24 - medidor!.rush.interval) * 4;
         const demandasAtivas =
           await this.medicaoMD30Repository.getDemandasAtivasPerDateRange(
             medidor!.id,
@@ -72,7 +74,10 @@ export default class SimulateBill extends BaseBillUseCases {
     const demandaForaPontaTotal = Math.max(...allDemandaForaPonta);
     const demandaPontaTotal = Math.max(...allDemandaPonta);
     console.log(consumoPontaTotal, consumoForaPontaTotal, demandaPontaTotal, demandaForaPontaTotal)
-    // const result = Bill.simulate(taxes, 59.62, 1014.43, 13, 30);
+    const resultAzul = Bill.simulate(taxAzul!, 59.62, 1014.43, 13, 30);
+    console.log('result Azul => ', resultAzul)
+    const resultVerde = Bill.simulate(taxVerde!, 59.62, 1014.43, 13, 30);
+    console.log('result Verde => ', resultVerde)
     const valorAzul = Bill.simulate(taxAzul!, consumoPontaTotal, consumoForaPontaTotal, demandaPontaTotal, demandaForaPontaTotal);
     const valorVerde = Bill.simulate(taxVerde!, consumoPontaTotal, consumoForaPontaTotal, demandaPontaTotal, demandaForaPontaTotal);
 

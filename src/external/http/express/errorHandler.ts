@@ -9,7 +9,7 @@ import InsufficientPermissionError from '@src/usecases/util/errors/InsufficientP
 import InvalidDateRangeError from '@src/infra/errors/InvalidDateRangeError';
 import NotFoundError from '@src/usecases/util/errors/NotFoundError';
 import { NextFunction, Request, Response } from 'express';
-import InvalidValueForTaxesError from '@src/usecases/util/errors/InvalidValueForTaxesError';
+import InvalidValueError from '@src/usecases/util/errors/InvalidValueError';
 
 export default function errorHandler(
   error: Error,
@@ -26,7 +26,7 @@ export default function errorHandler(
   if (error instanceof InvalidRushError)
     return res.status(400).json({ statusCode: 400, message: error.message });
 
-  if (error instanceof InvalidValueForTaxesError)
+  if (error instanceof InvalidValueError)
     return res.status(400).json({ statusCode: 400, message: error.message });
 
   if (error instanceof InvalidTokenError)

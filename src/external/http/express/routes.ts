@@ -204,6 +204,17 @@ router.get(
 );
 
 router.get(
+  '/medidores/:measurerID/medicoes/fatores-potencia-corrigidos',
+  authChecker,
+  ExpressAdapter.create(
+    MedicaoMD30Controller.getFatoresDePotenciaCorrigidos,
+    200,
+    undefined,
+    repos.medicoesMD30
+  )
+);
+
+router.get(
   '/medidores/:measurerID/medicoes/demandas-ativas',
   authChecker,
   ExpressAdapter.create(

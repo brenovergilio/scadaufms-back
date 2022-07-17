@@ -1,16 +1,3 @@
-import Measurement from '../interfaces/Measurement';
-
-export function measurementAcumulator(measurement: Measurement): number {
-  let acumulator = 0;
-  measurement.values.forEach((value) => (acumulator += value));
-  return acumulator;
-}
-
-export function measurementMax(measurement: Measurement): number {
-  const values = Object.values(measurement.values);
-  return values.reduce((acc, curr) => curr > acc ? curr : acc, 0);;
-}
-
 export enum DayOfWeek {
   SUNDAY = 0,
   MONDAY = 1,
@@ -24,7 +11,7 @@ export enum DayOfWeek {
 export function datesMatch(firstDate: Date, secondDate: Date): boolean {
   return (
     firstDate.getUTCFullYear() === secondDate.getUTCFullYear() &&
-    firstDate.getUTCMonth() === secondDate.getUTCDate() &&
+    firstDate.getUTCMonth() === secondDate.getUTCMonth() &&
     firstDate.getUTCDate() === secondDate.getUTCDate()
   );
 }

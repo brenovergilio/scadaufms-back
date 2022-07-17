@@ -21,7 +21,6 @@ export default class BillController extends BaseController {
   ): Promise<OutputSimulateBill> {
     const { medidoresID } = body;
     const { initialDate, finalDate } = query;
-    console.log(medidoresID)
     const dateRange: DateRange = new DateRange(
       new Date(initialDate),
       new Date(finalDate)

@@ -14,6 +14,7 @@ import GetDemandasReativasPerDateRange from '@src/usecases/MedicaoMD30Related/Ge
 import GetAllMedicoesPerDateRange from '@src/usecases/MedicaoMD30Related/GetAllMedicoesPerDateRange';
 import GetAllPotenciasPerDateRange from '@src/usecases/MedicaoMD30Related/GetAllPotenciasAtivasPerDateRange';
 import GetTensoesAndCorrentesPerDateRange from '@src/usecases/MedicaoMD30Related/GetTensoesAndCorrentesPerDateRange';
+import GetFatoresDePotenciaCorrigidosUseCase from '@src/usecases/MedicaoMD30Related/GetFatoresDePotenciaCorrigidosUseCase';
 
 export default class MedicaoMD30Controller {
   static getConsumosAtivosPerDateRange(
@@ -237,6 +238,25 @@ export default class MedicaoMD30Controller {
       medicaoMD30Repository
     ).execute(measurerID, dateRange);
     return getAllPotenciasPerDateRangeUseCase;
+  }
+
+  static getFatoresDePotenciaCorrigidos(
+    params: any,
+    body: any,
+    query: any,
+    headers: any,
+    medicaoMD30Repository: MedicaoMD30Repository
+  ): Promise<Array<MedicaoMD30>> {
+    const { measurerID } = params;
+    const { qcap, initialDate, finalDate } = query;
+    const dateRange: DateRange = new DateRange(
+      new Date(initialDate),
+      new Date(finalDate)
+    );
+    const getFatoresDePotenciaCorrigidosUseCase = new GetFatoresDePotenciaCorrigidosUseCase(
+      medicaoMD30Repository
+    ).execute(measurerID, qcap, dateRange);
+    return getFatoresDePotenciaCorrigidosUseCase;
   }
 
   static getTensoesAndCorrentesPerDateRange(
