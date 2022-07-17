@@ -14,18 +14,24 @@ export default class SimulateBill extends BaseBillUseCases {
     const medidores = new Array<MedidorMD30 | null>();
 
     for (const medidorID of input.medidoresID) {
-      const medidor = await this.medidorMD30Repository.getMedidorMD30ByID(medidorID);
+      const medidor = await this.medidorMD30Repository.getMedidorMD30ByID(
+        medidorID
+      );
       medidores.push(medidor);
     }
 
-    if (medidores.some((medidor) => medidor === null)) throw new NotFoundError();
+    if (medidores.some((medidor) => medidor === null))
+      throw new NotFoundError();
 
     const taxAzul = await this.taxesRepository.getSpecificTax(TaxType.AZUL);
     const taxVerde = await this.taxesRepository.getSpecificTax(TaxType.VERDE);
 
     const holidays = await this.holidayRepository.getAllHolidays();
 
-    let dayByDay = new DateRange(input.dateRange.initialDate, input.dateRange.initialDate);
+    let dayByDay = new DateRange(
+      input.dateRange.initialDate,
+      input.dateRange.initialDate
+    );
     let consumoPontaTotal = 0;
     let consumoForaPontaTotal = 0;
     const allDemandaPonta: number[] = [];
@@ -41,14 +47,30 @@ export default class SimulateBill extends BaseBillUseCases {
             dayByDay
           );
         if (isEmptyArray(consumosAtivos)) continue;
-        const [ consumosAtivosPonta, consumosAtivosForaPonta ] = medidor!.splitPontaAndForaPonta(consumosAtivos, holidays);
+        const [consumosAtivosPonta, consumosAtivosForaPonta] =
+          medidor!.splitPontaAndForaPonta(consumosAtivos, holidays);
 
         const consumosAtivosPontaIsEmpty = isEmptyArray(consumosAtivosPonta);
         if (!consumosAtivosPontaIsEmpty)
-          consumoPontaTotal += (consumosAtivosPonta.reduce((acc, curr) => acc + curr.values.values().next().value, 0) / consumosAtivosPonta.length) * medidor!.rush.interval * 4;
+          consumoPontaTotal +=
+            (consumosAtivosPonta.reduce(
+              (acc, curr) => acc + curr.values.values().next().value,
+              0
+            ) /
+              consumosAtivosPonta.length) *
+            medidor!.rush.interval *
+            4;
 
-        if (!isEmptyArray(consumosAtivosForaPonta)) { }
-        consumoForaPontaTotal += (consumosAtivosForaPonta.reduce((acc, curr) => acc + curr.values.values().next().value, 0) / consumosAtivosForaPonta.length) * (consumosAtivosPontaIsEmpty ? 24 : 24 - medidor!.rush.interval) * 4;
+        if (!isEmptyArray(consumosAtivosForaPonta)) {
+        }
+        consumoForaPontaTotal +=
+          (consumosAtivosForaPonta.reduce(
+            (acc, curr) => acc + curr.values.values().next().value,
+            0
+          ) /
+            consumosAtivosForaPonta.length) *
+          (consumosAtivosPontaIsEmpty ? 24 : 24 - medidor!.rush.interval) *
+          4;
         const demandasAtivas =
           await this.medicaoMD30Repository.getDemandasAtivasPerDateRange(
             medidor!.id,
@@ -56,54 +78,95 @@ export default class SimulateBill extends BaseBillUseCases {
             dayByDay
           );
         if (isEmptyArray(demandasAtivas)) continue;
-        const [ demandasAtivasPonta, demandasAtivasForaPonta ] = medidor!.splitPontaAndForaPonta(demandasAtivas, holidays);
+        const [demandasAtivasPonta, demandasAtivasForaPonta] =
+          medidor!.splitPontaAndForaPonta(demandasAtivas, holidays);
         if (!isEmptyArray(demandasAtivasPonta))
-          totalDemandasPontaArrayPerDay.push(demandasAtivasPonta)
+          totalDemandasPontaArrayPerDay.push(demandasAtivasPonta);
         if (!isEmptyArray(demandasAtivasForaPonta))
-          totalDemandasForaPontaArrayPerDay.push(demandasAtivasForaPonta)
+          totalDemandasForaPontaArrayPerDay.push(demandasAtivasForaPonta);
       }
 
-      const demandasForaPontaSomada = SimulateBill.sumDemandasByTimestamp(totalDemandasForaPontaArrayPerDay);
-      const demandasPontaSomada = SimulateBill.sumDemandasByTimestamp(totalDemandasPontaArrayPerDay);
-      allDemandaForaPonta.push(...demandasForaPontaSomada.map((curr) => curr.values.values().next().value));
-      allDemandaPonta.push(...demandasPontaSomada.map((curr) => curr.values.values().next().value))
+      const demandasForaPontaSomada = SimulateBill.sumDemandasByTimestamp(
+        totalDemandasForaPontaArrayPerDay
+      );
+      const demandasPontaSomada = SimulateBill.sumDemandasByTimestamp(
+        totalDemandasPontaArrayPerDay
+      );
+      allDemandaForaPonta.push(
+        ...demandasForaPontaSomada.map(
+          (curr) => curr.values.values().next().value
+        )
+      );
+      allDemandaPonta.push(
+        ...demandasPontaSomada.map((curr) => curr.values.values().next().value)
+      );
 
       dayByDay.initialDate.setDate(dayByDay.initialDate.getDate() + 1);
       dayByDay.finalDate.setDate(dayByDay.finalDate.getDate() + 1);
     }
     const demandaForaPontaTotal = Math.max(...allDemandaForaPonta);
     const demandaPontaTotal = Math.max(...allDemandaPonta);
-    console.log(consumoPontaTotal, consumoForaPontaTotal, demandaPontaTotal, demandaForaPontaTotal)
+    console.log(
+      consumoPontaTotal,
+      consumoForaPontaTotal,
+      demandaPontaTotal,
+      demandaForaPontaTotal
+    );
     const resultAzul = Bill.simulate(taxAzul!, 59.62, 1014.43, 13, 30);
-    console.log('result Azul => ', resultAzul)
+    console.log('result Azul => ', resultAzul);
     const resultVerde = Bill.simulate(taxVerde!, 59.62, 1014.43, 13, 30);
-    console.log('result Verde => ', resultVerde)
-    const valorAzul = Bill.simulate(taxAzul!, consumoPontaTotal, consumoForaPontaTotal, demandaPontaTotal, demandaForaPontaTotal);
-    const valorVerde = Bill.simulate(taxVerde!, consumoPontaTotal, consumoForaPontaTotal, demandaPontaTotal, demandaForaPontaTotal);
+    console.log('result Verde => ', resultVerde);
+    const valorAzul = Bill.simulate(
+      taxAzul!,
+      consumoPontaTotal,
+      consumoForaPontaTotal,
+      demandaPontaTotal,
+      demandaForaPontaTotal
+    );
+    const valorVerde = Bill.simulate(
+      taxVerde!,
+      consumoPontaTotal,
+      consumoForaPontaTotal,
+      demandaPontaTotal,
+      demandaForaPontaTotal
+    );
 
-
-    return { valorAzul: formatNumberToBRL(valorAzul), valorVerde: formatNumberToBRL(valorVerde) };
+    return {
+      valorAzul: formatNumberToBRL(valorAzul),
+      valorVerde: formatNumberToBRL(valorVerde),
+    };
   }
 
   static sumDemandasByTimestamp(totalPerDay: Measurement[][]): Measurement[] {
     if (isEmptyArray(totalPerDay)) {
       const mapValue = new Map<string, number>();
       mapValue.set('demanda', 0);
-      return [ { measurerID: 'id', timestamp: 'empty', values: mapValue } ];
+      return [{ measurerID: 'id', timestamp: 'empty', values: mapValue }];
     }
     const demandasSomadas: Measurement[] = [];
-    for (let i = 0; i < totalPerDay[ 0 ].length; i++) {
+    for (let i = 0; i < totalPerDay[0].length; i++) {
       for (let j = 0; j < totalPerDay.length; j++) {
-        const currentValue = totalPerDay[ j ][ i ].values.values().next().value;
-        const currentTimestamp = totalPerDay[ j ][ i ].timestamp;
-        if (!demandasSomadas.some((curr) => curr.timestamp === currentTimestamp)) {
+        const currentValue = totalPerDay[j][i].values.values().next().value;
+        const currentTimestamp = totalPerDay[j][i].timestamp;
+        if (
+          !demandasSomadas.some((curr) => curr.timestamp === currentTimestamp)
+        ) {
           const mapValue = new Map<string, number>();
           mapValue.set('demanda', currentValue);
-          const measurement: Measurement = { measurerID: 'id', timestamp: currentTimestamp, values: mapValue };
+          const measurement: Measurement = {
+            measurerID: 'id',
+            timestamp: currentTimestamp,
+            values: mapValue,
+          };
           demandasSomadas.push(measurement);
         } else {
-          const index = demandasSomadas.map((curr) => curr.timestamp).indexOf(currentTimestamp);
-          demandasSomadas[ index ].values.set('demanda', demandasSomadas[ index ].values.get('demanda') + currentValue);
+          const index = demandasSomadas
+            .map((curr) => curr.timestamp)
+            .indexOf(currentTimestamp);
+          demandasSomadas[index].values.set(
+            'demanda',
+            demandasSomadas[index].values.get('demanda') + currentValue
+          );
         }
       }
     }

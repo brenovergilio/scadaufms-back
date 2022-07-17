@@ -14,20 +14,20 @@ export default class ExpressAdapter {
         if (fn instanceof Function) {
           const obj = measurerChecker
             ? await fn(
-              req.params,
-              req.body,
-              req.query,
-              req.headers,
-              ...repositories,
-              measurerChecker
-            )
+                req.params,
+                req.body,
+                req.query,
+                req.headers,
+                ...repositories,
+                measurerChecker
+              )
             : await fn(
-              req.params,
-              req.body,
-              req.query,
-              req.headers,
-              ...repositories
-            );
+                req.params,
+                req.body,
+                req.query,
+                req.headers,
+                ...repositories
+              );
 
           if (obj)
             if (obj instanceof Array)

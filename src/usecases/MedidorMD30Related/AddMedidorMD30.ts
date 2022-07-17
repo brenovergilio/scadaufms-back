@@ -26,7 +26,6 @@ export default class AddMedidorMD30 extends BaseMedidorMD30UseCases {
 
     if (!isOpen) throw new ConnectionTimedOutError();
 
-
     const newMedidorMD30: MedidorMD30 = new MedidorMD30(
       input.ip,
       input.name,

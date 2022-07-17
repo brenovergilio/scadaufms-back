@@ -6,7 +6,7 @@ export default class AlarmRepositorySQL implements AlarmRepository {
   async deleteAlarm(id: string): Promise<Alarm> {
     const alarmData = await db.one(
       'DELETE FROM alarmes WHERE id=$1 RETURNING *',
-      [ id ]
+      [id]
     );
     const alarm: Alarm = new Alarm(
       alarmData.medidor_id,
@@ -38,7 +38,7 @@ export default class AlarmRepositorySQL implements AlarmRepository {
   ): Promise<Array<Alarm>> {
     const alarmsData = await db.manyOrNone(
       'SELECT * FROM alarmes WHERE medidor_id=$1 ORDER BY timestamp DESC',
-      [ measurerID ]
+      [measurerID]
     );
     const alarms = alarmsData.map(
       (alarm) =>
@@ -57,7 +57,7 @@ export default class AlarmRepositorySQL implements AlarmRepository {
       /^([0-9]{4})-(0[1-9]|1[0-2])-(0[1-9]|1[0-9]|2[0-9]|3[0-1])\s*([0-9]{2}):([0-9]{2}):([0-9]{2}).*/;
     const pieces = regex.exec(date);
     if (pieces === null) return '';
-    const [ full, year, month, day, hour, minute, second ] = pieces;
+    const [full, year, month, day, hour, minute, second] = pieces;
     return `${day}/${month}/${year} ${hour}:${minute}:${second}`;
   }
 }

@@ -12,10 +12,13 @@ export default class UpdateSpecificTaxUseCase extends BaseTaxesUseCases {
     const taxes = await this.taxesRepository.getSpecificTax(input.type);
 
     for (const inp of Object.entries(input)) {
-      if (inp[ 1 ] !== undefined && ![ 'type', 'sourceUserID' ].includes(inp[ 0 ]) && (Number.isNaN(Number(inp[ 1 ])) || inp[ 1 ] === null)) {
+      if (
+        inp[1] !== undefined &&
+        !['type', 'sourceUserID'].includes(inp[0]) &&
+        (Number.isNaN(Number(inp[1])) || inp[1] === null)
+      ) {
         throw new InvalidValueError();
       }
-
     }
 
     if (!taxes) throw new NotFoundError();

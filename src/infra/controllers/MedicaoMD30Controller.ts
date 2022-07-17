@@ -253,9 +253,12 @@ export default class MedicaoMD30Controller {
       new Date(initialDate),
       new Date(finalDate)
     );
-    const getFatoresDePotenciaCorrigidosUseCase = new GetFatoresDePotenciaCorrigidosUseCase(
-      medicaoMD30Repository
-    ).execute(measurerID, qcap, dateRange);
+    const getFatoresDePotenciaCorrigidosUseCase =
+      new GetFatoresDePotenciaCorrigidosUseCase(medicaoMD30Repository).execute(
+        measurerID,
+        qcap,
+        dateRange
+      );
     return getFatoresDePotenciaCorrigidosUseCase;
   }
 

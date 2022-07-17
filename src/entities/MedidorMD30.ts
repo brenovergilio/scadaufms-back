@@ -24,7 +24,7 @@ export default class MedidorMD30 implements Measurer {
   public splitPontaAndForaPonta(
     measurements: Array<Measurement>,
     holidays: Array<Holiday>
-  ): [ Array<Measurement>, Array<Measurement> ] {
+  ): [Array<Measurement>, Array<Measurement>] {
     const insidePonta = new Array<Measurement>();
     const outsidePonta = new Array<Measurement>();
     for (const measurement of measurements) {
@@ -32,7 +32,7 @@ export default class MedidorMD30 implements Measurer {
         insidePonta.push(measurement);
       else outsidePonta.push(measurement);
     }
-    return [ insidePonta, outsidePonta ];
+    return [insidePonta, outsidePonta];
   }
 
   isInsideRushHour(
@@ -52,7 +52,6 @@ export default class MedidorMD30 implements Measurer {
     // datesMatch irá retornar false na última data de measurement pois essa data será no padrão holiday.day+1 00:00:00, mas não afeta o horário de pico
     for (const holiday of holidays)
       if (datesMatch(holiday.day, measurement.timestamp)) return false;
-
 
     const finalHour = this.rush.hour + this.rush.interval;
     const measurementHour = measurement.timestamp.getUTCHours();

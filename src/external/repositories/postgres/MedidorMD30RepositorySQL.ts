@@ -33,7 +33,7 @@ export default class MedidorMD30RepositorySQL implements MedidorMD30Repository {
   async getMedidorMD30ByID(id: string): Promise<MedidorMD30 | null> {
     const medidorMD30Data = await db.oneOrNone(
       'SELECT * FROM medidores_md30 WHERE id=$1',
-      [ id ]
+      [id]
     );
 
     if (medidorMD30Data)
@@ -55,7 +55,7 @@ export default class MedidorMD30RepositorySQL implements MedidorMD30Repository {
   async getMedidorMD30ByIP(ip: string): Promise<MedidorMD30 | null> {
     const medidorMD30Data = await db.oneOrNone(
       'SELECT * FROM medidores_md30 WHERE ip=$1',
-      [ ip ]
+      [ip]
     );
 
     if (medidorMD30Data)
@@ -125,7 +125,7 @@ export default class MedidorMD30RepositorySQL implements MedidorMD30Repository {
   async deleteMedidorMD30(id: string): Promise<MedidorMD30> {
     const medidorMD30Data = await db.one(
       'DELETE FROM medidores_md30 WHERE id=$1 RETURNING *',
-      [ id ]
+      [id]
     );
     const medidorMD30: MedidorMD30 = new MedidorMD30(
       medidorMD30Data.ip,

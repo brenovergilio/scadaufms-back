@@ -12,8 +12,8 @@ export default class MedicaoMD30RepositorySQL implements MedicaoMD30Repository {
       "SELECT timestamp, sqrt(((potencia_ativa_total*potencia_ativa_total)+(potencia_reativa_total*potencia_reativa_total))) as potencia_aparente_total FROM medicoes_md30 WHERE medidor_id=$1 AND timestamp >= ($2::DATE + (15 || ' minutes')::INTERVAL) AND timestamp <= ($3::DATE + (1440 || ' minutes')::INTERVAL) ORDER BY timestamp",
       [
         measurerID,
-        dateRange.initialDate.toISOString().split('T')[ 0 ],
-        dateRange.finalDate.toISOString().split('T')[ 0 ],
+        dateRange.initialDate.toISOString().split('T')[0],
+        dateRange.finalDate.toISOString().split('T')[0],
       ]
     );
     const medicoesMD30 = medicoesMD30Data.map((measurement) => {
@@ -39,8 +39,8 @@ export default class MedicaoMD30RepositorySQL implements MedicaoMD30Repository {
       [
         interval,
         measurerID,
-        dateRange.initialDate.toISOString().split('T')[ 0 ],
-        dateRange.finalDate.toISOString().split('T')[ 0 ],
+        dateRange.initialDate.toISOString().split('T')[0],
+        dateRange.finalDate.toISOString().split('T')[0],
       ]
     );
 
@@ -69,8 +69,8 @@ export default class MedicaoMD30RepositorySQL implements MedicaoMD30Repository {
       [
         interval,
         measurerID,
-        dateRange.initialDate.toISOString().split('T')[ 0 ],
-        dateRange.finalDate.toISOString().split('T')[ 0 ],
+        dateRange.initialDate.toISOString().split('T')[0],
+        dateRange.finalDate.toISOString().split('T')[0],
       ]
     );
 
@@ -101,8 +101,8 @@ export default class MedicaoMD30RepositorySQL implements MedicaoMD30Repository {
       [
         interval,
         measurerID,
-        dateRange.initialDate.toISOString().split('T')[ 0 ],
-        dateRange.finalDate.toISOString().split('T')[ 0 ],
+        dateRange.initialDate.toISOString().split('T')[0],
+        dateRange.finalDate.toISOString().split('T')[0],
       ]
     );
     const medicoesMD30 = medicoesMD30Data.map((measurement) => {
@@ -128,8 +128,8 @@ export default class MedicaoMD30RepositorySQL implements MedicaoMD30Repository {
       [
         interval,
         measurerID,
-        dateRange.initialDate.toISOString().split('T')[ 0 ],
-        dateRange.finalDate.toISOString().split('T')[ 0 ],
+        dateRange.initialDate.toISOString().split('T')[0],
+        dateRange.finalDate.toISOString().split('T')[0],
       ]
     );
 
@@ -155,8 +155,8 @@ export default class MedicaoMD30RepositorySQL implements MedicaoMD30Repository {
       "SELECT timestamp, tensao_fase_a, tensao_fase_b, tensao_fase_c, corrente_fase_a, corrente_fase_b, corrente_fase_c, potencia_ativa_total, potencia_reativa_total, sqrt(((potencia_ativa_total*potencia_ativa_total)+(potencia_reativa_total*potencia_reativa_total))) as potencia_aparente_total, fator_de_potencia FROM medicoes_md30 WHERE medidor_id=$1 AND timestamp >= ($2::DATE + (15 || ' minutes')::INTERVAL) AND timestamp <= ($3::DATE + (1440 || ' minutes')::INTERVAL) ORDER BY timestamp",
       [
         measurerID,
-        dateRange.initialDate.toISOString().split('T')[ 0 ],
-        dateRange.finalDate.toISOString().split('T')[ 0 ],
+        dateRange.initialDate.toISOString().split('T')[0],
+        dateRange.finalDate.toISOString().split('T')[0],
       ]
     );
     const medicoesMD30 = medicoesMD30Data.map((measurement) => {
@@ -180,8 +180,8 @@ export default class MedicaoMD30RepositorySQL implements MedicaoMD30Repository {
       "SELECT timestamp, tensao_fase_a, tensao_fase_b, tensao_fase_c FROM medicoes_md30 WHERE medidor_id=$1 AND timestamp >= ($2::DATE + (15 || ' minutes')::INTERVAL) AND timestamp <= ($3::DATE + (1440 || ' minutes')::INTERVAL) ORDER BY timestamp",
       [
         measurerID,
-        dateRange.initialDate.toISOString().split('T')[ 0 ],
-        dateRange.finalDate.toISOString().split('T')[ 0 ],
+        dateRange.initialDate.toISOString().split('T')[0],
+        dateRange.finalDate.toISOString().split('T')[0],
       ]
     );
     const medicoesMD30 = medicoesMD30Data.map((measurement) => {
@@ -205,8 +205,8 @@ export default class MedicaoMD30RepositorySQL implements MedicaoMD30Repository {
       "SELECT timestamp, potencia_ativa_total, potencia_reativa_total, sqrt(((potencia_ativa_total*potencia_ativa_total)+(potencia_reativa_total*potencia_reativa_total))) as potencia_aparente_total FROM medicoes_md30 WHERE medidor_id=$1 AND timestamp >= ($2::DATE + (15 || ' minutes')::INTERVAL) AND timestamp <= ($3::DATE + (1440 || ' minutes')::INTERVAL) ORDER BY timestamp",
       [
         measurerID,
-        dateRange.initialDate.toISOString().split('T')[ 0 ],
-        dateRange.finalDate.toISOString().split('T')[ 0 ],
+        dateRange.initialDate.toISOString().split('T')[0],
+        dateRange.finalDate.toISOString().split('T')[0],
       ]
     );
     const medicoesMD30 = medicoesMD30Data.map((measurement) => {
@@ -230,8 +230,8 @@ export default class MedicaoMD30RepositorySQL implements MedicaoMD30Repository {
       "SELECT timestamp, tensao_fase_a, tensao_fase_b, tensao_fase_c, corrente_fase_a, corrente_fase_b, corrente_fase_c FROM medicoes_md30 WHERE medidor_id=$1 AND timestamp >= ($2::DATE + (15 || ' minutes')::INTERVAL) AND timestamp <= ($3::DATE + (1440 || ' minutes')::INTERVAL) ORDER BY timestamp",
       [
         measurerID,
-        dateRange.initialDate.toISOString().split('T')[ 0 ],
-        dateRange.finalDate.toISOString().split('T')[ 0 ],
+        dateRange.initialDate.toISOString().split('T')[0],
+        dateRange.finalDate.toISOString().split('T')[0],
       ]
     );
     const medicoesMD30 = medicoesMD30Data.map((measurement) => {
@@ -255,8 +255,8 @@ export default class MedicaoMD30RepositorySQL implements MedicaoMD30Repository {
       "SELECT timestamp, corrente_fase_a, corrente_fase_b, corrente_fase_c FROM medicoes_md30 WHERE medidor_id=$1 AND timestamp >= ($2::DATE + (15 || ' minutes')::INTERVAL) AND timestamp <= ($3::DATE + (1440 || ' minutes')::INTERVAL) ORDER BY timestamp",
       [
         measurerID,
-        dateRange.initialDate.toISOString().split('T')[ 0 ],
-        dateRange.finalDate.toISOString().split('T')[ 0 ],
+        dateRange.initialDate.toISOString().split('T')[0],
+        dateRange.finalDate.toISOString().split('T')[0],
       ]
     );
 
@@ -282,8 +282,8 @@ export default class MedicaoMD30RepositorySQL implements MedicaoMD30Repository {
       "SELECT timestamp, potencia_ativa_total FROM medicoes_md30 WHERE medidor_id=$1 AND timestamp >= ($2::DATE + (15 || ' minutes')::INTERVAL) AND timestamp <= ($3::DATE + (1440 || ' minutes')::INTERVAL) ORDER BY timestamp",
       [
         measurerID,
-        dateRange.initialDate.toISOString().split('T')[ 0 ],
-        dateRange.finalDate.toISOString().split('T')[ 0 ],
+        dateRange.initialDate.toISOString().split('T')[0],
+        dateRange.finalDate.toISOString().split('T')[0],
       ]
     );
 
@@ -309,8 +309,8 @@ export default class MedicaoMD30RepositorySQL implements MedicaoMD30Repository {
       "SELECT timestamp, potencia_reativa_total FROM medicoes_md30 WHERE medidor_id=$1 AND timestamp >= ($2::DATE + (15 || ' minutes')::INTERVAL) AND timestamp <= ($3::DATE + (1440 || ' minutes')::INTERVAL) ORDER BY timestamp",
       [
         measurerID,
-        dateRange.initialDate.toISOString().split('T')[ 0 ],
-        dateRange.finalDate.toISOString().split('T')[ 0 ],
+        dateRange.initialDate.toISOString().split('T')[0],
+        dateRange.finalDate.toISOString().split('T')[0],
       ]
     );
 
@@ -336,8 +336,8 @@ export default class MedicaoMD30RepositorySQL implements MedicaoMD30Repository {
       "SELECT timestamp, fator_de_potencia FROM medicoes_md30 WHERE medidor_id=$1 AND timestamp >= ($2::DATE + (15 || ' minutes')::INTERVAL) AND timestamp <= ($3::DATE + (1440 || ' minutes')::INTERVAL) ORDER BY timestamp",
       [
         measurerID,
-        dateRange.initialDate.toISOString().split('T')[ 0 ],
-        dateRange.finalDate.toISOString().split('T')[ 0 ],
+        dateRange.initialDate.toISOString().split('T')[0],
+        dateRange.finalDate.toISOString().split('T')[0],
       ]
     );
 
@@ -357,8 +357,8 @@ export default class MedicaoMD30RepositorySQL implements MedicaoMD30Repository {
   private formatMeasurementKey(key: string): string {
     const splittedKey = key.replaceAll('_', ' ').split(' ');
     for (var i = 0; i < splittedKey.length; i++) {
-      splittedKey[ i ] =
-        splittedKey[ i ].charAt(0).toUpperCase() + splittedKey[ i ].slice(1);
+      splittedKey[i] =
+        splittedKey[i].charAt(0).toUpperCase() + splittedKey[i].slice(1);
     }
     return splittedKey.join(' ');
   }
@@ -373,52 +373,52 @@ export default class MedicaoMD30RepositorySQL implements MedicaoMD30Repository {
       if (key.includes('tensao'))
         valuesMap.set(
           `${this.formatMeasurementKey(key)} (V)`,
-          Number(values[ index ].toFixed(2))
+          Number(values[index].toFixed(2))
         );
       else if (key.includes('corrente'))
         valuesMap.set(
           `${this.formatMeasurementKey(key)} (A)`,
-          Number(values[ index ].toFixed(2))
+          Number(values[index].toFixed(2))
         );
       else if (key.includes('potencia_ativa'))
         valuesMap.set(
           `${this.formatMeasurementKey(key)} (kW)`,
-          Number((values[ index ] / 1000).toFixed(2))
+          Number((values[index] / 1000).toFixed(2))
         );
       else if (key.includes('potencia_reativa'))
         valuesMap.set(
           `${this.formatMeasurementKey(key)} (kVAr)`,
-          Number((values[ index ] / 1000).toFixed(2))
+          Number((values[index] / 1000).toFixed(2))
         );
       else if (key.includes('potencia_aparente'))
         valuesMap.set(
           `${this.formatMeasurementKey(key)} (VA)`,
-          Number((values[ index ] / 1000).toFixed(2))
+          Number((values[index] / 1000).toFixed(2))
         );
       else if (key.includes('fator_de_potencia'))
         valuesMap.set(
           `${this.formatMeasurementKey(key)}`,
-          Number(values[ index ].toFixed(3))
+          Number(values[index].toFixed(3))
         );
       else if (key.includes('demanda_reativa'))
         valuesMap.set(
           `${this.formatMeasurementKey(key)} (kVar)`,
-          Number((values[ index ] / 1000).toFixed(2))
+          Number((values[index] / 1000).toFixed(2))
         );
       else if (key.includes('demanda_ativa'))
         valuesMap.set(
           `${this.formatMeasurementKey(key)} (kV)`,
-          Number((values[ index ] / 1000).toFixed(2))
+          Number((values[index] / 1000).toFixed(2))
         );
       else if (key.includes('consumo_reativo'))
         valuesMap.set(
           `${this.formatMeasurementKey(key)} (kVarh)`,
-          Number((values[ index ] / 1000 / divideBy!).toFixed(2))
+          Number((values[index] / 1000 / divideBy!).toFixed(2))
         );
       else if (key.includes('consumo_ativo'))
         valuesMap.set(
           `${this.formatMeasurementKey(key)} (kWh)`,
-          Number((values[ index ] / 1000 / divideBy!).toFixed(2))
+          Number((values[index] / 1000 / divideBy!).toFixed(2))
         );
     });
     return valuesMap;
@@ -429,7 +429,7 @@ export default class MedicaoMD30RepositorySQL implements MedicaoMD30Repository {
       /^([0-9]{4})-(0[1-9]|1[0-2])-(0[1-9]|1[0-9]|2[0-9]|3[0-1])\s*([0-9]{2}):([0-9]{2}):([0-9]{2}).*/;
     const pieces = regex.exec(date);
     if (pieces === null) return '';
-    const [ full, year, month, day, hour, minute, second ] = pieces;
+    const [full, year, month, day, hour, minute, second] = pieces;
     return `${day}/${month}/${year} ${hour}:${minute}:${second}`;
   }
 }
