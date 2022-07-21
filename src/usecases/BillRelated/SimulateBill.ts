@@ -47,7 +47,7 @@ export default class SimulateBill extends BaseBillUseCases {
             dayByDay
           );
         if (isEmptyArray(consumosAtivos)) continue;
-        const [consumosAtivosPonta, consumosAtivosForaPonta] =
+        const [ consumosAtivosPonta, consumosAtivosForaPonta ] =
           medidor!.splitPontaAndForaPonta(consumosAtivos, holidays);
 
         const consumosAtivosPontaIsEmpty = isEmptyArray(consumosAtivosPonta);
@@ -60,17 +60,16 @@ export default class SimulateBill extends BaseBillUseCases {
               consumosAtivosPonta.length) *
             medidor!.rush.interval *
             4;
+        if (!isEmptyArray(consumosAtivosForaPonta))
+          consumoForaPontaTotal +=
+            (consumosAtivosForaPonta.reduce(
+              (acc, curr) => acc + curr.values.values().next().value,
+              0
+            ) /
+              consumosAtivosForaPonta.length) *
+            (consumosAtivosPontaIsEmpty ? 24 : 24 - medidor!.rush.interval) *
+            4;
 
-        if (!isEmptyArray(consumosAtivosForaPonta)) {
-        }
-        consumoForaPontaTotal +=
-          (consumosAtivosForaPonta.reduce(
-            (acc, curr) => acc + curr.values.values().next().value,
-            0
-          ) /
-            consumosAtivosForaPonta.length) *
-          (consumosAtivosPontaIsEmpty ? 24 : 24 - medidor!.rush.interval) *
-          4;
         const demandasAtivas =
           await this.medicaoMD30Repository.getDemandasAtivasPerDateRange(
             medidor!.id,
@@ -78,7 +77,7 @@ export default class SimulateBill extends BaseBillUseCases {
             dayByDay
           );
         if (isEmptyArray(demandasAtivas)) continue;
-        const [demandasAtivasPonta, demandasAtivasForaPonta] =
+        const [ demandasAtivasPonta, demandasAtivasForaPonta ] =
           medidor!.splitPontaAndForaPonta(demandasAtivas, holidays);
         if (!isEmptyArray(demandasAtivasPonta))
           totalDemandasPontaArrayPerDay.push(demandasAtivasPonta);
@@ -112,10 +111,11 @@ export default class SimulateBill extends BaseBillUseCases {
       demandaPontaTotal,
       demandaForaPontaTotal
     );
-    const resultAzul = Bill.simulate(taxAzul!, 59.62, 1014.43, 13, 30);
+    const resultAzul = Bill.simulate(taxAzul!, 0, 73.33, 13, 30);
     console.log('result Azul => ', resultAzul);
-    const resultVerde = Bill.simulate(taxVerde!, 59.62, 1014.43, 13, 30);
+    const resultVerde = Bill.simulate(taxVerde!, 0, 73.33, 13, 30);
     console.log('result Verde => ', resultVerde);
+
     const valorAzul = Bill.simulate(
       taxAzul!,
       consumoPontaTotal,
@@ -141,13 +141,13 @@ export default class SimulateBill extends BaseBillUseCases {
     if (isEmptyArray(totalPerDay)) {
       const mapValue = new Map<string, number>();
       mapValue.set('demanda', 0);
-      return [{ measurerID: 'id', timestamp: 'empty', values: mapValue }];
+      return [ { measurerID: 'id', timestamp: 'empty', values: mapValue } ];
     }
     const demandasSomadas: Measurement[] = [];
-    for (let i = 0; i < totalPerDay[0].length; i++) {
+    for (let i = 0; i < totalPerDay[ 0 ].length; i++) {
       for (let j = 0; j < totalPerDay.length; j++) {
-        const currentValue = totalPerDay[j][i].values.values().next().value;
-        const currentTimestamp = totalPerDay[j][i].timestamp;
+        const currentValue = totalPerDay[ j ][ i ].values.values().next().value;
+        const currentTimestamp = totalPerDay[ j ][ i ].timestamp;
         if (
           !demandasSomadas.some((curr) => curr.timestamp === currentTimestamp)
         ) {
@@ -163,9 +163,9 @@ export default class SimulateBill extends BaseBillUseCases {
           const index = demandasSomadas
             .map((curr) => curr.timestamp)
             .indexOf(currentTimestamp);
-          demandasSomadas[index].values.set(
+          demandasSomadas[ index ].values.set(
             'demanda',
-            demandasSomadas[index].values.get('demanda') + currentValue
+            demandasSomadas[ index ].values.get('demanda') + currentValue
           );
         }
       }

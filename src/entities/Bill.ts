@@ -1,7 +1,7 @@
 import Taxes, { TaxType } from './Taxes';
 
 export default class Bill {
-  constructor() {}
+  constructor() { }
 
   static simulate(
     taxes: Taxes,
@@ -16,7 +16,7 @@ export default class Bill {
     const demandaAtivaPrice =
       taxes.type === TaxType.AZUL
         ? demandaPontaTotal * taxes.demandaPonta +
-          demandaForaPontaTotal * taxes.demandaForaPonta
+        demandaForaPontaTotal * taxes.demandaForaPonta
         : demandaForaPontaTotal * taxes.demandaUnica;
     return consumoAtivoPrice + demandaAtivaPrice;
   }
