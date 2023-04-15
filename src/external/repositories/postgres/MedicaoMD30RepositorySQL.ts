@@ -392,7 +392,7 @@ export default class MedicaoMD30RepositorySQL implements MedicaoMD30Repository {
         );
       else if (key.includes('potencia_aparente'))
         valuesMap.set(
-          `${this.formatMeasurementKey(key)} (VA)`,
+          `${this.formatMeasurementKey(key)} (kVA)`,
           Number((values[ index ] / 1000).toFixed(2))
         );
       else if (key.includes('fator_de_potencia'))

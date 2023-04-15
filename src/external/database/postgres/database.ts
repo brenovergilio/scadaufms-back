@@ -1,13 +1,16 @@
 import pgPromise from 'pg-promise';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const pgp = pgPromise({});
 
 const db = pgp({
-  user: 'postgres',
-  password: 'ufms123',
-  host: 'localhost',
-  port: 5432,
-  database: 'testmm',
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  host: process.env.DB_HOST,
+  port: +process.env.DB_PORT!,
+  database: process.env.DB_NAME,
   idleTimeoutMillis: 100,
 });
 
@@ -77,7 +80,7 @@ enum ExitStatus {
 
 (async (): Promise<void> => {
   try {
-    const exitSignals: NodeJS.Signals[] = ['SIGINT', 'SIGTERM', 'SIGQUIT'];
+    const exitSignals: NodeJS.Signals[] = [ 'SIGINT', 'SIGTERM', 'SIGQUIT' ];
     exitSignals.map((sig) =>
       process.on(sig, async () => {
         try {

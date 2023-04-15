@@ -24,7 +24,7 @@ export default class MedidorMD30 implements Measurer {
   public splitPontaAndForaPonta(
     measurements: Array<Measurement>,
     holidays: Array<Holiday>
-  ): [Array<Measurement>, Array<Measurement>] {
+  ): [ Array<Measurement>, Array<Measurement> ] {
     const insidePonta = new Array<Measurement>();
     const outsidePonta = new Array<Measurement>();
     for (const measurement of measurements) {
@@ -32,7 +32,7 @@ export default class MedidorMD30 implements Measurer {
         insidePonta.push(measurement);
       else outsidePonta.push(measurement);
     }
-    return [insidePonta, outsidePonta];
+    return [ insidePonta, outsidePonta ];
   }
 
   isInsideRushHour(

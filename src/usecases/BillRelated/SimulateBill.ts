@@ -36,6 +36,7 @@ export default class SimulateBill extends BaseBillUseCases {
     let consumoForaPontaTotal = 0;
     const allDemandaPonta: number[] = [];
     const allDemandaForaPonta: number[] = [];
+
     while (dayByDay.finalDate <= input.dateRange.finalDate) {
       const totalDemandasPontaArrayPerDay: Measurement[][] = [];
       const totalDemandasForaPontaArrayPerDay: Measurement[][] = [];
@@ -67,7 +68,7 @@ export default class SimulateBill extends BaseBillUseCases {
               0
             ) /
               consumosAtivosForaPonta.length) *
-            (consumosAtivosPontaIsEmpty ? 24 : 24 - medidor!.rush.interval) *
+            (consumosAtivosPontaIsEmpty ? 24 : (24 - medidor!.rush.interval)) *
             4;
 
         const demandasAtivas =
@@ -105,16 +106,6 @@ export default class SimulateBill extends BaseBillUseCases {
     }
     const demandaForaPontaTotal = Math.max(...allDemandaForaPonta);
     const demandaPontaTotal = Math.max(...allDemandaPonta);
-    console.log(
-      consumoPontaTotal,
-      consumoForaPontaTotal,
-      demandaPontaTotal,
-      demandaForaPontaTotal
-    );
-    const resultAzul = Bill.simulate(taxAzul!, 0, 73.33, 13, 30);
-    console.log('result Azul => ', resultAzul);
-    const resultVerde = Bill.simulate(taxVerde!, 0, 73.33, 13, 30);
-    console.log('result Verde => ', resultVerde);
 
     const valorAzul = Bill.simulate(
       taxAzul!,
